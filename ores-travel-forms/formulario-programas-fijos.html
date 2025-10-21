@@ -1,0 +1,1860 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programas Fijos - ORES Travel Perú</title>
+    
+    <style>
+        /* ==========================================
+           VARIABLES CSS - ORES Travel Theme
+        ========================================== */
+        :root { 
+            --primary: #c2410c; 
+            --primary-dark: #9a3412;
+            --secondary: #0c4a6e;
+            --accent: #059669;
+            --gold: #fbbf24; 
+            --gold-dark: #d97706; 
+            --success: #10b981; 
+            --warning: #f59e0b; 
+            --error: #ef4444; 
+            --text-primary: #ffffff; 
+            --text-secondary: #e2e8f0; 
+            --text-muted: #94a3b8; 
+            --glass-bg: rgba(255, 255, 255, 0.08); 
+            --glass-border: rgba(255, 255, 255, 0.2); 
+            --card-bg: rgba(12, 74, 110, 0.15); 
+        }
+        
+        /* ==========================================
+           RESET Y CONFIGURACIÓN BASE
+        ========================================== */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #0c4a6e 0%, #164e63 20%, #c2410c 60%, #9a3412 100%); 
+            background-attachment: fixed; 
+            min-height: 100vh; 
+            padding: 15px; 
+            color: var(--text-primary); 
+        }
+        
+        /* ==========================================
+           LAYOUT PRINCIPAL
+        ========================================== */
+        .container { 
+            max-width: 900px; 
+            margin: 0 auto; 
+        }
+        
+        .form-container { 
+            background: var(--card-bg); 
+            backdrop-filter: blur(20px); 
+            border: 1px solid var(--glass-border); 
+            border-radius: 24px; 
+            padding: 32px; 
+            animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .form-container::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            height: 4px; 
+            background: linear-gradient(90deg, var(--primary), var(--gold), var(--accent)); 
+        }
+        
+        /* ==========================================
+           ANIMACIONES
+        ========================================== */
+        @keyframes slideUp { 
+            from { transform: translateY(40px); opacity: 0; } 
+            to { transform: translateY(0); opacity: 1; } 
+        }
+        
+        @keyframes fadeInDown {
+            from { transform: translateY(-10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* ==========================================
+           HEADER DEL FORMULARIO
+        ========================================== */
+        .form-header {
+            text-align: center;
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--glass-border);
+            position: relative;
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+        
+        .back-button:hover {
+            background: var(--primary);
+            transform: translateX(-2px);
+        }
+        
+        .form-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--text-primary), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* ==========================================
+           SECCIONES DE PASOS
+        ========================================== */
+        .step-section {
+            margin-bottom: 32px;
+            padding: 24px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--gold);
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--glass-border);
+        }
+        
+        /* ==========================================
+           GRID DE PROGRAMAS
+        ========================================== */
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .program-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            backdrop-filter: blur(10px);
+            min-height: 120px;
+        }
+        
+        .program-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(194, 65, 12, 0.2);
+        }
+        
+        .program-item.selected {
+            background: rgba(194, 65, 12, 0.15);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(194, 65, 12, 0.4);
+        }
+        
+        .program-checkbox {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--gold);
+            border-radius: 4px;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: var(--gold);
+            transition: all 0.3s ease;
+        }
+        
+        .program-item.selected .program-checkbox {
+            background: var(--gold);
+            color: var(--primary-dark);
+        }
+        
+        .program-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .program-emoji {
+            font-size: 2rem;
+        }
+        
+        .program-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .program-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        
+        .program-includes {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-style: italic;
+            line-height: 1.3;
+        }
+        
+        /* ==========================================
+           RESUMEN DE SELECCIÓN
+        ========================================== */
+        .selection-summary {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            margin-bottom: 20px;
+            display: none;
+            animation: fadeInDown 0.4s ease-out;
+        }
+        
+        /* ==========================================
+           FORMULARIO - CAMPOS
+        ========================================== */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .form-input, .form-select {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input::placeholder {
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+        
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 0 4px rgba(194, 65, 12, 0.15);
+            transform: translateY(-1px);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        
+        /* ==========================================
+           OPCIONES DE TREN
+        ========================================== */
+        .tren-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .tren-option {
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .tren-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary);
+        }
+        
+        .tren-option.active {
+            background: rgba(194, 65, 12, 0.2);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(194, 65, 12, 0.3);
+        }
+        
+        .tren-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .tren-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .tren-price {
+            font-size: 0.9rem;
+            color: var(--gold);
+            font-weight: 500;
+        }
+        
+        .tren-config {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(194, 65, 12, 0.1);
+            border: 1px solid rgba(194, 65, 12, 0.3);
+            border-radius: 14px;
+            animation: fadeInDown 0.4s ease-out;
+        }
+        
+        .tren-config.show {
+            display: block;
+        }
+        
+        .config-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* ==========================================
+           BOTÓN DE ENVÍO
+        ========================================== */
+        .submit-button {
+            background: linear-gradient(135deg, var(--primary), var(--gold));
+            color: white;
+            border: none;
+            padding: 18px 48px;
+            border-radius: 16px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 32px rgba(194, 65, 12, 0.3);
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        .submit-button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(194, 65, 12, 0.4);
+        }
+        
+        .submit-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* ==========================================
+           LOADING Y MENSAJES
+        ========================================== */
+        .loading-spinner {
+            display: none;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        .message-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .message {
+            padding: 16px 24px;
+            border-radius: 12px;
+            margin: 12px 0;
+            font-weight: 600;
+            display: none;
+        }
+        
+        .success-message {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: var(--success);
+        }
+        
+        .error-message {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: var(--error);
+        }
+        
+        .info-message {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .info-message p {
+            margin: 0;
+            line-height: 1.4;
+        }
+        
+        /* ==========================================
+           RESPONSIVE DESIGN
+        ========================================== */
+        @media (max-width: 768px) {
+            .container { 
+                max-width: 100%; 
+                padding: 0; 
+            }
+            
+            .form-container { 
+                padding: 20px; 
+                border-radius: 16px; 
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .tren-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .programs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* ==========================================
+           ESTILOS PARA RESULTADO PDF
+        ========================================== */
+        .resultado-exitoso {
+            text-align: center;
+            padding: 40px 20px;
+            animation: slideUp 0.8s ease;
+        }
+
+        .resultado-header {
+            margin-bottom: 40px;
+        }
+
+        .resultado-titulo {
+            font-size: 2rem;
+            color: var(--success);
+            margin-bottom: 20px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--success), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .resultado-contenido {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .pdf-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .pdf-icon {
+            font-size: 4rem;
+        }
+
+        .pdf-details h3 {
+            color: var(--gold);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .pdf-nombre {
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .descarga-info {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .acciones-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .btn-accion {
+            padding: 16px 32px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 150px;
+        }
+
+        .btn-descargar {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-descargar:hover {
+            background: #0d9488;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-compartir {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-compartir:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(194, 65, 12, 0.3);
+        }
+
+        .btn-nueva {
+            background: var(--glass-bg);
+            color: var(--text-primary);
+            border: 2px solid var(--glass-border);
+        }
+
+        .btn-nueva:hover {
+            background: var(--glass-border);
+            transform: translateY(-2px);
+        }
+
+        .resultado-error {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .error-titulo {
+            color: var(--error);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .error-contenido {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .btn-reintentar {
+            background: var(--error);
+            color: white;
+        }
+
+        .modal-link {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .modal-content h3 {
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            background: var(--glass-bg);
+            color: var(--text-primary);
+            margin: 10px 0;
+        }
+
+        .modal-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .modal-buttons button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .notificacion-temporal {
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .pdf-info {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .acciones-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-accion {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <!-- ==========================================
+                 HEADER DEL FORMULARIO
+            ========================================== -->
+            <div class="form-header">
+                <button class="back-button" onclick="volverAlDashboard()">←</button>
+                <h1 class="form-title">PROGRAMAS FIJOS</h1>
+                <p style="color: var(--text-secondary); font-size: 1rem;">Selecciona tu programa y completa tus datos para generar la cotización</p>
+            </div>
+            
+            <!-- ==========================================
+                 FORMULARIO PRINCIPAL
+            ========================================== -->
+            <form id="cotizacionForm">
+                <!-- PASO 1: SELECCIÓN DE PROGRAMAS -->
+                <div class="step-section">
+                    <div class="step-title">
+                        <span>📋</span>
+                        <span>PASO 1: Selecciona tu Programa Fijo</span>
+                    </div>
+                    
+                    <div class="programs-grid">
+                        <!-- Programa 3D2N -->
+                        <div class="program-item" data-program="3D2N" onclick="seleccionarPrograma('3D2N', this)">
+                            <div class="program-checkbox">☐</div>
+                            <div class="program-header">
+                                <span class="program-emoji">🌟</span>
+                                <div class="program-name">3D2N</div>
+                            </div>
+                            <div class="program-description">• Cusco + Machu Picchu</div>
+                            <div class="program-description">• Programa básico 3 días</div>
+                            <div class="program-includes">• Incluye: City Tour + MP</div>
+                        </div>
+                        
+                        <!-- Programa 4D3N -->
+                        <div class="program-item" data-program="4D3N" onclick="seleccionarPrograma('4D3N', this)">
+                            <div class="program-checkbox">☐</div>
+                            <div class="program-header">
+                                <span class="program-emoji">⭐</span>
+                                <div class="program-name">4D3N</div>
+                            </div>
+                            <div class="program-description">• Cusco + Valle Sagrado + Machu Picchu</div>
+                            <div class="program-description">• Programa clásico 4 días</div>
+                            <div class="program-includes">• Incluye: City Tour + Valle + MP</div>
+                        </div>
+                        
+                        <!-- Programa 4D4N -->
+                        <div class="program-item" data-program="4D4N" onclick="seleccionarPrograma('4D4N', this)">
+                            <div class="program-checkbox">☐</div>
+                            <div class="program-header">
+                                <span class="program-emoji">💎</span>
+                                <div class="program-name">4D4N</div>
+                            </div>
+                            <div class="program-description">• Cusco + Valle Sagrado + Machu Picchu</div>
+                            <div class="program-description">• Programa extendido 4 días/4 noches</div>
+                            <div class="program-includes">• Incluye: City Tour + Valle + MP + libre</div>
+                        </div>
+                        
+                        <!-- Programa 5D4N MONTAÑA -->
+                        <div class="program-item" data-program="5D4N MONTAÑA" onclick="seleccionarPrograma('5D4N MONTAÑA', this)">
+                            <div class="program-checkbox">☐</div>
+                            <div class="program-header">
+                                <span class="program-emoji">🏔️</span>
+                                <div class="program-name">5D4N MONTAÑA</div>
+                            </div>
+                            <div class="program-description">• Cusco + Machu Picchu + Montañas</div>
+                            <div class="program-description">• Programa aventura 5 días</div>
+                            <div class="program-includes">• Incluye: City + MP + Vinicunca/Humantay</div>
+                        </div>
+                        
+                        <!-- Programa 5D5N -->
+                        <div class="program-item" data-program="5D5N" onclick="seleccionarPrograma('5D5N', this)">
+                            <div class="program-checkbox">☐</div>
+                            <div class="program-header">
+                                <span class="program-emoji">🎯</span>
+                                <div class="program-name">5D5N</div>
+                            </div>
+                            <div class="program-description">• Cusco + Valle + Machu Picchu + Extra</div>
+                            <div class="program-description">• Programa completo 5 días</div>
+                            <div class="program-includes">• Incluye: City + Valle + MP + actividad</div>
+                        </div>
+                        
+                        <!-- Programa 6D5N HUMANTAY -->
+                        <div class="program-item" data-program="6D5N HUMANTAY" onclick="seleccionarPrograma('6D5N HUMANTAY', this)">
+                            <div class="program-checkbox">☐</div>
+                            <div class="program-header">
+                                <span class="program-emoji">💧</span>
+                                <div class="program-name">6D5N HUMANTAY</div>
+                            </div>
+                            <div class="program-description">• Cusco + Machu Picchu + Laguna Humantay</div>
+                            <div class="program-description">• Programa lagunas 6 días</div>
+                            <div class="program-includes">• Incluye: City + MP + Humantay + Valle</div>
+                        </div>
+                        
+                        <!-- Programa 6D5N MÍSTICO -->
+                        <div class="program-item" data-program="6D5N MÍSTICO" onclick="seleccionarPrograma('6D5N MÍSTICO', this)">
+                            <div class="program-checkbox">☐</div>
+                            <div class="program-header">
+                                <span class="program-emoji">🔮</span>
+                                <div class="program-name">6D5N MÍSTICO</div>
+                            </div>
+                            <div class="program-description">• Cusco + Machu Picchu + Experiencia mística</div>
+                            <div class="program-description">• Programa espiritual 6 días</div>
+                            <div class="program-includes">• Incluye: City + MP + ceremonias + Valle</div>
+                        </div>
+                        
+                        <!-- Programa 7D6N -->
+                        <div class="program-item" data-program="7D6N" onclick="seleccionarPrograma('7D6N', this)">
+                            <div class="program-checkbox">☐</div>
+                            <div class="program-header">
+                                <span class="program-emoji">🌈</span>
+                                <div class="program-name">7D6N</div>
+                            </div>
+                            <div class="program-description">• Cusco + Machu Picchu + Tours extendidos</div>
+                            <div class="program-description">• Programa completo 7 días</div>
+                            <div class="program-includes">• Incluye: City + Valle + MP + aventuras</div>
+                        </div>
+                        
+                        <!-- Programa 8D7N -->
+                        <div class="program-item" data-program="8D7N" onclick="seleccionarPrograma('8D7N', this)">
+                            <div class="program-checkbox">☐</div>
+                            <div class="program-header">
+                                <span class="program-emoji">🚀</span>
+                                <div class="program-name">8D7N</div>
+                            </div>
+                            <div class="program-description">• Cusco + Machu Picchu + Tours premium</div>
+                            <div class="program-description">• Programa full 8 días</div>
+                            <div class="program-includes">• Incluye: Todo + actividades premium</div>
+                        </div>
+                        
+                        <!-- Programa 10D9N -->
+                        <div class="program-item" data-program="10D9N" onclick="seleccionarPrograma('10D9N', this)">
+                            <div class="program-checkbox">☐</div>
+                            <div class="program-header">
+                                <span class="program-emoji">🏕️</span>
+                                <div class="program-name">10D9N</div>
+                            </div>
+                            <div class="program-description">• Cusco + Machu Picchu + Aventura completa</div>
+                            <div class="program-description">• Programa mega 10 días</div>
+                            <div class="program-includes">• Incluye: Todo + trekking + camping</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Resumen de selección -->
+                    <div id="selectionSummary" class="selection-summary">
+                        <div style="color: var(--success); font-weight: 600;">
+                            ✅ Programa seleccionado: <span id="selectedProgramName" style="color: var(--gold);"></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Campo hidden para el programa seleccionado -->
+                    <input type="hidden" id="programa_seleccionado" name="programa_seleccionado" required>
+                </div>
+                
+                <!-- PASO 2: DATOS DEL CLIENTE -->
+                <div class="step-section">
+                    <div class="step-title">
+                        <span>👤</span>
+                        <span>PASO 2: Tus Datos</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="nombre_cliente">Nombre Completo:</label>
+                        <input type="text" id="nombre_cliente" name="nombre_cliente" class="form-input" 
+                               placeholder="Tu nombre completo" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="telefono">Teléfono/WhatsApp:</label>
+                            <input type="tel" id="telefono" name="telefono" class="form-input" 
+                                   placeholder="+51 999 999 999" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="email">Email (opcional):</label>
+                            <input type="email" id="email" name="email" class="form-input" 
+                                   placeholder="tu@email.com">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PASO 3: DETALLES DEL VIAJE -->
+                <div class="step-section">
+                    <div class="step-title">
+                        <span>🗓️</span>
+                        <span>PASO 3: Detalles del Viaje</span>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="numero_personas">Número de Personas:</label>
+                            <input type="text" id="numero_personas" name="numero_personas" class="form-input" 
+                                   placeholder="Ej: 2 adultos, 1 niño" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="fecha_viaje">Fecha de Viaje:</label>
+                            <input type="date" id="fecha_viaje" name="fecha_viaje" class="form-input" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="tipo_habitacion">Tipo de Habitación:</label>
+                            <input type="text" id="tipo_habitacion" name="tipo_habitacion" class="form-input" 
+                                   placeholder="Ej: Doble, Matrimonial, Triple" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="categoria_hotel">Categoría Hotel:</label>
+                            <input type="text" id="categoria_hotel" name="categoria_hotel" class="form-input" 
+                                   placeholder="Ej: 3 estrellas, 4 estrellas, boutique" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PASO 4: CONFIGURACIÓN DE TREN -->
+                <div class="step-section">
+                    <div class="step-title">
+                        <span>🚂</span>
+                        <span>PASO 4: Tren a Machu Picchu</span>
+                    </div>
+                    
+                    <div class="tren-options">
+                        <div class="tren-option" data-tren="expedition" onclick="seleccionarTren('expedition')">
+                            <span class="tren-icon">🚂</span>
+                            <div class="tren-title">Expedition</div>
+                            <div class="tren-price">Económico</div>
+                        </div>
+                        
+                        <div class="tren-option" data-tren="vistadome" onclick="seleccionarTren('vistadome')">
+                            <span class="tren-icon">🚅</span>
+                            <div class="tren-title">Vistadome</div>
+                            <div class="tren-price">Turístico</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Campo hidden para el tipo de tren seleccionado -->
+                    <input type="hidden" id="tipo_tren" name="tipo_tren" required>
+                    
+                    <!-- Mensaje informativo para Expedition -->
+                    <div id="expeditionInfo" class="info-message" style="display: none;">
+                        <p>✅ <strong>Expedition seleccionado:</strong> Este tren se incluye automáticamente en tu programa. No requiere configuración adicional.</p>
+                    </div>
+                    
+                    <!-- Configuración adicional para Vistadome -->
+                    <div id="trenTuristicoConfig" class="tren-config">
+                        <div class="config-title">
+                            <span>⚙️</span>
+                            <span>Configuración Vistadome</span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="tren_horario">Horario Preferido:</label>
+                            <select id="tren_horario" name="tren_horario" class="form-select">
+                                <option value="">Seleccionar...</option>
+                                <option value="Mañana">Mañana (6:00 - 9:00)</option>
+                                <option value="Medio día">Medio día (10:00 - 14:00)</option>
+                                <option value="Tarde">Tarde (15:00 - 18:00)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="personas_tren">Personas en tren:</label>
+                            <input type="text" id="personas_tren" name="personas_tren" class="form-input" 
+                                   placeholder="Ej: 2 adultos, 1 niño">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="precio_usd">Precio total en dólares (USD):</label>
+                            <input type="text" id="precio_usd" name="precio_usd" class="form-input" 
+                                   placeholder="Ej: $150.00">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PASO 5: OBSERVACIONES -->
+                <div class="step-section">
+                    <div class="step-title">
+                        <span>💬</span>
+                        <span>PASO 5: Observaciones (Opcional)</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="observaciones">Comentarios adicionales:</label>
+                        <textarea id="observaciones" name="observaciones" class="form-input" 
+                                  rows="4" placeholder="Algún requerimiento especial, preferencias, etc."></textarea>
+                    </div>
+                </div>
+                
+                <!-- BOTÓN DE ENVÍO -->
+                <div class="step-section">
+                    <button type="submit" id="submitButton" class="submit-button">
+                        <span id="submitText">🎯 GENERAR COTIZACIÓN</span>
+                        <div id="loadingSpinner" class="loading-spinner"></div>
+                    </button>
+                    
+                    <!-- Container para mensajes -->
+                    <div id="messageContainer" class="message-container"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- ==========================================
+         JAVASCRIPT - FUNCIONALIDAD COMPLETA
+    ========================================== -->
+    <script>
+        // ==========================================
+        // VARIABLES GLOBALES
+        // ==========================================
+        
+        /**
+         * Variable para almacenar el programa seleccionado actualmente
+         * @type {string|null}
+         */
+        let selectedProgram = null;
+        
+        /**
+         * Variable para almacenar el tipo de tren seleccionado
+         * @type {string|null}
+         */
+        let tipoTrenSeleccionado = null;
+        
+        /**
+         * Datos de los programas disponibles con emojis y nombres
+         * @type {Object}
+         */
+        const programsData = {
+            '3D2N': { emoji: '🌟', name: '3D2N' },
+            '4D3N': { emoji: '⭐', name: '4D3N' },
+            '4D4N': { emoji: '💎', name: '4D4N' },
+            '5D4N MONTAÑA': { emoji: '🏔️', name: '5D4N MONTAÑA' },
+            '5D5N': { emoji: '🎯', name: '5D5N' },
+            '6D5N HUMANTAY': { emoji: '💧', name: '6D5N HUMANTAY' },
+            '6D5N MÍSTICO': { emoji: '🔮', name: '6D5N MÍSTICO' },
+            '7D6N': { emoji: '🌈', name: '7D6N' },
+            '8D7N': { emoji: '🚀', name: '8D7N' },
+            '10D9N': { emoji: '🏕️', name: '10D9N' }
+        };
+        
+        // ==========================================
+        // INICIALIZACIÓN DE LA APLICACIÓN
+        // ==========================================
+        
+        /**
+         * Función que se ejecuta cuando el DOM está completamente cargado
+         * Configura todos los event listeners y verifica la autenticación
+         */
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Inicializando aplicación Programas Fijos...');
+            
+            // Verificar autenticación del usuario
+            verificarAutenticacion();
+            
+            // Configurar eventos de selección de programas
+            configurarEventosProgramas();
+            
+            // Configurar eventos de selección de tren
+            configurarEventosTren();
+            
+            // Configurar evento de envío del formulario
+            configurarFormulario();
+            
+            console.log('Aplicación inicializada correctamente');
+        });
+        
+        /**
+         * Verifica si el usuario está autenticado
+         * Redirige al login si no hay token de autenticación
+         */
+        function verificarAutenticacion() {
+            const session = sessionStorage.getItem('ores_session');
+            if (!session) {
+                console.log('Usuario no autenticado, redirigiendo al login...');
+                window.location.href = '/login';
+                return;
+            }
+            console.log('Usuario autenticado correctamente');
+        }
+        
+        /**
+         * Configura los event listeners para la selección de programas
+         * Añade click listeners a todos los elementos .program-item
+         */
+        function configurarEventosProgramas() {
+            const programItems = document.querySelectorAll('.program-item');
+            console.log(`Configurando eventos para ${programItems.length} programas`);
+            
+            programItems.forEach((item, index) => {
+                item.addEventListener('click', function() {
+                    const programCode = this.dataset.program;
+                    console.log(`Click en programa ${index + 1}: ${programCode}`);
+                    seleccionarPrograma(programCode, this);
+                });
+            });
+        }
+        
+        /**
+         * Configura los event listeners para la selección de tren
+         * Añade click listeners a todos los elementos .tren-option
+         */
+        function configurarEventosTren() {
+            const trenOptions = document.querySelectorAll('.tren-option');
+            console.log(`Configurando eventos para ${trenOptions.length} opciones de tren`);
+            
+            trenOptions.forEach((option, index) => {
+                option.addEventListener('click', function() {
+                    const trenType = this.dataset.tren;
+                    console.log(`Click en tren ${index + 1}: ${trenType}`);
+                    seleccionarTren(trenType);
+                });
+            });
+        }
+        
+        /**
+         * Configura el event listener para el envío del formulario
+         */
+        function configurarFormulario() {
+            const form = document.getElementById('cotizacionForm');
+            if (form) {
+                form.addEventListener('submit', enviarCotizacion);
+                console.log('Evento de envío de formulario configurado');
+            }
+        }
+        
+        // ==========================================
+        // FUNCIONES DE SELECCIÓN DE PROGRAMAS
+        // ==========================================
+        
+        /**
+         * Maneja la selección de un programa fijo
+         * @param {string} programCode - Código del programa seleccionado
+         * @param {HTMLElement} element - Elemento DOM del programa seleccionado
+         */
+        function seleccionarPrograma(programCode, element) {
+            console.log(`Seleccionando programa: ${programCode}`);
+            
+            // Limpiar selección anterior
+            limpiarSeleccionProgramas();
+            
+            // Aplicar nueva selección
+            aplicarSeleccionPrograma(element, programCode);
+            
+            // Actualizar variables globales
+            selectedProgram = programCode;
+            
+            // Mostrar resumen de selección
+            mostrarResumenSeleccion(programCode);
+            
+            // Actualizar campo hidden del formulario
+            actualizarCampoPrograma(programCode);
+            
+            // Scroll suave al siguiente paso
+            scrollAlSiguientePaso();
+            
+            console.log(`Programa ${programCode} seleccionado correctamente`);
+        }
+        
+        /**
+         * Limpia todas las selecciones de programas anteriores
+         */
+        function limpiarSeleccionProgramas() {
+            document.querySelectorAll('.program-item').forEach(item => {
+                item.classList.remove('selected');
+                const checkbox = item.querySelector('.program-checkbox');
+                if (checkbox) {
+                    checkbox.textContent = '☐';
+                }
+            });
+        }
+        
+        /**
+         * Aplica la selección visual al programa elegido
+         * @param {HTMLElement} element - Elemento DOM del programa
+         * @param {string} programCode - Código del programa
+         */
+        function aplicarSeleccionPrograma(element, programCode) {
+            element.classList.add('selected');
+            const checkbox = element.querySelector('.program-checkbox');
+            if (checkbox) {
+                checkbox.textContent = '☑️';
+            }
+        }
+        
+        /**
+         * Muestra el resumen de selección del programa
+         * @param {string} programCode - Código del programa seleccionado
+         */
+        function mostrarResumenSeleccion(programCode) {
+            const selectedNameElement = document.getElementById('selectedProgramName');
+            const summaryElement = document.getElementById('selectionSummary');
+            
+            if (selectedNameElement && summaryElement) {
+                selectedNameElement.textContent = programCode;
+                summaryElement.style.display = 'block';
+                console.log('Resumen de selección mostrado');
+            }
+        }
+        
+        /**
+         * Actualiza el campo hidden con el programa seleccionado
+         * @param {string} programCode - Código del programa seleccionado
+         */
+        function actualizarCampoPrograma(programCode) {
+            const hiddenField = document.getElementById('programa_seleccionado');
+            if (hiddenField) {
+                hiddenField.value = programCode;
+                console.log(`Campo hidden actualizado: ${programCode}`);
+            }
+        }
+        
+        /**
+         * Realiza scroll suave al siguiente paso del formulario
+         */
+        function scrollAlSiguientePaso() {
+            setTimeout(() => {
+                const nextStep = document.querySelector('[data-step="2"]') || 
+                                 document.querySelector('.step-section:nth-child(2)');
+                if (nextStep) {
+                    nextStep.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                    console.log('Scroll al siguiente paso realizado');
+                }
+            }, 300);
+        }
+        
+        // ==========================================
+        // FUNCIONES DE SELECCIÓN DE TREN
+        // ==========================================
+        
+        /**
+         * Maneja la selección del tipo de tren
+         * @param {string} tipo - Tipo de tren seleccionado ('expedition' o 'vistadome')
+         */
+        function seleccionarTren(tipo) {
+            console.log(`Seleccionando tren: ${tipo}`);
+            
+            // Limpiar selección anterior
+            limpiarSeleccionTren();
+            
+            // Aplicar nueva selección
+            aplicarSeleccionTren(tipo);
+            
+            // Actualizar variables globales
+            tipoTrenSeleccionado = tipo;
+            
+            // Actualizar campo hidden
+            actualizarCampoTren(tipo);
+            
+            // Mostrar/ocultar configuración según el tipo
+            manejarConfiguracionTren(tipo);
+            
+            console.log(`Tren ${tipo} seleccionado correctamente`);
+        }
+        
+        /**
+         * Limpia todas las selecciones de tren anteriores
+         */
+        function limpiarSeleccionTren() {
+            document.querySelectorAll('.tren-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+        }
+        
+        /**
+         * Aplica la selección visual al tipo de tren elegido
+         * @param {string} tipo - Tipo de tren seleccionado
+         */
+        function aplicarSeleccionTren(tipo) {
+            const trenElement = document.querySelector(`[data-tren="${tipo}"]`);
+            if (trenElement) {
+                trenElement.classList.add('active');
+            }
+        }
+        
+        /**
+         * Actualiza el campo hidden con el tipo de tren seleccionado
+         * @param {string} tipo - Tipo de tren seleccionado
+         */
+        function actualizarCampoTren(tipo) {
+            const hiddenField = document.getElementById('tipo_tren');
+            if (hiddenField) {
+                hiddenField.value = tipo;
+                console.log(`Campo tipo_tren actualizado: ${tipo}`);
+            }
+        }
+        
+        /**
+         * Maneja la visualización de la configuración del tren y mensajes informativos
+         * @param {string} tipo - Tipo de tren seleccionado
+         */
+        function manejarConfiguracionTren(tipo) {
+            const trenConfig = document.getElementById('trenTuristicoConfig');
+            const expeditionInfo = document.getElementById('expeditionInfo');
+            
+            if (tipo === 'vistadome') {
+                // Mostrar configuración del tren turístico
+                if (trenConfig) {
+                    trenConfig.classList.add('show');
+                    console.log('Configuración Vistadome mostrada');
+                }
+                // Ocultar mensaje informativo de Expedition
+                if (expeditionInfo) {
+                    expeditionInfo.style.display = 'none';
+                }
+            } else if (tipo === 'expedition') {
+                // Ocultar configuración del tren turístico
+                if (trenConfig) {
+                    trenConfig.classList.remove('show');
+                    console.log('Configuración Vistadome ocultada');
+                }
+                // Mostrar mensaje informativo de Expedition
+                if (expeditionInfo) {
+                    expeditionInfo.style.display = 'block';
+                    console.log('Mensaje informativo de Expedition mostrado');
+                }
+            }
+        }
+        
+        // ==========================================
+        // FUNCIONES DE ENVÍO Y VALIDACIÓN
+        // ==========================================
+        
+        /**
+         * Maneja el envío del formulario de cotización
+         * @param {Event} e - Evento de envío del formulario
+         */
+        async function enviarCotizacion(e) {
+            e.preventDefault();
+            console.log('Iniciando proceso de envío de cotización...');
+            
+            // Validar datos antes del envío
+            if (!validarFormulario()) {
+                return;
+            }
+            
+            // Mostrar estado de carga
+            mostrarLoading(true);
+            ocultarMensajes();
+            
+            try {
+                // Preparar datos para envío
+                const payload = prepararPayload(e.target);
+                
+                // Enviar datos al webhook
+                await enviarAlWebhook(payload);
+                
+                // Mostrar mensaje de éxito
+                mostrarMensaje('✅ Cotización generada exitosamente. Recibirás el PDF por WhatsApp en breve.', 'success');
+                
+                // Programar limpieza del formulario
+                programarLimpiezaFormulario();
+                
+            } catch (error) {
+                console.error('Error al enviar cotización:', error);
+                mostrarMensaje('❌ Error al generar la cotización. Inténtalo de nuevo.', 'error');
+            } finally {
+                mostrarLoading(false);
+            }
+        }
+        
+        /**
+         * Valida que todos los campos requeridos estén completos
+         * @returns {boolean} - True si el formulario es válido
+         */
+        function validarFormulario() {
+            // Validar programa seleccionado
+            if (!selectedProgram) {
+                mostrarMensaje('❌ Por favor selecciona un programa antes de continuar.', 'error');
+                return false;
+            }
+            
+            // Validar tren seleccionado
+            if (!tipoTrenSeleccionado) {
+                mostrarMensaje('❌ Por favor selecciona un tipo de tren antes de continuar.', 'error');
+                return false;
+            }
+            
+            console.log('Formulario validado correctamente');
+            return true;
+        }
+        
+        /**
+         * Prepara el payload para enviar al webhook
+         * @param {HTMLFormElement} form - Formulario con los datos
+         * @returns {Object} - Objeto con los datos preparados
+         */
+        function prepararPayload(form) {
+            const formData = new FormData(form);
+            
+            const payload = {
+                origen: 'formulario',
+                tipo_tour: 'fijo',
+                programa_seleccionado: selectedProgram,
+                nombre_cliente: formData.get('nombre_cliente'),
+                telefono: formData.get('telefono'),
+                email: formData.get('email'),
+                numero_personas: formData.get('numero_personas'),
+                fecha_viaje: formData.get('fecha_viaje'),
+                tipo_habitacion: formData.get('tipo_habitacion'),
+                categoria_hotel: formData.get('categoria_hotel'),
+                tipo_tren: tipoTrenSeleccionado,
+                tren_horario: formData.get('tren_horario') || null,
+                personas_tren: formData.get('personas_tren') || null,
+                precio_usd: formData.get('precio_usd') || null,
+                observaciones: formData.get('observaciones') || '',
+                timestamp: new Date().toISOString()
+            };
+            
+            console.log('Payload preparado:', payload);
+            return payload;
+        }
+        
+        /**
+         * Envía los datos al webhook de n8n y maneja la respuesta con PDF
+         * @param {Object} payload - Datos a enviar
+         */
+        async function enviarAlWebhook(payload) {
+            const webhookUrl = 'https://hvh-n8n.2ulbdq.easypanel.host/webhook/generar-pdf';
+            
+            console.log('📡 Enviando datos al webhook...');
+            
+            try {
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Error del servidor: ${response.status}`);
+                }
+                
+                const resultado = await response.json();
+                console.log('✅ Respuesta recibida:', resultado);
+                
+                // Manejar la respuesta según el resultado
+                if (resultado.success) {
+                    mostrarResultadoExitoso(resultado);
+                } else {
+                    mostrarResultadoError(resultado);
+                }
+                
+            } catch (error) {
+                console.error('❌ Error en el webhook:', error);
+                mostrarResultadoError({
+                    mensaje: {
+                        titulo: "❌ Error de conexión",
+                        contenido: "No se pudo procesar la cotización. Verifica tu conexión e inténtalo de nuevo."
+                    }
+                });
+            }
+        }
+        
+        /**
+         * Programa la limpieza automática del formulario después del envío exitoso
+         */
+        function programarLimpiezaFormulario() {
+            setTimeout(() => {
+                limpiarFormularioCompleto();
+                console.log('Formulario limpiado automáticamente');
+            }, 3000);
+        }
+        
+        // ==========================================
+        // FUNCIONES DE UTILIDAD Y UI
+        // ==========================================
+        
+        /**
+         * Muestra u oculta el spinner de loading en el botón de envío
+         * @param {boolean} show - True para mostrar, false para ocultar
+         */
+        function mostrarLoading(show) {
+            const submitButton = document.getElementById('submitButton');
+            const submitText = document.getElementById('submitText');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            
+            if (submitButton && submitText && loadingSpinner) {
+                if (show) {
+                    submitText.style.display = 'none';
+                    loadingSpinner.style.display = 'block';
+                    submitButton.disabled = true;
+                    console.log('Loading mostrado');
+                } else {
+                    submitText.style.display = 'block';
+                    loadingSpinner.style.display = 'none';
+                    submitButton.disabled = false;
+                    console.log('Loading ocultado');
+                }
+            }
+        }
+        
+        /**
+         * Muestra un mensaje al usuario
+         * @param {string} mensaje - Texto del mensaje
+         * @param {string} tipo - Tipo de mensaje ('success' o 'error')
+         */
+        function mostrarMensaje(mensaje, tipo) {
+            const messageContainer = document.getElementById('messageContainer');
+            
+            if (messageContainer) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${tipo}-message`;
+                messageDiv.textContent = mensaje;
+                messageDiv.style.display = 'block';
+                
+                messageContainer.innerHTML = '';
+                messageContainer.appendChild(messageDiv);
+                
+                console.log(`Mensaje ${tipo} mostrado: ${mensaje}`);
+                
+                // Auto-ocultar después de 5 segundos
+                setTimeout(ocultarMensajes, 5000);
+            }
+        }
+        
+        /**
+         * Oculta todos los mensajes mostrados al usuario
+         */
+        function ocultarMensajes() {
+            const messageContainer = document.getElementById('messageContainer');
+            if (messageContainer) {
+                messageContainer.innerHTML = '';
+                console.log('Mensajes ocultados');
+            }
+        }
+        
+        /**
+         * Limpia completamente el formulario y restablece el estado inicial
+         */
+        function limpiarFormularioCompleto() {
+            // Limpiar formulario HTML
+            const form = document.getElementById('cotizacionForm');
+            if (form) {
+                form.reset();
+            }
+            
+            // Restablecer variables globales
+            selectedProgram = null;
+            tipoTrenSeleccionado = null;
+            
+            // Limpiar selección de programas
+            limpiarSeleccionProgramas();
+            
+            // Limpiar selección de tren
+            limpiarSeleccionTren();
+            
+            // Ocultar configuración adicional del tren
+            const trenConfig = document.getElementById('trenTuristicoConfig');
+            if (trenConfig) {
+                trenConfig.classList.remove('show');
+            }
+            
+            // Ocultar mensaje informativo del Expedition
+            const expeditionInfo = document.getElementById('expeditionInfo');
+            if (expeditionInfo) {
+                expeditionInfo.style.display = 'none';
+            }
+            
+            // Ocultar resumen de selección
+            const summary = document.getElementById('selectionSummary');
+            if (summary) {
+                summary.style.display = 'none';
+            }
+            
+            // Ocultar mensajes
+            ocultarMensajes();
+            
+            // Scroll al inicio
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            console.log('Formulario completamente limpiado');
+        }
+        
+        // ==========================================
+        // FUNCIONES DE NAVEGACIÓN
+        // ==========================================
+        
+        /**
+         * Redirige al usuario de vuelta al dashboard principal
+         */
+        function volverAlDashboard() {
+            console.log('Navegando de vuelta al dashboard...');
+            window.location.href = '/dashboard';
+        }
+        
+        // ==========================================
+        // EVENTOS GLOBALES Y MANEJO DE ERRORES
+        // ==========================================
+        
+        /**
+         * Maneja errores globales de JavaScript
+         */
+        window.addEventListener('error', function(e) {
+            console.error('Error global capturado:', e.error);
+            mostrarMensaje('❌ Ha ocurrido un error inesperado. Por favor, recarga la página.', 'error');
+        });
+        
+        /**
+         * Maneja errores de promesas no capturadas
+         */
+        window.addEventListener('unhandledrejection', function(e) {
+            console.error('Promesa rechazada no manejada:', e.reason);
+            mostrarMensaje('❌ Error de conexión. Verifica tu internet e inténtalo de nuevo.', 'error');
+        });
+        
+        console.log('Script de Programas Fijos cargado completamente');
+        
+        // ============================================
+        // FUNCIONES DE MANEJO DE RESPUESTA PDF
+        // ============================================
+        
+        /**
+         * Mostrar resultado exitoso con PDF descargable
+         */
+        function mostrarResultadoExitoso(resultado) {
+            console.log('🎉 Mostrando resultado exitoso');
+            
+            // Ocultar el formulario
+            const form = document.getElementById('cotizacionForm');
+            if (form) {
+                form.style.display = 'none';
+            }
+            
+            // Crear contenedor de resultado
+            const resultadoHTML = crearResultadoHTML(resultado);
+            
+            // Insertar en el contenedor principal
+            const container = document.querySelector('.form-container');
+            if (container) {
+                container.innerHTML = resultadoHTML;
+            }
+            
+            // Iniciar descarga automática del PDF
+            if (resultado.pdf && resultado.pdf.download_url) {
+                setTimeout(() => {
+                    iniciarDescargaAutomatica(resultado.pdf.download_url);
+                }, 1000);
+            }
+        }
+        
+        /**
+         * Crear HTML del resultado exitoso
+         */
+        function crearResultadoHTML(resultado) {
+            const mensaje = resultado.mensaje;
+            const pdf = resultado.pdf;
+            const acciones = resultado.acciones;
+            
+            return `
+                <div class="resultado-exitoso">
+                    <!-- Header de éxito -->
+                    <div class="resultado-header">
+                        <h1 class="resultado-titulo">${mensaje.titulo}</h1>
+                        <div class="resultado-contenido">
+                            ${mensaje.contenido.replace(/\n/g, '<br>')}
+                        </div>
+                    </div>
+                    
+                    <!-- Información del PDF -->
+                    <div class="pdf-info">
+                        <div class="pdf-icon">📄</div>
+                        <div class="pdf-details">
+                            <h3>Documento generado:</h3>
+                            <p class="pdf-nombre">${pdf.nombre}</p>
+                            <p class="descarga-info">💡 Haz clic en el enlace para descargar automáticamente</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Botones de acción -->
+                    <div class="acciones-container">
+                        <button class="btn-accion btn-descargar" 
+                                onclick="descargarPDF('${pdf.download_url}')">
+                            ${acciones.descargar.texto}
+                        </button>
+                        
+                        <button class="btn-accion btn-compartir" 
+                                onclick="compartirPDF('${pdf.public_url}')">
+                            ${acciones.compartir.texto}
+                        </button>
+                        
+                        <button class="btn-accion btn-nueva" 
+                                onclick="nuevaCotizacion()">
+                            ${acciones.nueva_cotizacion.texto}
+                        </button>
+                    </div>
+                    
+                    <!-- Link directo (oculto, para copiar) -->
+                    <input type="hidden" id="linkCompartir" value="${pdf.public_url}">
+                </div>
+            `;
+        }
+        
+        /**
+         * Mostrar resultado de error
+         */
+        function mostrarResultadoError(resultado) {
+            const mensaje = resultado.mensaje || {
+                titulo: "❌ Error",
+                contenido: "Hubo un problema al procesar tu solicitud."
+            };
+            
+            const errorHTML = `
+                <div class="resultado-error">
+                    <h1 class="error-titulo">${mensaje.titulo}</h1>
+                    <div class="error-contenido">${mensaje.contenido}</div>
+                    
+                    <div class="acciones-container">
+                        <button class="btn-accion btn-reintentar" onclick="location.reload()">
+                            🔄 Intentar de nuevo
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            const container = document.querySelector('.form-container');
+            if (container) {
+                container.innerHTML = errorHTML;
+            }
+        }
+        
+        /**
+         * Iniciar descarga automática del PDF
+         */
+        function iniciarDescargaAutomatica(downloadUrl) {
+            console.log('🔽 Iniciando descarga automática...');
+            
+            // Crear enlace temporal para descarga
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.target = '_blank';
+            link.download = '';
+            
+            // Agregar al DOM temporalmente
+            document.body.appendChild(link);
+            
+            // Hacer clic programáticamente
+            link.click();
+            
+            // Remover del DOM
+            document.body.removeChild(link);
+            
+            console.log('✅ Descarga iniciada');
+        }
+        
+        /**
+         * Función para descargar PDF manualmente
+         */
+        function descargarPDF(downloadUrl) {
+            console.log('📥 Descarga manual del PDF');
+            iniciarDescargaAutomatica(downloadUrl);
+        }
+        
+        /**
+         * Función para compartir el PDF
+         */
+        function compartirPDF(publicUrl) {
+            console.log('🔗 Compartiendo PDF');
+            
+            // Copiar link al portapapeles
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(publicUrl).then(() => {
+                    mostrarNotificacion('✅ Link copiado al portapapeles');
+                }).catch(() => {
+                    mostrarLinkManual(publicUrl);
+                });
+            } else {
+                mostrarLinkManual(publicUrl);
+            }
+        }
+        
+        /**
+         * Mostrar link para copiar manualmente
+         */
+        function mostrarLinkManual(url) {
+            const modal = `
+                <div class="modal-link">
+                    <div class="modal-content">
+                        <h3>🔗 Compartir cotización</h3>
+                        <p>Copia este enlace para compartir:</p>
+                        <input type="text" value="${url}" readonly onclick="this.select()">
+                        <div class="modal-buttons">
+                            <button onclick="cerrarModal()">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', modal);
+        }
+        
+        /**
+         * Función para nueva cotización
+         */
+        function nuevaCotizacion() {
+            console.log('🆕 Nueva cotización');
+            location.reload();
+        }
+        
+        /**
+         * Mostrar notificación temporal
+         */
+        function mostrarNotificacion(mensaje) {
+            const notificacion = document.createElement('div');
+            notificacion.className = 'notificacion-temporal';
+            notificacion.textContent = mensaje;
+            notificacion.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--success);
+                color: white;
+                padding: 12px 20px;
+                border-radius: 8px;
+                z-index: 1000;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            document.body.appendChild(notificacion);
+            
+            setTimeout(() => {
+                notificacion.remove();
+            }, 3000);
+        }
+        
+        /**
+         * Cerrar modal
+         */
+        function cerrarModal() {
+            const modal = document.querySelector('.modal-link');
+            if (modal) {
+                modal.remove();
+            }
+        }
+    </script>
+</body>
+</html>

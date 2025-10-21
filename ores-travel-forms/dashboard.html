@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- ======================================== 
+     SECCIÓN PRINCIPAL: Dashboard ORES Travel
+     Propósito: Panel principal de cotizaciones turísticas
+    ======================================== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Dashboard ORES Travel - Sistema de Cotizaciones</title>
+    
+    <style>
+        /* ==========================================
+           COMPONENTE: Theming ORES Travel
+        ========================================== */
+        :root { 
+            --primary: #c2410c; 
+            --primary-dark: #9a3412;
+            --secondary: #0c4a6e;
+            --accent: #059669;
+            --gold: #fbbf24; 
+            --gold-dark: #d97706; 
+            --success: #10b981; 
+            --warning: #f59e0b; 
+            --error: #ef4444; 
+            --text-primary: #ffffff; 
+            --text-secondary: #e2e8f0; 
+            --glass-bg: rgba(255, 255, 255, 0.08); 
+            --glass-border: rgba(255, 255, 255, 0.2); 
+            --card-bg: rgba(12, 74, 110, 0.15); 
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #0c4a6e 0%, #164e63 20%, #c2410c 60%, #9a3412 100%); 
+            background-attachment: fixed; 
+            min-height: 100vh; 
+            padding: 15px; 
+            color: var(--text-primary); 
+        }
+        
+        /* ==========================================
+           COMPONENTE: Layout Principal
+        ========================================== */
+        .container { 
+            max-width: 480px; 
+            margin: 0 auto; 
+        }
+        
+        .dashboard-section { 
+            background: var(--card-bg); 
+            backdrop-filter: blur(20px); 
+            border: 1px solid var(--glass-border); 
+            border-radius: 20px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            animation: fadeInUp 0.6s ease-out; 
+        }
+        
+        .section-title { 
+            font-size: 1.2rem; 
+            font-weight: 700; 
+            margin-bottom: 16px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+        }
+        
+        @keyframes fadeInUp { 
+            from { transform: translateY(20px); opacity: 0; } 
+            to { transform: translateY(0); opacity: 1; } 
+        }
+
+        /* ==========================================
+           COMPONENTE: Header de Usuario
+        ========================================== */
+        .header-profile { 
+            padding: 20px; 
+        }
+        
+        .user-info { 
+            display: flex; 
+            align-items: center; 
+            gap: 16px; 
+            padding-bottom: 16px; 
+            margin-bottom: 16px; 
+            border-bottom: 1px solid var(--glass-border); 
+        }
+        
+        .avatar { 
+            width: 48px; 
+            height: 48px; 
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark)); 
+            color: #4E1F00; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 1.2rem; 
+            font-weight: 700; 
+            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+        }
+        
+        .user-details h3 {
+            font-size: 1.2rem; 
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .user-role {
+            color: var(--gold);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .session-info { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        
+        .session-timestamp { 
+            color: var(--success); 
+            font-size: 0.9rem; 
+        }
+        
+        .logout-btn { 
+            background: rgba(239, 68, 68, 0.2); 
+            border: 1px solid rgba(239, 68, 68, 0.4); 
+            color: var(--error); 
+            padding: 8px 14px; 
+            border-radius: 12px; 
+            font-size: 0.9rem; 
+            cursor: pointer; 
+            transition: all 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.3);
+            transform: translateY(-1px);
+        }
+
+        /* ==========================================
+           COMPONENTE: Tarjetas de Cotización
+        ========================================== */
+        .cotizacion-card { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 20px; 
+            background: var(--glass-bg); 
+            border: 1px solid var(--glass-border); 
+            border-radius: 16px; 
+            margin-bottom: 16px; 
+            cursor: pointer; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            backdrop-filter: blur(10px);
+        }
+        
+        .cotizacion-card:hover { 
+            background: rgba(255, 255, 255, 0.12); 
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-content {
+            flex: 1;
+        }
+        
+        .card-icon { 
+            font-size: 2.5rem; 
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .card-title { 
+            font-size: 1.1rem; 
+            font-weight: 700; 
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+        
+        .card-description { 
+            font-size: 0.9rem; 
+            color: var(--text-secondary); 
+            line-height: 1.4;
+        }
+        
+        .card-arrow {
+            font-size: 1.5rem;
+            color: var(--gold);
+            transition: transform 0.3s ease;
+        }
+        
+        .cotizacion-card:hover .card-arrow {
+            transform: translateX(4px);
+        }
+
+        /* ==========================================
+           COMPONENTE: Estadísticas rápidas
+        ========================================== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        
+        .stat-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 16px;
+            border-radius: 14px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* ==========================================
+           COMPONENTE: Sección de PDFs
+        ========================================== */
+        .pdf-list {
+            margin-top: 16px;
+        }
+        
+        .pdf-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+        
+        .pdf-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(4px);
+        }
+        
+        .pdf-info {
+            flex: 1;
+        }
+        
+        .pdf-client {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        
+        .pdf-details {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .pdf-badge {
+            background: var(--primary);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .pdf-badge.personalizado {
+            background: var(--accent);
+        }
+        
+        .download-btn {
+            background: var(--gold);
+            color: #4E1F00;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .download-btn:hover {
+            background: var(--gold-dark);
+            transform: translateY(-2px);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 32px 16px;
+            color: var(--text-secondary);
+        }
+        
+        .empty-icon {
+            font-size: 3rem;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+        
+        /* ==========================================
+           COMPONENTE: Calendario de Tours
+        ========================================== */
+        .calendar-container {
+            margin-top: 16px;
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding: 0 8px;
+        }
+        
+        .calendar-nav {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .calendar-nav:hover {
+            background: var(--primary);
+        }
+        
+        .calendar-month {
+            font-weight: 600;
+            color: var(--gold);
+            font-size: 1.1rem;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            margin-bottom: 12px;
+        }
+        
+        .calendar-day-header {
+            text-align: center;
+            padding: 8px 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .calendar-day:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .calendar-day.has-tours {
+            background: rgba(194, 65, 12, 0.3);
+            border-color: var(--primary);
+        }
+        
+        .calendar-day.today {
+            background: var(--gold);
+            color: #4E1F00;
+            font-weight: 700;
+        }
+        
+        .calendar-day.other-month {
+            opacity: 0.3;
+        }
+        
+        .tour-indicator {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 6px;
+            height: 6px;
+            background: var(--success);
+            border-radius: 50%;
+        }
+        
+        .tour-summary {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 12px;
+        }
+        
+        .tour-summary-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+        
+        .tour-summary-item {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+        
+        /* ==========================================
+           COMPONENTE: Lista desplegable de tours
+        ========================================== */
+        .tours-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+        
+        .tours-modal.show {
+            display: flex;
+        }
+        
+        .tours-modal-content {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 24px;
+            max-width: 400px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+        
+        @keyframes modalSlideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .tours-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .tours-modal-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+        
+        .tours-modal-close {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: var(--error);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+        
+        .tours-modal-close:hover {
+            background: rgba(239, 68, 68, 0.3);
+        }
+        
+        .tour-detail-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .tour-detail-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .tour-client-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        
+        .tour-details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .tour-detail-field {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .tour-detail-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        
+        .tour-detail-value {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        .tour-type-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .tour-type-badge.fijo {
+            background: rgba(194, 65, 12, 0.3);
+            color: var(--primary);
+            border: 1px solid rgba(194, 65, 12, 0.5);
+        }
+        
+        .tour-type-badge.personalizado {
+            background: rgba(5, 150, 105, 0.3);
+            color: var(--accent);
+            border: 1px solid rgba(5, 150, 105, 0.5);
+        }
+        
+        .tour-summary-stats {
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 16px;
+            text-align: center;
+        }
+        
+        .summary-stats-title {
+            font-size: 0.85rem;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .summary-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        
+        .summary-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .summary-stat-number {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .summary-stat-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+        
+        /* ==========================================
+           RESPONSIVE: Mobile optimization
+        ========================================== */
+        @media (max-width: 480px) {
+            .container { padding: 0 10px; }
+            .cotizacion-card { padding: 16px; }
+            .card-icon { font-size: 2rem; }
+            .card-title { font-size: 1rem; }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ==========================================
+           ANIMACIONES: Entrada staggered
+        ========================================== */
+        .dashboard-section:nth-child(1) { animation-delay: 0.1s; }
+        .dashboard-section:nth-child(2) { animation-delay: 0.2s; }
+        .dashboard-section:nth-child(3) { animation-delay: 0.3s; }
+        
+        .cotizacion-card:nth-child(1) { animation: slideInLeft 0.6s ease-out 0.4s both; }
+        .cotizacion-card:nth-child(2) { animation: slideInLeft 0.6s ease-out 0.5s both; }
+        
+        @keyframes slideInLeft {
+            from { transform: translateX(-30px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ======================================== 
+         SECCIÓN: Header y Sesión de Usuario
+        ======================================== -->
+        <div class="dashboard-section header-profile">
+            <div class="user-info">
+                <div class="avatar" id="user-avatar">🎯</div>
+                <div class="user-details">
+                    <h3 id="user-name">AGENCIA OPERADORA DE TURISMO SOSTENIBLE ORES TRAVEL PERU</h3>
+                    <div class="user-role">Sistema de Cotizaciones</div>
+                </div>
+            </div>
+            <div class="session-info">
+                <span class="session-timestamp" id="session-timestamp"></span>
+                <button class="logout-btn" onclick="logout()">Salir</button>
+            </div>
+        </div>
+
+        <!-- ======================================== 
+         SECCIÓN: Tipos de Cotización
+        ======================================== -->
+        <div class="dashboard-section">
+            <div class="section-title">
+                <span>🎯 Crear Nueva Cotización</span>
+            </div>
+            
+            <!-- Card: Programas Fijos -->
+            <div class="cotizacion-card" onclick="irAProgramasFijos()">
+                <div class="card-content">
+                    <span class="card-icon">📋</span>
+                    <div class="card-title">Programas Fijos</div>
+                    <div class="card-description">
+                        Cotizaciones de paquetes predefinidos con duración específica
+                    </div>
+                </div>
+                <div class="card-arrow">→</div>
+            </div>
+            
+            <!-- Card: Tour Personalizado -->
+            <div class="cotizacion-card" onclick="irATourPersonalizado()">
+                <div class="card-content">
+                    <span class="card-icon">🎨</span>
+                    <div class="card-title">Tour Personalizado</div>
+                    <div class="card-description">
+                        Crea itinerarios únicos seleccionando actividades específicas
+                    </div>
+                </div>
+                <div class="card-arrow">→</div>
+            </div>
+        </div>
+
+        <!-- ======================================== 
+         SECCIÓN: PDFs Generados
+        ======================================== -->
+        <div class="dashboard-section">
+            <div class="section-title">
+                <span>📄 PDFs Generados</span>
+                <span style="font-size: 0.9rem; color: var(--text-secondary);" id="pdf-count">0 archivos</span>
+            </div>
+            
+            <div class="pdf-list" id="pdf-list">
+                <!-- PDFs se cargarán dinámicamente aquí -->
+                <div class="empty-state" id="empty-pdfs">
+                    <div class="empty-icon">📁</div>
+                    <div>No hay PDFs generados aún</div>
+                    <div style="font-size: 0.8rem; margin-top: 4px;">Las cotizaciones aparecerán aquí automáticamente</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======================================== 
+         SECCIÓN: Calendario de Tours
+        ======================================== -->
+        <div class="dashboard-section">
+            <div class="section-title">
+                <span>📅 Calendario de Tours</span>
+            </div>
+            
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <button class="calendar-nav" onclick="cambiarMes(-1)">‹</button>
+                    <div class="calendar-month" id="calendar-month"></div>
+                    <button class="calendar-nav" onclick="cambiarMes(1)">›</button>
+                </div>
+                
+                <div class="calendar-grid" id="calendar-grid">
+                    <!-- Encabezados de días -->
+                    <div class="calendar-day-header">Dom</div>
+                    <div class="calendar-day-header">Lun</div>
+                    <div class="calendar-day-header">Mar</div>
+                    <div class="calendar-day-header">Mié</div>
+                    <div class="calendar-day-header">Jue</div>
+                    <div class="calendar-day-header">Vie</div>
+                    <div class="calendar-day-header">Sáb</div>
+                    <!-- Los días se generarán dinámicamente -->
+                </div>
+                
+                <div class="tour-summary">
+                    <div class="tour-summary-title">Tours de este mes:</div>
+                    <div id="tour-summary-content">
+                        <div class="tour-summary-item">📋 2 Programas Fijos programados</div>
+                        <div class="tour-summary-item">🎨 1 Tour Personalizado en proceso</div>
+                        <div class="tour-summary-item">✅ 3 Tours completados</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======================================== 
+         SECCIÓN: Estadísticas Rápidas
+        ======================================== -->
+        <div class="dashboard-section">
+            <div class="section-title">
+                <span>📊 Resumen del Día</span>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number" id="cotizaciones-hoy">0</span>
+                    <div class="stat-label">Cotizaciones Hoy</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="tours-activos">0</span>
+                    <div class="stat-label">Tours Activos</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para mostrar tours del día -->
+    <div class="tours-modal" id="tours-modal">
+        <div class="tours-modal-content">
+            <div class="tours-modal-header">
+                <div class="tours-modal-title" id="tours-modal-title">Tours del día</div>
+                <button class="tours-modal-close" onclick="cerrarModalTours()">×</button>
+            </div>
+            <div id="tours-modal-body">
+                <!-- Contenido dinámico -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Verificar autenticación
+        function verificarAutenticacion() {
+            const session = sessionStorage.getItem('ores_session');
+            if (!session) {
+                window.location.href = '/login';
+                return;
+            }
+            
+            try {
+                const sessionData = JSON.parse(session);
+                
+                // Verificar expiración de sesión
+                const now = new Date();
+                const expiresAt = new Date(sessionData.expiresAt);
+                
+                if (!sessionData.isAuthenticated || now >= expiresAt) {
+                    sessionStorage.removeItem('ores_session');
+                    window.location.href = '/login';
+                    return;
+                }
+            } catch (e) {
+                sessionStorage.removeItem('ores_session');
+                window.location.href = '/login';
+                return;
+            }
+            
+            // Actualizar UI con datos de sesión
+            document.getElementById('user-name').textContent = 'AGENCIA OPERADORA DE TURISMO SOSTENIBLE ORES TRAVEL PERU';
+            
+            const loginDate = new Date(sessionData.loginTime);
+            const options = { 
+                year: 'numeric', 
+                month: '2-digit', 
+                day: '2-digit', 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            };
+            document.getElementById('session-timestamp').textContent = 
+                `Conectado: ${loginDate.toLocaleString('es-ES', options)}`;
+        }
+
+        // Navegación a formularios
+        function irAProgramasFijos() {
+            window.location.href = '/programas-fijos';
+        }
+
+        function irATourPersonalizado() {
+            window.location.href = '/tour-personalizado';
+        }
+
+        // Logout
+        function logout() {
+            if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+                sessionStorage.removeItem('ores_session');
+                localStorage.removeItem('ores_pdfs_generados');
+                window.location.href = '/login';
+            }
+        }
+
+        // Simular estadísticas (en producción conectar con API)
+        function cargarEstadisticas() {
+            // Valores simulados
+            document.getElementById('cotizaciones-hoy').textContent = Math.floor(Math.random() * 15) + 1;
+            document.getElementById('tours-activos').textContent = Math.floor(Math.random() * 8) + 2;
+        }
+
+        // ==========================================
+        // GESTIÓN DE PDFs GENERADOS
+        // ==========================================
+        
+        // Datos simulados de PDFs (en producción conectar con API)
+        let pdfData = [
+            {
+                id: 1,
+                cliente: "María García",
+                tipo: "fijo",
+                programa: "7D6N",
+                fecha: "2025-01-15",
+                url: "#",
+                estado: "nuevo"
+            },
+            {
+                id: 2,
+                cliente: "Carlos Mendoza",
+                tipo: "personalizado",
+                programa: "Tour Personalizado",
+                fecha: "2025-01-14",
+                url: "#",
+                estado: "descargado"
+            },
+            {
+                id: 3,
+                cliente: "Ana López",
+                tipo: "fijo",
+                programa: "5D4N MONTAÑA",
+                fecha: "2025-01-13",
+                url: "#",
+                estado: "nuevo"
+            }
+        ];
+        
+        function cargarPDFs() {
+            const pdfList = document.getElementById('pdf-list');
+            const emptyState = document.getElementById('empty-pdfs');
+            const pdfCount = document.getElementById('pdf-count');
+            
+            if (pdfData.length === 0) {
+                emptyState.style.display = 'block';
+                pdfCount.textContent = '0 archivos';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            pdfCount.textContent = `${pdfData.length} archivo${pdfData.length > 1 ? 's' : ''}`;
+            
+            // Limpiar lista existente
+            const existingItems = pdfList.querySelectorAll('.pdf-item');
+            existingItems.forEach(item => item.remove());
+            
+            // Generar items de PDF
+            pdfData.forEach(pdf => {
+                const pdfItem = document.createElement('div');
+                pdfItem.className = 'pdf-item';
+                
+                const tipoBadge = pdf.tipo === 'fijo' ? 'Programa Fijo' : 'Personalizado';
+                const tipoClass = pdf.tipo === 'personalizado' ? 'personalizado' : '';
+                const fechaFormateada = new Date(pdf.fecha).toLocaleDateString('es-ES');
+                
+                pdfItem.innerHTML = `
+                    <div class="pdf-info">
+                        <div class="pdf-client">${pdf.cliente}</div>
+                        <div class="pdf-details">
+                            <span class="pdf-badge ${tipoClass}">${tipoBadge}</span>
+                            <span>${pdf.programa}</span>
+                            <span>📅 ${fechaFormateada}</span>
+                        </div>
+                    </div>
+                    <button class="download-btn" onclick="descargarPDF(${pdf.id})">
+                        <span>📥</span>
+                        <span>Descargar</span>
+                    </button>
+                `;
+                
+                pdfList.appendChild(pdfItem);
+            });
+        }
+        
+        function descargarPDF(pdfId) {
+            const pdf = pdfData.find(p => p.id === pdfId);
+            if (pdf) {
+                // Simular descarga (en producción hacer petición real)
+                alert(`Descargando PDF de ${pdf.cliente} - ${pdf.programa}`);
+                
+                // Marcar como descargado
+                pdf.estado = 'descargado';
+                
+                // En producción:
+                // window.open(pdf.url, '_blank');
+            }
+        }
+        
+        // ==========================================
+        // GESTIÓN DEL CALENDARIO
+        // ==========================================
+        
+        let fechaActual = new Date();
+        
+        // Datos simulados de tours (en producción conectar con API)
+        const toursData = {
+            '2025-01-18': [
+                { 
+                    tipo: 'fijo', 
+                    programa: '3D2N', 
+                    cliente: 'Juan Pérez García',
+                    telefono: '+51 987 654 321',
+                    email: 'juan.perez@email.com',
+                    personas: 2,
+                    hotel: '3 Estrella',
+                    estado: 'confirmado',
+                    hora: '08:00',
+                    observaciones: 'Vegetariano'
+                }
+            ],
+            '2025-01-22': [
+                { 
+                    tipo: 'personalizado', 
+                    programa: 'Tour Aventura Cusco',
+                    cliente: 'María Silva Rodríguez',
+                    telefono: '+51 912 345 678',
+                    email: 'maria.silva@email.com',
+                    personas: 4,
+                    hotel: '4 Estrella',
+                    estado: 'pendiente',
+                    hora: '09:30',
+                    observaciones: 'Familia con niños'
+                }
+            ],
+            '2025-01-25': [
+                { 
+                    tipo: 'fijo', 
+                    programa: '7D6N', 
+                    cliente: 'Carlos Ruiz Mendoza',
+                    telefono: '+51 945 123 789',
+                    email: 'carlos.ruiz@email.com',
+                    personas: 2,
+                    hotel: '5 Estrella',
+                    estado: 'confirmado',
+                    hora: '07:30',
+                    observaciones: 'Luna de miel'
+                },
+                { 
+                    tipo: 'fijo', 
+                    programa: '5D4N MONTAÑA', 
+                    cliente: 'Ana Torres López',
+                    telefono: '+51 998 765 432',
+                    email: 'ana.torres@email.com',
+                    personas: 6,
+                    hotel: '3 Estrella',
+                    estado: 'confirmado',
+                    hora: '06:00',
+                    observaciones: 'Grupo de amigos'
+                }
+            ],
+            '2025-01-28': [
+                { 
+                    tipo: 'personalizado', 
+                    programa: 'Expedición Choque Quirao',
+                    cliente: 'Luis Vargas Castro',
+                    telefono: '+51 956 789 123',
+                    email: 'luis.vargas@email.com',
+                    personas: 3,
+                    hotel: '4 Estrella',
+                    estado: 'en_proceso',
+                    hora: '05:30',
+                    observaciones: 'Experiencia de treking'
+                }
+            ]
+        };
+        
+        function generarCalendario() {
+            const grid = document.getElementById('calendar-grid');
+            const monthElement = document.getElementById('calendar-month');
+            
+            // Limpiar días existentes (mantener encabezados)
+            const dayElements = grid.querySelectorAll('.calendar-day');
+            dayElements.forEach(day => day.remove());
+            
+            // Configurar mes y año
+            const meses = [
+                'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+            ];
+            
+            monthElement.textContent = `${meses[fechaActual.getMonth()]} ${fechaActual.getFullYear()}`;
+            
+            // Calcular primer día del mes y cantidad de días
+            const primerDia = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 1);
+            const ultimoDia = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 1, 0);
+            const diasDelMes = ultimoDia.getDate();
+            const primerDiaSemana = primerDia.getDay();
+            
+            // Agregar días del mes anterior
+            const mesAnterior = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 0);
+            for (let i = primerDiaSemana - 1; i >= 0; i--) {
+                const dia = mesAnterior.getDate() - i;
+                const dayElement = crearElementoDia(dia, true);
+                grid.appendChild(dayElement);
+            }
+            
+            // Agregar días del mes actual
+            const hoy = new Date();
+            for (let dia = 1; dia <= diasDelMes; dia++) {
+                const fechaDia = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), dia);
+                const fechaString = fechaDia.toISOString().split('T')[0];
+                const esHoy = fechaDia.toDateString() === hoy.toDateString();
+                const tieneTours = toursData[fechaString];
+                
+                const dayElement = crearElementoDia(dia, false, esHoy, tieneTours);
+                grid.appendChild(dayElement);
+            }
+            
+            // Completar la grilla con días del siguiente mes
+            const diasMostrados = primerDiaSemana + diasDelMes;
+            const diasRestantes = 42 - diasMostrados; // 6 semanas * 7 días
+            for (let dia = 1; dia <= diasRestantes && diasRestantes <= 14; dia++) {
+                const dayElement = crearElementoDia(dia, true);
+                grid.appendChild(dayElement);
+            }
+        }
+        
+        function crearElementoDia(dia, otroMes = false, esHoy = false, tieneTours = null) {
+            const dayElement = document.createElement('div');
+            dayElement.className = 'calendar-day';
+            dayElement.textContent = dia;
+            
+            if (otroMes) {
+                dayElement.classList.add('other-month');
+            }
+            
+            if (esHoy) {
+                dayElement.classList.add('today');
+            }
+            
+            if (tieneTours) {
+                dayElement.classList.add('has-tours');
+                const indicator = document.createElement('div');
+                indicator.className = 'tour-indicator';
+                dayElement.appendChild(indicator);
+                
+                // Construir la fecha para el evento click
+                const fechaDia = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), dia);
+                const fechaString = fechaDia.toISOString().split('T')[0];
+                
+                dayElement.addEventListener('click', () => {
+                    mostrarToursDia(tieneTours, fechaString);
+                });
+            }
+            
+            return dayElement;
+        }
+        
+        function cambiarMes(direccion) {
+            fechaActual.setMonth(fechaActual.getMonth() + direccion);
+            generarCalendario();
+        }
+        
+        function mostrarToursDia(tours, fecha) {
+            const modal = document.getElementById('tours-modal');
+            const modalTitle = document.getElementById('tours-modal-title');
+            const modalBody = document.getElementById('tours-modal-body');
+            
+            // Formatear fecha
+            const fechaObj = new Date(fecha + 'T00:00:00');
+            const fechaFormateada = fechaObj.toLocaleDateString('es-ES', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            modalTitle.textContent = `Tours - ${fechaFormateada}`;
+            
+            // Generar contenido del modal
+            let contenido = '';
+            
+            tours.forEach((tour, index) => {
+                const estadoColor = {
+                    'confirmado': 'var(--success)',
+                    'pendiente': 'var(--warning)',
+                    'en_proceso': 'var(--primary)'
+                }[tour.estado] || 'var(--text-secondary)';
+                
+                const estadoTexto = {
+                    'confirmado': 'Confirmado',
+                    'pendiente': 'Pendiente',
+                    'en_proceso': 'En Proceso'
+                }[tour.estado] || 'Sin Estado';
+                
+                contenido += `
+                    <div class="tour-detail-item">
+                        <div class="tour-client-name">👤 ${tour.cliente}</div>
+                        
+                        <div class="tour-details-grid">
+                            <div class="tour-detail-field">
+                                <div class="tour-detail-label">Programa</div>
+                                <div class="tour-detail-value">${tour.programa}</div>
+                            </div>
+                            <div class="tour-detail-field">
+                                <div class="tour-detail-label">Hora</div>
+                                <div class="tour-detail-value">🕰️ ${tour.hora}</div>
+                            </div>
+                            <div class="tour-detail-field">
+                                <div class="tour-detail-label">Personas</div>
+                                <div class="tour-detail-value">👥 ${tour.personas}</div>
+                            </div>
+                            <div class="tour-detail-field">
+                                <div class="tour-detail-label">Hotel</div>
+                                <div class="tour-detail-value">🏨 ${tour.hotel}</div>
+                            </div>
+                            <div class="tour-detail-field">
+                                <div class="tour-detail-label">Teléfono</div>
+                                <div class="tour-detail-value">📞 ${tour.telefono}</div>
+                            </div>
+                            <div class="tour-detail-field">
+                                <div class="tour-detail-label">Email</div>
+                                <div class="tour-detail-value">📧 ${tour.email}</div>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px;">
+                            <span class="tour-type-badge ${tour.tipo}">
+                                ${tour.tipo === 'fijo' ? 'Programa Fijo' : 'Personalizado'}
+                            </span>
+                            <span style="color: ${estadoColor}; font-weight: 600; font-size: 0.85rem;">
+                                • ${estadoTexto}
+                            </span>
+                        </div>
+                        
+                        ${tour.observaciones ? `
+                            <div style="margin-top: 12px; padding: 8px 12px; background: rgba(255,255,255,0.05); border-radius: 8px; font-size: 0.85rem; color: var(--text-secondary);">
+                                📝 <strong>Observaciones:</strong> ${tour.observaciones}
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+            
+            // Agregar resumen estadístico
+            const totalPersonas = tours.reduce((sum, tour) => sum + tour.personas, 0);
+            const tiposFijos = tours.filter(t => t.tipo === 'fijo').length;
+            const tiposPersonalizados = tours.filter(t => t.tipo === 'personalizado').length;
+            
+            contenido += `
+                <div class="tour-summary-stats">
+                    <div class="summary-stats-title">Resumen del Día</div>
+                    <div class="summary-stats-grid">
+                        <div class="summary-stat">
+                            <div class="summary-stat-number">${tours.length}</div>
+                            <div class="summary-stat-label">Tours</div>
+                        </div>
+                        <div class="summary-stat">
+                            <div class="summary-stat-number">${totalPersonas}</div>
+                            <div class="summary-stat-label">Personas</div>
+                        </div>
+                        <div class="summary-stat">
+                            <div class="summary-stat-number">${tiposFijos}/${tiposPersonalizados}</div>
+                            <div class="summary-stat-label">F/P</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            modalBody.innerHTML = contenido;
+            modal.classList.add('show');
+        }
+        
+        function cerrarModalTours() {
+            const modal = document.getElementById('tours-modal');
+            modal.classList.remove('show');
+        }
+        
+        // Cerrar modal al hacer click fuera del contenido
+        document.addEventListener('click', (e) => {
+            const modal = document.getElementById('tours-modal');
+            if (e.target === modal) {
+                cerrarModalTours();
+            }
+        });
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            verificarAutenticacion();
+            cargarEstadisticas();
+            cargarPDFs();
+            generarCalendario();
+        });
+    </script>
+</body>
+</html>
