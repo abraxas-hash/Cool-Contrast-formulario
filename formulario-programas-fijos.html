@@ -869,11 +869,56 @@
                     <input type="hidden" id="programa_seleccionado" name="programa_seleccionado" required>
                 </div>
                 
-                <!-- PASO 2: DATOS DEL CLIENTE -->
+                <!-- PASO 2: DATOS DEL ASESOR -->
+                <div class="step-section">
+                    <div class="step-title">
+                        <span>👨‍💼</span>
+                        <span>PASO 2: Datos del Asesor</span>
+                    </div>
+                    
+                    <div style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 12px; padding: 16px; margin-bottom: 20px;">
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0; line-height: 1.4;">
+                            💡 <strong>Estos campos son opcionales.</strong> Si los dejas vacíos, se usarán automáticamente los datos de contacto de ORES TRAVEL PERU.
+                        </p>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="nombre_asesor">Nombre del Asesor:</label>
+                            <input type="text" id="nombre_asesor" name="nombre_asesor" class="form-input" 
+                                   placeholder="Ej: Juan Pérez">
+                            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">
+                                Por defecto: ORES TRAVEL PERU
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="email_asesor">Email del Asesor:</label>
+                            <input type="email" id="email_asesor" name="email_asesor" class="form-input" 
+                                   placeholder="Ej: asesor@orestravel.com">
+                            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">
+                                Por defecto: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6c05020a032c031e091f181e0d1a0900420f0301">[email&#160;protected]</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="telefono_asesor">Teléfono del Asesor:</label>
+                            <input type="tel" id="telefono_asesor" name="telefono_asesor" class="form-input" 
+                                   placeholder="Ej: +51 984 123 456">
+                            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">
+                                Por defecto: +51 984 123 456
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PASO 3: DATOS DEL CLIENTE -->
                 <div class="step-section">
                     <div class="step-title">
                         <span>👤</span>
-                        <span>PASO 2: Tus Datos</span>
+                        <span>PASO 3: Datos del Cliente</span>
                     </div>
                     
                     <div class="form-group">
@@ -897,11 +942,11 @@
                     </div>
                 </div>
                 
-                <!-- PASO 3: DETALLES DEL VIAJE -->
+                <!-- PASO 4: DETALLES DEL VIAJE -->
                 <div class="step-section">
                     <div class="step-title">
                         <span>🗓️</span>
-                        <span>PASO 3: Detalles del Viaje</span>
+                        <span>PASO 4: Detalles del Viaje</span>
                     </div>
                     
                     <div class="form-row">
@@ -941,65 +986,12 @@
                     </div>
                 </div>
                 
-                <!-- PASO 3.5: DATOS DEL ASESOR Y CONFIGURACIÓN ADICIONAL -->
-                <div class="step-section">
-                    <div class="step-title">
-                        <span>👤</span>
-                        <span>PASO 3.5: Datos del Asesor (Opcional)</span>
-                    </div>
-                    
-                    <div style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 12px; padding: 16px; margin-bottom: 20px;">
-                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0; line-height: 1.4;">
-                            💡 <strong>Estos campos son opcionales.</strong> Si los dejas vacíos, se usarán automáticamente los datos de contacto de ORES TRAVEL PERU.
-                        </p>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label" for="nombre_asesor">Nombre del Asesor:</label>
-                            <input type="text" id="nombre_asesor" name="nombre_asesor" class="form-input" 
-                                   placeholder="Ej: Juan Pérez">
-                            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">
-                                Por defecto: ORES TRAVEL PERU
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="email_asesor">Email del Asesor:</label>
-                            <input type="email" id="email_asesor" name="email_asesor" class="form-input" 
-                                   placeholder="Ej: asesor@orestravel.com">
-                            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">
-                                Por defecto: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="046d6a626b446b7661777076657261682a676b69">[email&#160;protected]</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label" for="telefono_asesor">Teléfono del Asesor:</label>
-                            <input type="tel" id="telefono_asesor" name="telefono_asesor" class="form-input" 
-                                   placeholder="Ej: +51 984 123 456">
-                            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">
-                                Por defecto: +51 984 123 456
-                            </div>
-                        </div>
-                        
-                        <div class="form-group" id="grupo_precio_tren">
-                            <label class="form-label" for="precio_tren">💰 Precio del Tren Turístico (S/.):</label>
-                            <input type="number" id="precio_tren" name="precio_tren" class="form-input" 
-                                   placeholder="Ej: 150" step="0.01" min="0">
-                            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">
-                                💡 Este campo solo se usa si seleccionas <strong>Tren Turístico Vistadome</strong> en el PASO 4. Si seleccionas Tren Local, será ignorado.
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 
-                <!-- PASO 4: CONFIGURACIÓN DE TREN -->
+                <!-- PASO 5: CONFIGURACIÓN DE TREN -->
                 <div class="step-section">
                     <div class="step-title">
                         <span>🚂</span>
-                        <span>PASO 4: Tren a Machu Picchu</span>
+                        <span>PASO 5: Tren a Machu Picchu</span>
                     </div>
                     
                     <div class="tren-options">
@@ -1051,14 +1043,23 @@
                             <input type="text" id="precio_usd" name="precio_usd" class="form-input" 
                                    placeholder="Ej: 150.00 (solo número)">
                         </div>
+                        
+                        <div class="form-group" id="grupo_precio_tren">
+                            <label class="form-label" for="precio_tren">💰 Precio del Tren Turístico (S/.):</label>
+                            <input type="number" id="precio_tren" name="precio_tren" class="form-input" 
+                                   placeholder="Ej: 150" step="0.01" min="0">
+                            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">
+                                💡 Precio en soles del tren turístico Vistadome por persona.
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- PASO 5: OBSERVACIONES -->
+                <!-- PASO 6: OBSERVACIONES -->
                 <div class="step-section">
                     <div class="step-title">
                         <span>💬</span>
-                        <span>PASO 5: Observaciones (Opcional)</span>
+                        <span>PASO 6: Observaciones (Opcional)</span>
                     </div>
                     
                     <div class="form-group">
@@ -1387,7 +1388,7 @@
                 if (expeditionInfo) {
                     expeditionInfo.style.display = 'none';
                 }
-                // Resaltar el campo de precio en PASO 3.5
+                // Resaltar el campo de precio en PASO 5 (Tren)
                 if (grupoPrecioTren) {
                     grupoPrecioTren.style.background = 'rgba(194, 65, 12, 0.1)';
                     grupoPrecioTren.style.borderRadius = '12px';
@@ -1405,7 +1406,7 @@
                     expeditionInfo.style.display = 'block';
                     console.log('Mensaje informativo de Expedition mostrado');
                 }
-                // Quitar resaltado del campo de precio en PASO 3.5
+                // Quitar resaltado del campo de precio en PASO 5 (Tren)
                 if (grupoPrecioTren) {
                     grupoPrecioTren.style.background = '';
                     grupoPrecioTren.style.borderRadius = '';
@@ -1994,5 +1995,3 @@
             }
         }
     </script>
-</body>
-</html>
