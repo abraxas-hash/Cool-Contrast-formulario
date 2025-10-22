@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -1666,17 +1666,22 @@
          * Crear HTML del resultado exitoso
          */
         function crearResultadoHTML(resultado) {
-            const mensaje = resultado.mensaje;
-            const pdf = resultado.pdf;
-            const acciones = resultado.acciones;
+            const mensaje = resultado.mensaje || {};
+            const pdf = resultado.pdf || {};
+            const acciones = resultado.acciones || {};
+            
+            // Valores por defecto para los textos de los botones
+            const textoDescargar = (acciones.descargar && acciones.descargar.texto) || "📥 Descargar PDF";
+            const textoCompartir = (acciones.compartir && acciones.compartir.texto) || "🔗 Compartir enlace";
+            const textoNueva = (acciones.nueva_cotizacion && acciones.nueva_cotizacion.texto) || "➕ Nueva cotización";
             
             return `
                 <div class="resultado-exitoso">
                     <!-- Header de éxito -->
                     <div class="resultado-header">
-                        <h1 class="resultado-titulo">${mensaje.titulo}</h1>
+                        <h1 class="resultado-titulo">${mensaje.titulo || '¡Cotización Generada!'}</h1>
                         <div class="resultado-contenido">
-                            ${mensaje.contenido.replace(/\n/g, '<br>')}
+                            ${(mensaje.contenido || 'Tu cotización ha sido generada exitosamente.').replace(/\n/g, '<br>')}
                         </div>
                     </div>
                     
@@ -1685,7 +1690,7 @@
                         <div class="pdf-icon">📄</div>
                         <div class="pdf-details">
                             <h3>Documento generado:</h3>
-                            <p class="pdf-nombre">${pdf.nombre}</p>
+                            <p class="pdf-nombre">${pdf.nombre || 'Cotizacion_ORES_Travel.pdf'}</p>
                             <p class="descarga-info">💡 Haz clic en el enlace para descargar automáticamente</p>
                         </div>
                     </div>
@@ -1693,23 +1698,23 @@
                     <!-- Botones de acción -->
                     <div class="acciones-container">
                         <button class="btn-accion btn-descargar" 
-                                onclick="descargarPDF('${pdf.download_url}')">
-                            ${acciones.descargar.texto}
+                                onclick="descargarPDF('${pdf.download_url || pdf.url_descargar || ''}')">
+                            ${textoDescargar}
                         </button>
                         
                         <button class="btn-accion btn-compartir" 
-                                onclick="compartirPDF('${pdf.public_url}')">
-                            ${acciones.compartir.texto}
+                                onclick="compartirPDF('${pdf.public_url || pdf.url_ver || ''}')">
+                            ${textoCompartir}
                         </button>
                         
                         <button class="btn-accion btn-nueva" 
                                 onclick="nuevaCotizacion()">
-                            ${acciones.nueva_cotizacion.texto}
+                            ${textoNueva}
                         </button>
                     </div>
                     
                     <!-- Link directo (oculto, para copiar) -->
-                    <input type="hidden" id="linkCompartir" value="${pdf.public_url}">
+                    <input type="hidden" id="linkCompartir" value="${pdf.public_url || pdf.url_ver || ''}">
                 </div>
             `;
         }
