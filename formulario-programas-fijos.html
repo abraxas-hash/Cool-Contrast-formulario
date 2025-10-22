@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tour Personalizado - ORES Travel Perú</title>
+    <title>Programas Fijos - ORES Travel Perú</title>
     
     <style>
+        /* ==========================================
+           VARIABLES CSS - ORES Travel Theme
+        ========================================== */
         :root { 
             --primary: #c2410c; 
             --primary-dark: #9a3412;
@@ -24,7 +27,14 @@
             --card-bg: rgba(12, 74, 110, 0.15); 
         }
         
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* ==========================================
+           RESET Y CONFIGURACIÓN BASE
+        ========================================== */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
         
         body { 
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif; 
@@ -35,6 +45,9 @@
             color: var(--text-primary); 
         }
         
+        /* ==========================================
+           LAYOUT PRINCIPAL
+        ========================================== */
         .container { 
             max-width: 900px; 
             margin: 0 auto; 
@@ -61,11 +74,26 @@
             background: linear-gradient(90deg, var(--primary), var(--gold), var(--accent)); 
         }
         
+        /* ==========================================
+           ANIMACIONES
+        ========================================== */
         @keyframes slideUp { 
             from { transform: translateY(40px); opacity: 0; } 
             to { transform: translateY(0); opacity: 1; } 
         }
         
+        @keyframes fadeInDown {
+            from { transform: translateY(-10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* ==========================================
+           HEADER DEL FORMULARIO
+        ========================================== */
         .form-header {
             text-align: center;
             margin-bottom: 32px;
@@ -107,6 +135,9 @@
             background-clip: text;
         }
         
+        /* ==========================================
+           SECCIONES DE PASOS
+        ========================================== */
         .step-section {
             margin-bottom: 32px;
             padding: 24px;
@@ -128,117 +159,97 @@
             border-bottom: 2px solid var(--glass-border);
         }
         
-        .search-box {
-            margin-bottom: 20px;
-        }
-        
-        .search-input {
-            width: 100%;
-            padding: 16px 20px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 14px;
-            color: var(--text-primary);
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .search-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.12);
-        }
-        
-        .category-tabs {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-        }
-        
-        .category-tab {
-            padding: 10px 16px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-        
-        .category-tab.active {
-            background: var(--primary);
-            border-color: var(--primary);
-            color: white;
-        }
-        
-        .category-tab:hover:not(.active) {
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
-        .activities-grid {
+        /* ==========================================
+           GRID DE PROGRAMAS
+        ========================================== */
+        .programs-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
             margin-bottom: 20px;
         }
         
-        .activity-category {
+        .program-item {
             background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             padding: 16px;
-        }
-        
-        .category-name {
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: var(--gold);
-            font-size: 1rem;
-        }
-        
-        .activity-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px 0;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border-radius: 8px;
-            padding: 8px 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            backdrop-filter: blur(10px);
+            min-height: 120px;
         }
         
-        .activity-item:hover {
-            background: rgba(255, 255, 255, 0.05);
+        .program-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(194, 65, 12, 0.2);
         }
         
-        .activity-checkbox {
+        .program-item.selected {
+            background: rgba(194, 65, 12, 0.15);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(194, 65, 12, 0.4);
+        }
+        
+        .program-checkbox {
+            position: absolute;
+            top: 12px;
+            right: 12px;
             width: 20px;
             height: 20px;
             border: 2px solid var(--gold);
             border-radius: 4px;
+            background: transparent;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 12px;
             color: var(--gold);
-            background: transparent;
+            transition: all 0.3s ease;
         }
         
-        .activity-item.selected .activity-checkbox {
+        .program-item.selected .program-checkbox {
             background: var(--gold);
             color: var(--primary-dark);
         }
         
-        .activity-emoji {
-            font-size: 1.2rem;
+        .program-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
         }
         
-        .activity-name {
-            flex: 1;
-            font-size: 0.95rem;
+        .program-emoji {
+            font-size: 2rem;
         }
         
+        .program-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .program-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        
+        .program-includes {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-style: italic;
+            line-height: 1.3;
+        }
+        
+        /* ==========================================
+           RESUMEN DE SELECCIÓN
+        ========================================== */
         .selection-summary {
             background: rgba(16, 185, 129, 0.1);
             border: 1px solid rgba(16, 185, 129, 0.3);
@@ -246,8 +257,13 @@
             padding: 16px;
             text-align: center;
             margin-bottom: 20px;
+            display: none;
+            animation: fadeInDown 0.4s ease-out;
         }
         
+        /* ==========================================
+           FORMULARIO - CAMPOS
+        ========================================== */
         .form-group {
             margin-bottom: 20px;
         }
@@ -273,10 +289,17 @@
             transition: all 0.3s ease;
         }
         
+        .form-input::placeholder {
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+        
         .form-input:focus, .form-select:focus {
             outline: none;
             border-color: var(--primary);
             background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 0 4px rgba(194, 65, 12, 0.15);
+            transform: translateY(-1px);
         }
         
         .form-row {
@@ -285,32 +308,17 @@
             gap: 16px;
         }
         
-        .itinerary-preview {
-            background: rgba(194, 65, 12, 0.1);
-            border: 1px solid rgba(194, 65, 12, 0.3);
-            border-radius: 12px;
-            padding: 16px;
-            margin-top: 16px;
-        }
-        
-        .itinerary-item {
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.95rem;
-        }
-        
-        .itinerary-item:last-child {
-            border-bottom: none;
-        }
-        
-        .transport-options {
+        /* ==========================================
+           OPCIONES DE TREN
+        ========================================== */
+        .tren-options {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 16px;
             margin-bottom: 20px;
         }
         
-        .transport-option {
+        .tren-option {
             padding: 16px;
             background: rgba(255, 255, 255, 0.05);
             border: 2px solid rgba(255, 255, 255, 0.1);
@@ -320,94 +328,66 @@
             text-align: center;
         }
         
-        .transport-option.selected {
-            background: rgba(194, 65, 12, 0.2);
+        .tren-option:hover {
+            background: rgba(255, 255, 255, 0.1);
             border-color: var(--primary);
         }
         
-        .transport-icon {
+        .tren-option.active {
+            background: rgba(194, 65, 12, 0.2);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(194, 65, 12, 0.3);
+        }
+        
+        .tren-icon {
             font-size: 2rem;
             margin-bottom: 8px;
             display: block;
         }
         
-        .transport-config {
+        .tren-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .tren-price {
+            font-size: 0.9rem;
+            color: var(--gold);
+            font-weight: 500;
+        }
+        
+        .tren-config {
             display: none;
             margin-top: 20px;
             padding: 20px;
             background: rgba(194, 65, 12, 0.1);
             border: 1px solid rgba(194, 65, 12, 0.3);
             border-radius: 14px;
+            animation: fadeInDown 0.4s ease-out;
         }
         
-        .transport-config.show {
+        .tren-config.show {
             display: block;
         }
         
-        .price-mode-options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-        
-        .price-mode {
-            padding: 16px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 14px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-        
-        .price-mode.selected {
-            background: rgba(194, 65, 12, 0.2);
-            border-color: var(--primary);
-        }
-        
-        .price-config {
-            display: none;
-            margin-top: 20px;
-            padding: 20px;
-            background: rgba(194, 65, 12, 0.1);
-            border: 1px solid rgba(194, 65, 12, 0.3);
-            border-radius: 14px;
-        }
-        
-        .price-config.show {
-            display: block;
-        }
-        
-        .individual-prices {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
+        .config-title {
+            font-size: 1rem;
+            font-weight: 600;
             margin-bottom: 16px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
-        .nights-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 16px;
-        }
-        
-        .nights-item {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 16px;
-        }
-        
-        .submit-section {
-            margin-top: 40px;
-            text-align: center;
-        }
-        
+        /* ==========================================
+           BOTÓN DE ENVÍO
+        ========================================== */
         .submit-button {
             background: linear-gradient(135deg, var(--primary), var(--gold));
             color: white;
             border: none;
-            padding: 20px 48px;
+            padding: 18px 48px;
             border-radius: 16px;
             font-size: 1.2rem;
             font-weight: 700;
@@ -416,10 +396,14 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             box-shadow: 0 8px 32px rgba(194, 65, 12, 0.3);
-            min-width: 250px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
         }
         
-        .submit-button:hover {
+        .submit-button:hover:not(:disabled) {
             transform: translateY(-3px);
             box-shadow: 0 12px 40px rgba(194, 65, 12, 0.4);
         }
@@ -428,8 +412,12 @@
             opacity: 0.5;
             cursor: not-allowed;
             transform: none;
+            box-shadow: none;
         }
         
+        /* ==========================================
+           LOADING Y MENSAJES
+        ========================================== */
         .loading-spinner {
             display: none;
             width: 24px;
@@ -438,10 +426,6 @@
             border-radius: 50%;
             border-top-color: white;
             animation: spin 1s ease-in-out infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
         }
         
         .message-container {
@@ -469,60 +453,24 @@
             color: var(--error);
         }
         
-        .step-divider {
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
-            margin: 24px 0;
-        }
-        
-        .total-calculation {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            border-radius: 12px;
-            padding: 16px;
-            margin-top: 16px;
-            text-align: center;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--success);
-        }
-        
-        .warning-message {
-            background: rgba(245, 158, 11, 0.1);
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 20px;
-            color: var(--warning);
-            font-weight: 500;
-        }
-        
         .info-message {
             background: rgba(59, 130, 246, 0.1);
             border: 1px solid rgba(59, 130, 246, 0.3);
             border-radius: 12px;
             padding: 16px;
-            margin-bottom: 20px;
-            color: #3b82f6;
-            font-weight: 500;
+            margin: 16px 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
         }
         
-        .btn-link {
-            background: none;
-            border: none;
-            color: var(--primary);
-            text-decoration: underline;
-            cursor: pointer;
-            font-weight: 600;
-            padding: 8px 0;
-            transition: color 0.3s ease;
+        .info-message p {
+            margin: 0;
+            line-height: 1.4;
         }
         
-        .btn-link:hover {
-            color: var(--primary-dark);
-        }
-        
+        /* ==========================================
+           RESPONSIVE DESIGN
+        ========================================== */
         @media (max-width: 768px) {
             .container { 
                 max-width: 100%; 
@@ -534,23 +482,16 @@
                 border-radius: 16px; 
             }
             
-            .category-tabs {
-                justify-content: center;
-            }
-            
-            .activities-grid {
+            .form-row {
                 grid-template-columns: 1fr;
             }
             
-            .transport-options,
-            .price-mode-options {
+            .tren-options {
                 grid-template-columns: 1fr;
             }
             
-            .submit-button {
-                width: 100%;
-                padding: 16px 24px;
-                font-size: 1.1rem;
+            .programs-grid {
+                grid-template-columns: 1fr;
             }
         }
         
@@ -775,1015 +716,650 @@
 <body>
     <div class="container">
         <div class="form-container">
+            <!-- ==========================================
+                 HEADER DEL FORMULARIO
+            ========================================== -->
             <div class="form-header">
                 <button class="back-button" onclick="volverAlDashboard()">←</button>
-                <h1 class="form-title">TOUR PERSONALIZADO</h1>
+                <h1 class="form-title">PROGRAMAS FIJOS</h1>
+                <p style="color: var(--text-secondary); font-size: 1rem;">Selecciona tu programa y completa tus datos para generar la cotización</p>
             </div>
             
-            <form id="tourPersonalizadoForm">
-                <!-- PASO 1: SELECCIONA ACTIVIDADES -->
+            <!-- ==========================================
+                 FORMULARIO PRINCIPAL
+            ========================================== -->
+            <form id="cotizacionForm">
+                <!-- PASO 1: SELECCIÓN DE PROGRAMAS -->
                 <div class="step-section">
                     <div class="step-title">
                         <span>📋</span>
-                        <span>PASO 1: SELECCIONA ACTIVIDADES</span>
+                        <span>PASO 1: Selecciona tu Programa Fijo</span>
                     </div>
                     
-                    <div class="search-box">
-                        <input type="text" class="search-input" placeholder="🔍 Buscar actividad..." 
-                               id="searchActivities" oninput="filtrarActividades()">
-                    </div>
-                    
-                    <div class="category-tabs">
-                        <div class="category-tab active" data-category="all" onclick="filtrarPorCategoria('all')">Todas</div>
-                        <div class="category-tab" data-category="traslados" onclick="filtrarPorCategoria('traslados')">Traslados</div>
-                        <div class="category-tab" data-category="principales" onclick="filtrarPorCategoria('principales')">Principales</div>
-                        <div class="category-tab" data-category="valle" onclick="filtrarPorCategoria('valle')">Valle</div>
-                        <div class="category-tab" data-category="montanas" onclick="filtrarPorCategoria('montanas')">Montañas</div>
-                        <div class="category-tab" data-category="lagunas" onclick="filtrarPorCategoria('lagunas')">Lagunas</div>
-                    </div>
-                    
-                    <div class="activities-grid">
-                        <!-- TRASLADOS -->
-                        <div class="activity-category" data-category="traslados">
-                            <div class="category-name">✈️ TRASLADOS</div>
-                            <div class="activity-item" data-activity="LLEGADA" onclick="toggleActivity(this)">
-                                <div class="activity-checkbox">☐</div>
-                                <span class="activity-emoji">🛬</span>
-                                <span class="activity-name">LLEGADA</span>
+                    <div class="programs-grid">
+                        <!-- Programa 3D2N -->
+                        <div class="program-item" data-program="3D2N" onclick="seleccionarPrograma('3D2N', this)">
+                            <div class="program-checkbox">☐</div>
+                            <div class="program-header">
+                                <span class="program-emoji">🌟</span>
+                                <div class="program-name">3D2N</div>
                             </div>
-                            <div class="activity-item" data-activity="LLEGADA+CITY" onclick="toggleActivity(this)">
-                                <div class="activity-checkbox">☐</div>
-                                <span class="activity-emoji">🛬🏛️</span>
-                                <span class="activity-name">LLEGADA+CITY</span>
-                            </div>
-                            <div class="activity-item" data-activity="IDA-CUZ" onclick="toggleActivity(this)">
-                                <div class="activity-checkbox">☐</div>
-                                <span class="activity-emoji">🚂</span>
-                                <span class="activity-name">IDA-CUZ</span>
-                            </div>
-                            <div class="activity-item" data-activity="OLLANTAY-IDA" onclick="toggleActivity(this)">
-                                <div class="activity-checkbox">☐</div>
-                                <span class="activity-emoji">🚂</span>
-                                <span class="activity-name">OLLANTAY-IDA</span>
-                            </div>
-                            <div class="activity-item" data-activity="SALIDA" onclick="toggleActivity(this)">
-                                <div class="activity-checkbox">☐</div>
-                                <span class="activity-emoji">✈️</span>
-                                <span class="activity-name">SALIDA</span>
-                            </div>
+                            <div class="program-description">• Cusco + Machu Picchu</div>
+                            <div class="program-description">• Programa básico 3 días</div>
+                            <div class="program-includes">• Incluye: City Tour + MP</div>
                         </div>
                         
-                        <!-- LAGUNAS -->
-                        <div class="activity-category" data-category="lagunas">
-                            <div class="category-name">💧 LAGUNAS</div>
-                            <div class="activity-item" data-activity="LAGUNA" onclick="toggleActivity(this)">
-                                <div class="activity-checkbox">☐</div>
-                                <span class="activity-emoji">🌊</span>
-                                <span class="activity-name">LAGUNA</span>
+                        <!-- Programa 4D3N -->
+                        <div class="program-item" data-program="4D3N" onclick="seleccionarPrograma('4D3N', this)">
+                            <div class="program-checkbox">☐</div>
+                            <div class="program-header">
+                                <span class="program-emoji">⭐</span>
+                                <div class="program-name">4D3N</div>
                             </div>
-                            <div class="activity-item" data-activity="7 LAGUNA" onclick="toggleActivity(this)">
-                                <div class="activity-checkbox">☐</div>
-                                <span class="activity-emoji">💧</span>
-                                <span class="activity-name">7 LAGUNA</span>
-                            </div>
-                            <div class="activity-item" data-activity="MORADA-CUATRI-LAGU" onclick="toggleActivity(this)">
-                                <div class="activity-checkbox">☐</div>
-                                <span class="activity-emoji">🏍️🌊</span>
-                                <span class="activity-name">MORADA-CUATRI-LAGU</span>
-                            </div>
+                            <div class="program-description">• Cusco + Valle Sagrado + Machu Picchu</div>
+                            <div class="program-description">• Programa clásico 4 días</div>
+                            <div class="program-includes">• Incluye: City Tour + Valle + MP</div>
                         </div>
                         
-                        <!-- VALLE -->
-                        <div class="activity-category" data-category="valle">
-                            <div class="category-name">🌄 VALLE</div>
-                            <div class="activity-item" data-activity="VALLE+MAPI" onclick="toggleActivity(this)">
-                                <div class="activity-checkbox">☐</div>
-                                <span class="activity-emoji">🌄</span>
-                                <span class="activity-name">VALLE+MAPI</span>
+                        <!-- Programa 4D4N -->
+                        <div class="program-item" data-program="4D4N" onclick="seleccionarPrograma('4D4N', this)">
+                            <div class="program-checkbox">☐</div>
+                            <div class="program-header">
+                                <span class="program-emoji">💎</span>
+                                <div class="program-name">4D4N</div>
                             </div>
-                            <div class="activity-item" data-activity="VALLE+PISAC" onclick="toggleActivity(this)">
-                                <div class="activity-checkbox">☐</div>
-                                <span class="activity-emoji">🌾</span>
-                                <span class="activity-name">VALLE+PISAC</span>
-                            </div>
-                            <div class="activity-item" data-activity="VALLE+OLLANTAY" onclick="toggleActivity(this)">
-                                <div class="activity-checkbox">☐</div>
-                                <span class="activity-emoji">🏛️</span>
-                                <span class="activity-name">VALLE+OLLANTAY</span>
-                            </div>
+                            <div class="program-description">• Cusco + Valle Sagrado + Machu Picchu</div>
+                            <div class="program-description">• Programa extendido 4 días/4 noches</div>
+                            <div class="program-includes">• Incluye: City Tour + Valle + MP + libre</div>
                         </div>
                         
-                        <!-- MONTAÑAS -->
-                        <div class="activity-category" data-category="montanas">
-                            <div class="category-name">🏔️ MONTAÑAS</div>
-                            <div class="activity-item" data-activity="MONTAÑA" onclick="toggleActivity(this)">
-                                <div class="activity-checkbox">☐</div>
-                                <span class="activity-emoji">🗻</span>
-                                <span class="activity-name">MONTAÑA</span>
+                        <!-- Programa 5D4N MONTAÑA -->
+                        <div class="program-item" data-program="5D4N MONTAÑA" onclick="seleccionarPrograma('5D4N MONTAÑA', this)">
+                            <div class="program-checkbox">☐</div>
+                            <div class="program-header">
+                                <span class="program-emoji">🏔️</span>
+                                <div class="program-name">5D4N MONTAÑA</div>
                             </div>
-                            <div class="activity-item" data-activity="SUR" onclick="toggleActivity(this)">
-                                <div class="activity-checkbox">☐</div>
-                                <span class="activity-emoji">⛰️</span>
-                                <span class="activity-name">SUR</span>
-                            </div>
-                            <div class="activity-item" data-activity="WAQRAPUKARA" onclick="toggleActivity(this)">
-                                <div class="activity-checkbox">☐</div>
-                                <span class="activity-emoji">🏔️</span>
-                                <span class="activity-name">WAQRAPUKARA</span>
-                            </div>
-                            <div class="activity-item" data-activity="MONTAÑA+CUATRI" onclick="toggleActivity(this)">
-                                <div class="activity-checkbox">☐</div>
-                                <span class="activity-emoji">🏍️</span>
-                                <span class="activity-name">MONTAÑA+CUATRI</span>
-                            </div>
-                            <div class="activity-item" data-activity="PUENTE" onclick="toggleActivity(this)">
-                                <div class="activity-checkbox">☐</div>
-                                <span class="activity-emoji">🌉</span>
-                                <span class="activity-name">PUENTE</span>
-                            </div>
-                            <div class="activity-item" data-activity="MORADA-BUS" onclick="toggleActivity(this)">
-                                <div class="activity-checkbox">☐</div>
-                                <span class="activity-emoji">🚌</span>
-                                <span class="activity-name">MORADA-BUS</span>
-                            </div>
-                            <div class="activity-item" data-activity="MORADA-CUATRI" onclick="toggleActivity(this)">
-                                <div class="activity-checkbox">☐</div>
-                                <span class="activity-emoji">🏍️</span>
-                                <span class="activity-name">MORADA-CUATRI</span>
-                            </div>
-                            <div class="activity-item" data-activity="PALCOYO" onclick="toggleActivity(this)">
-                                <div class="activity-checkbox">☐</div>
-                                <span class="activity-emoji">🎨</span>
-                                <span class="activity-name">PALCOYO</span>
-                            </div>
+                            <div class="program-description">• Cusco + Machu Picchu + Montañas</div>
+                            <div class="program-description">• Programa aventura 5 días</div>
+                            <div class="program-includes">• Incluye: City + MP + Vinicunca/Humantay</div>
                         </div>
                         
-                        <!-- PRINCIPALES -->
-                        <div class="activity-category" data-category="principales">
-                            <div class="category-name">⭐ PRINCIPALES</div>
-                            <div class="activity-item" data-activity="CITY" onclick="toggleActivity(this)">
-                                <div class="activity-checkbox">☐</div>
-                                <span class="activity-emoji">🏛️</span>
-                                <span class="activity-name">CITY</span>
+                        <!-- Programa 5D5N -->
+                        <div class="program-item" data-program="5D5N" onclick="seleccionarPrograma('5D5N', this)">
+                            <div class="program-checkbox">☐</div>
+                            <div class="program-header">
+                                <span class="program-emoji">🎯</span>
+                                <div class="program-name">5D5N</div>
                             </div>
-                            <div class="activity-item" data-activity="MAPI" onclick="toggleActivity(this)">
-                                <div class="activity-checkbox">☐</div>
-                                <span class="activity-emoji">🏔️</span>
-                                <span class="activity-name">MAPI</span>
+                            <div class="program-description">• Cusco + Valle + Machu Picchu + Extra</div>
+                            <div class="program-description">• Programa completo 5 días</div>
+                            <div class="program-includes">• Incluye: City + Valle + MP + actividad</div>
+                        </div>
+                        
+                        <!-- Programa 6D5N HUMANTAY -->
+                        <div class="program-item" data-program="6D5N HUMANTAY" onclick="seleccionarPrograma('6D5N HUMANTAY', this)">
+                            <div class="program-checkbox">☐</div>
+                            <div class="program-header">
+                                <span class="program-emoji">💧</span>
+                                <div class="program-name">6D5N HUMANTAY</div>
                             </div>
-                            <div class="activity-item" data-activity="MAPI 3 AM" onclick="toggleActivity(this)">
-                                <div class="activity-checkbox">☐</div>
-                                <span class="activity-emoji">🌅</span>
-                                <span class="activity-name">MAPI 3 AM</span>
+                            <div class="program-description">• Cusco + Machu Picchu + Laguna Humantay</div>
+                            <div class="program-description">• Programa lagunas 6 días</div>
+                            <div class="program-includes">• Incluye: City + MP + Humantay + Valle</div>
+                        </div>
+                        
+                        <!-- Programa 6D5N MÍSTICO -->
+                        <div class="program-item" data-program="6D5N MÍSTICO" onclick="seleccionarPrograma('6D5N MÍSTICO', this)">
+                            <div class="program-checkbox">☐</div>
+                            <div class="program-header">
+                                <span class="program-emoji">🔮</span>
+                                <div class="program-name">6D5N MÍSTICO</div>
                             </div>
-                            <div class="activity-item" data-activity="FULL MAPI" onclick="toggleActivity(this)">
-                                <div class="activity-checkbox">☐</div>
-                                <span class="activity-emoji">🌅</span>
-                                <span class="activity-name">FULL MAPI</span>
+                            <div class="program-description">• Cusco + Machu Picchu + Experiencia mística</div>
+                            <div class="program-description">• Programa espiritual 6 días</div>
+                            <div class="program-includes">• Incluye: City + MP + ceremonias + Valle</div>
+                        </div>
+                        
+                        <!-- Programa 7D6N -->
+                        <div class="program-item" data-program="7D6N" onclick="seleccionarPrograma('7D6N', this)">
+                            <div class="program-checkbox">☐</div>
+                            <div class="program-header">
+                                <span class="program-emoji">🌈</span>
+                                <div class="program-name">7D6N</div>
                             </div>
-                            <div class="activity-item" data-activity="MÍSTICO" onclick="toggleActivity(this)">
-                                <div class="activity-checkbox">☐</div>
-                                <span class="activity-emoji">🌟</span>
-                                <span class="activity-name">MÍSTICO</span>
+                            <div class="program-description">• Cusco + Machu Picchu + Tours extendidos</div>
+                            <div class="program-description">• Programa completo 7 días</div>
+                            <div class="program-includes">• Incluye: City + Valle + MP + aventuras</div>
+                        </div>
+                        
+                        <!-- Programa 8D7N -->
+                        <div class="program-item" data-program="8D7N" onclick="seleccionarPrograma('8D7N', this)">
+                            <div class="program-checkbox">☐</div>
+                            <div class="program-header">
+                                <span class="program-emoji">🚀</span>
+                                <div class="program-name">8D7N</div>
                             </div>
-                            <div class="activity-item" data-activity="FOTOGRAFIA" onclick="toggleActivity(this)">
-                                <div class="activity-checkbox">☐</div>
-                                <span class="activity-emoji">📸</span>
-                                <span class="activity-name">FOTOGRAFIA</span>
+                            <div class="program-description">• Cusco + Machu Picchu + Tours premium</div>
+                            <div class="program-description">• Programa full 8 días</div>
+                            <div class="program-includes">• Incluye: Todo + actividades premium</div>
+                        </div>
+                        
+                        <!-- Programa 10D9N -->
+                        <div class="program-item" data-program="10D9N" onclick="seleccionarPrograma('10D9N', this)">
+                            <div class="program-checkbox">☐</div>
+                            <div class="program-header">
+                                <span class="program-emoji">🏕️</span>
+                                <div class="program-name">10D9N</div>
                             </div>
-                            <div class="activity-item" data-activity="LIBRE-SIN GUIA" onclick="toggleActivity(this)">
-                                <div class="activity-checkbox">☐</div>
-                                <span class="activity-emoji">🆓</span>
-                                <span class="activity-name">LIBRE-SIN GUIA</span>
-                            </div>
+                            <div class="program-description">• Cusco + Machu Picchu + Aventura completa</div>
+                            <div class="program-description">• Programa mega 10 días</div>
+                            <div class="program-includes">• Incluye: Todo + trekking + camping</div>
                         </div>
                     </div>
                     
-                    <div id="activitySummary" class="selection-summary" style="display: none;">
-                        <div>✅ <span id="activityCount">0</span> actividades seleccionadas</div>
-                        <div id="selectedActivities" style="margin-top: 8px; font-size: 0.9rem; color: var(--text-muted);"></div>
+                    <!-- Resumen de selección -->
+                    <div id="selectionSummary" class="selection-summary">
+                        <div style="color: var(--success); font-weight: 600;">
+                            ✅ Programa seleccionado: <span id="selectedProgramName" style="color: var(--gold);"></span>
+                        </div>
                     </div>
+                    
+                    <!-- Campo hidden para el programa seleccionado -->
+                    <input type="hidden" id="programa_seleccionado" name="programa_seleccionado" required>
                 </div>
                 
-                <div class="step-divider"></div>
-                
-                <!-- PASO 2: CONFIGURACIÓN DEL ITINERARIO -->
-                <div class="step-section">
-                    <div class="step-title">
-                        <span>📅</span>
-                        <span>PASO 2: CONFIGURACIÓN DEL ITINERARIO</span>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="actividadInicial">Actividad inicial (primera del itinerario) *</label>
-                        <select id="actividadInicial" name="actividad_inicial" class="form-select" onchange="generarItinerario()">
-                            <option value="">Selecciona actividad</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="fechaInicio">Fecha de inicio del tour *</label>
-                        <input type="date" id="fechaInicio" name="fecha_inicio" class="form-input" 
-                               onchange="generarItinerario()" required>
-                    </div>
-                    
-                    <div id="itinerarioGenerado" class="itinerary-preview" style="display: none;">
-                        <div style="font-weight: 600; margin-bottom: 12px; color: var(--gold);">
-                            📅 ITINERARIO GENERADO AUTOMÁTICAMENTE
-                        </div>
-                        <div id="itinerarioContent"></div>
-                    </div>
-                </div>
-                
-                <div class="step-divider"></div>
-                
-                <!-- PASO 3: TRANSPORTE -->
-                <div class="step-section">
-                    <div class="step-title">
-                        <span>🚂</span>
-                        <span>PASO 3: TRANSPORTE (Detección automática)</span>
-                    </div>
-                    
-                    <div id="transporteDetectado" class="warning-message" style="display: none;">
-                        ⚠️ DETECTADO: Tu tour incluye actividades hacia Machu Picchu
-                    </div>
-                    
-                    <div id="transporteNoDetectado" class="info-message" style="display: none;">
-                        📍 Tu tour actual no incluye visitas a Machu Picchu. Si agregas actividades como MAPI, VALLE+MAPI, etc., aparecerán las opciones de transporte.
-                        <br><br>
-                        <button type="button" onclick="mostrarTransporteManual()" class="btn-link">
-                            🚂 ¿Quieres configurar transporte manualmente?
-                        </button>
-                    </div>
-                    
-                    <div id="transporteSection" style="display: none;">
-                        <div class="form-group">
-                            <label class="form-label">¿Qué tipo de tren prefieres? *</label>
-                            <div class="transport-options">
-                                <div class="transport-option" data-transport="local" onclick="seleccionarTransporte('local')">
-                                    <span class="transport-icon">🚂</span>
-                                    <div>TREN LOCAL</div>
-                                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">
-                                        (Incluye automáticamente)
-                                    </div>
-                                </div>
-                                <div class="transport-option" data-transport="turistico" onclick="seleccionarTransporte('turistico')">
-                                    <span class="transport-icon">🚂</span>
-                                    <div>TREN TURÍSTICO</div>
-                                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">
-                                        (Requiere configuración)
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <input type="hidden" id="tipoTransporte" name="tipo_transporte">
-                        
-                        <div id="transporteConfig" class="transport-config">
-                            <div style="font-weight: 600; margin-bottom: 16px; color: var(--primary);">
-                                ⚙️ CONFIGURACIÓN TREN TURÍSTICO
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label class="form-label" for="personasTren">Personas en tren *</label>
-                                    <input type="text" id="personasTren" name="personas_tren" class="form-input" 
-                                           placeholder="Ej: 2 adultos, 1 niño">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label" for="horaTren">Hora del tren *</label>
-                                    <input type="time" id="horaTren" name="hora_tren" class="form-input" required>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label" for="fechaTren">Fecha del viaje en tren *</label>
-                                <input type="date" id="fechaTren" name="fecha_tren" class="form-input">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label" for="precioTren">Precio tren por pasajero (USD) *</label>
-                                <input type="number" id="precioTren" name="precio_tren" class="form-input" 
-                                       placeholder="Ingresa el precio en USD" step="0.01" min="0">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label" for="precioTotalTren">Precio total en dólares (USD) *</label>
-                                <input type="text" id="precioTotalTren" name="precio_total_tren" class="form-input" 
-                                       placeholder="Ej: $500.00 USD">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="step-divider"></div>
-                
-                <!-- PASO 4: ALOJAMIENTO -->
-                <div class="step-section">
-                    <div class="step-title">
-                        <span>🏨</span>
-                        <span>PASO 4: ALOJAMIENTO</span>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="tipoHabitacion">Tipo de habitación *</label>
-                        <input type="text" id="tipoHabitacion" name="tipo_habitacion" class="form-input" 
-                               placeholder="Ej: Matrimonial, Doble, Triple" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="categoriaHotel">Categoría Hotel *</label>
-                        <input type="text" id="categoriaHotel" name="categoria_hotel" class="form-input" 
-                               placeholder="Ej: 3 estrellas, 4 estrellas, Boutique" required>
-                    </div>
-                    
-                    <div style="font-weight: 600; margin-bottom: 16px; color: var(--gold);">
-                        📋 CONFIGURACIÓN DE NOCHES POR DÍA
-                    </div>
-                    
-                    <div id="nochesConfig" class="nights-grid"></div>
-                    
-                    <div id="totalNoches" class="total-calculation" style="display: none;">
-                        📊 Total de noches: <span id="totalNochesCount">0</span>
-                    </div>
-                </div>
-                
-                <div class="step-divider"></div>
-                
-                <!-- PASO 5: MODALIDAD DE PRECIOS -->
-                <div class="step-section">
-                    <div class="step-title">
-                        <span>💰</span>
-                        <span>PASO 5: MODALIDAD DE PRECIOS</span>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">¿Cómo deseas calcular los precios? *</label>
-                        <div class="price-mode-options">
-                            <div class="price-mode" data-mode="paquete" onclick="seleccionarModalidadPrecio('paquete')">
-                                <div>💎 PAQUETE PRIVADO</div>
-                                <div style="font-size: 0.9rem; margin-top: 4px; color: var(--text-muted);">
-                                    (Un precio total)
-                                </div>
-                            </div>
-                            <div class="price-mode" data-mode="individual" onclick="seleccionarModalidadPrecio('individual')">
-                                <div>🧮 PRECIOS INDIVIDUALES</div>
-                                <div style="font-size: 0.9rem; margin-top: 4px; color: var(--text-muted);">
-                                    (Precio por actividad)
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <input type="hidden" id="modalidadPrecio" name="modalidad_precio">
-                    
-                    <div id="precioPaqueteConfig" class="price-config">
-                        <div style="font-weight: 600; margin-bottom: 16px; color: var(--primary);">
-                            💎 PRECIO PAQUETE PRIVADO
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="precioTotal">Precio total del tour (S/.) *</label>
-                            <input type="number" id="precioTotal" name="precio_total" class="form-input" 
-                                   placeholder="Ingresa el precio total en soles" step="0.01" min="0">
-                        </div>
-                    </div>
-                    
-                    <div id="precioIndividualConfig" class="price-config">
-                        <div style="font-weight: 600; margin-bottom: 16px; color: var(--primary);">
-                            🧮 PRECIOS INDIVIDUALES
-                        </div>
-                        <div id="preciosIndividuales" class="individual-prices"></div>
-                        <div id="subtotalIndividual" class="total-calculation" style="display: none;">
-                            💰 SUBTOTAL: S/. <span id="subtotalAmount">0.00</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="step-divider"></div>
-                
-                <!-- PASO 6: DATOS DEL CLIENTE -->
+                <!-- PASO 2: DATOS DEL CLIENTE -->
                 <div class="step-section">
                     <div class="step-title">
                         <span>👤</span>
-                        <span>PASO 6: DATOS DEL CLIENTE</span>
+                        <span>PASO 2: Tus Datos</span>
                     </div>
                     
                     <div class="form-group">
-                        <label class="form-label" for="nombreCliente">Nombre completo del cliente *</label>
-                        <input type="text" id="nombreCliente" name="nombre_cliente" class="form-input" 
-                               placeholder="Nombre completo del cliente" required>
+                        <label class="form-label" for="nombre_cliente">Nombre Completo:</label>
+                        <input type="text" id="nombre_cliente" name="nombre_cliente" class="form-input" 
+                               placeholder="Tu nombre completo" required>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label class="form-label" for="telefono">Teléfono *</label>
+                            <label class="form-label" for="telefono">Teléfono/WhatsApp:</label>
                             <input type="tel" id="telefono" name="telefono" class="form-input" 
                                    placeholder="+51 999 999 999" required>
                         </div>
+                        
                         <div class="form-group">
-                            <label class="form-label" for="numeroPersonas">Número de personas *</label>
-                            <input type="text" id="numeroPersonas" name="numero_personas" class="form-input" 
+                            <label class="form-label" for="email">Email (opcional):</label>
+                            <input type="email" id="email" name="email" class="form-input" 
+                                   placeholder="tu@email.com">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PASO 3: DETALLES DEL VIAJE -->
+                <div class="step-section">
+                    <div class="step-title">
+                        <span>🗓️</span>
+                        <span>PASO 3: Detalles del Viaje</span>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="numero_personas">Número de Personas:</label>
+                            <input type="text" id="numero_personas" name="numero_personas" class="form-input" 
                                    placeholder="Ej: 2 adultos, 1 niño" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="fecha_viaje">Fecha de Viaje:</label>
+                            <input type="date" id="fecha_viaje" name="fecha_viaje" class="form-input" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="tipo_habitacion">Tipo de Habitación:</label>
+                            <input type="text" id="tipo_habitacion" name="tipo_habitacion" class="form-input" 
+                                   placeholder="Ej: Doble, Matrimonial, Simple, Triple" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="categoria_hotel">Categoría Hotel:</label>
+                            <input type="text" id="categoria_hotel" name="categoria_hotel" class="form-input" 
+                                   placeholder="Ej: 3 estrellas, 4 estrellas, boutique" required>
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label class="form-label" for="observaciones">Observaciones adicionales (opcional)</label>
-                        <textarea id="observaciones" name="observaciones" class="form-input" rows="3" 
-                                  placeholder="Comentarios o requerimientos especiales"></textarea>
+                        <label class="form-label" for="adelanto_pagado">Adelanto Pagado (S/.) - Opcional:</label>
+                        <input type="number" id="adelanto_pagado" name="adelanto_pagado" class="form-input" 
+                               placeholder="Escribe 0 si no dio adelanto" step="0.01" min="0" value="0">
+                        <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">
+                            💡 Ingresa el monto del adelanto si el cliente ya realizó un pago inicial. Si no hay adelanto, déjalo en 0.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PASO 4: CONFIGURACIÓN DE TREN -->
+                <div class="step-section">
+                    <div class="step-title">
+                        <span>🚂</span>
+                        <span>PASO 4: Tren a Machu Picchu</span>
+                    </div>
+                    
+                    <div class="tren-options">
+                        <div class="tren-option" data-tren="expedition" onclick="seleccionarTren('expedition')">
+                            <span class="tren-icon">🚂</span>
+                            <div class="tren-title">Expedition</div>
+                            <div class="tren-price">Económico</div>
+                        </div>
+                        
+                        <div class="tren-option" data-tren="vistadome" onclick="seleccionarTren('vistadome')">
+                            <span class="tren-icon">🚅</span>
+                            <div class="tren-title">Vistadome</div>
+                            <div class="tren-price">Turístico</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Campo hidden para el tipo de tren seleccionado -->
+                    <input type="hidden" id="tipo_tren" name="tipo_tren" required>
+                    
+                    <!-- Mensaje informativo para Expedition -->
+                    <div id="expeditionInfo" class="info-message" style="display: none;">
+                        <p>✅ <strong>Tren Local (Expedition) seleccionado:</strong> Este tren se incluye automáticamente en tu programa sin costo adicional. No requiere configuración adicional.</p>
+                    </div>
+                    
+                    <!-- Configuración adicional para Vistadome -->
+                    <div id="trenTuristicoConfig" class="tren-config">
+                        <div class="config-title" style="font-weight: 700; color: var(--gold); margin-bottom: 16px;">
+                            <span>⚙️</span>
+                            <span>CONFIGURACIÓN TREN TURÍSTICO VISTADOME</span>
+                        </div>
+                        
+                        <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; margin-bottom: 16px; color: var(--text-secondary); font-size: 0.9rem;">
+                            ℹ️ Complete los siguientes datos para el tren turístico Vistadome
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="tren_horario">Hora del tren:</label>
+                            <input type="time" id="tren_horario" name="tren_horario" class="form-input">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="personas_tren">PERSONAS EN TREN:</label>
+                            <input type="text" id="personas_tren" name="personas_tren" class="form-input" 
+                                   placeholder="Ej: 2 adultos, 1 niño">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="precio_usd">PRECIO TOTAL EN DÓLARES (USD):</label>
+                            <input type="text" id="precio_usd" name="precio_usd" class="form-input" 
+                                   placeholder="Ej: 150.00 (solo número)">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PASO 5: OBSERVACIONES -->
+                <div class="step-section">
+                    <div class="step-title">
+                        <span>💬</span>
+                        <span>PASO 5: Observaciones (Opcional)</span>
                     </div>
                     
                     <div class="form-group">
-                        <label class="form-label" for="adelantoPagado">Adelanto pagado en soles (S/.) - Opcional</label>
-                        <input type="number" id="adelantoPagado" name="adelanto_pagado" class="form-input" 
-                               placeholder="Escribe 0 si no dio adelanto" step="0.01" min="0" value="0">
+                        <label class="form-label" for="observaciones">Comentarios adicionales:</label>
+                        <textarea id="observaciones" name="observaciones" class="form-input" 
+                                  rows="4" placeholder="Algún requerimiento especial, preferencias, etc."></textarea>
                     </div>
                 </div>
                 
-                <!-- Botón de Envío -->
-                <div class="submit-section">
+                <!-- BOTÓN DE ENVÍO -->
+                <div class="step-section">
                     <button type="submit" id="submitButton" class="submit-button">
-                        <span id="submitText">GENERAR COTIZACIÓN</span>
+                        <span id="submitText">🎯 GENERAR COTIZACIÓN</span>
                         <div id="loadingSpinner" class="loading-spinner"></div>
                     </button>
+                    
+                    <!-- Container para mensajes -->
+                    <div id="messageContainer" class="message-container"></div>
                 </div>
-                
-                <div id="messageContainer" class="message-container"></div>
             </form>
         </div>
     </div>
     
+    <!-- ==========================================
+         JAVASCRIPT - FUNCIONALIDAD COMPLETA
+    ========================================== -->
     <script>
         // ==========================================
         // VARIABLES GLOBALES
         // ==========================================
-        let actividadesSeleccionadas = [];
-        let itinerario = [];
-        let tipoTransporteSeleccionado = null;
-        let modalidadPrecioSeleccionada = null;
-        let categoriaActual = 'all';
         
-        // ==========================================
-        // CONFIGURACIÓN DEL FORMULARIO
-        // ==========================================
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 Inicializando Tour Personalizado...');
-            
-            // Configurar evento de envío del formulario
-            const form = document.getElementById('tourPersonalizadoForm');
-            if (form) {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    console.log('📤 Formulario enviado');
-                    enviarFormularioPersonalizado();
-                });
-                console.log('✅ Evento submit configurado');
-            }
-        });
+        /**
+         * Variable para almacenar el programa seleccionado actualmente
+         * @type {string|null}
+         */
+        let selectedProgram = null;
         
-        const actividades = {
-            'LLEGADA': { emoji: '🛬', categoria: 'traslados', incluye_machu_picchu: false },
-            'LLEGADA+CITY': { emoji: '🛬🏛️', categoria: 'traslados', incluye_machu_picchu: false },
-            'IDA-CUZ': { emoji: '🚂', categoria: 'traslados', incluye_machu_picchu: false },
-            'OLLANTAY-IDA': { emoji: '🚂', categoria: 'traslados', incluye_machu_picchu: false },
-            'SALIDA': { emoji: '✈️', categoria: 'traslados', incluye_machu_picchu: false },
-            'CITY': { emoji: '🏛️', categoria: 'principales', incluye_machu_picchu: false },
-            'MÍSTICO': { emoji: '🌟', categoria: 'principales', incluye_machu_picchu: false },
-            'MAPI': { emoji: '🏔️', categoria: 'principales', incluye_machu_picchu: true },
-            'MAPI 3 AM': { emoji: '🌅', categoria: 'principales', incluye_machu_picchu: true },
-            'FULL MAPI': { emoji: '🌅', categoria: 'principales', incluye_machu_picchu: true },
-            'FOTOGRAFIA': { emoji: '📸', categoria: 'principales', incluye_machu_picchu: false },
-            'LIBRE-SIN GUIA': { emoji: '🆓', categoria: 'principales', incluye_machu_picchu: false },
-            'VALLE+MAPI': { emoji: '🌄', categoria: 'valle', incluye_machu_picchu: true },
-            'VALLE+PISAC': { emoji: '🌾', categoria: 'valle', incluye_machu_picchu: false },
-            'VALLE+OLLANTAY': { emoji: '🏛️', categoria: 'valle', incluye_machu_picchu: false },
-            'MONTAÑA': { emoji: '🗻', categoria: 'montanas', incluye_machu_picchu: false },
-            'SUR': { emoji: '⛰️', categoria: 'montanas', incluye_machu_picchu: false },
-            'WAQRAPUKARA': { emoji: '🏔️', categoria: 'montanas', incluye_machu_picchu: false },
-            'MONTAÑA+CUATRI': { emoji: '🏍️', categoria: 'montanas', incluye_machu_picchu: false },
-            'PUENTE': { emoji: '🌉', categoria: 'montanas', incluye_machu_picchu: false },
-            'MORADA-BUS': { emoji: '🚌', categoria: 'montanas', incluye_machu_picchu: false },
-            'MORADA-CUATRI': { emoji: '🏍️', categoria: 'montanas', incluye_machu_picchu: false },
-            'PALCOYO': { emoji: '🎨', categoria: 'montanas', incluye_machu_picchu: false },
-            'LAGUNA': { emoji: '🌊', categoria: 'lagunas', incluye_machu_picchu: false },
-            '7 LAGUNA': { emoji: '💧', categoria: 'lagunas', incluye_machu_picchu: false },
-            'MORADA-CUATRI-LAGU': { emoji: '🏍️🌊', categoria: 'lagunas', incluye_machu_picchu: false }
+        /**
+         * Variable para almacenar el tipo de tren seleccionado
+         * @type {string|null}
+         */
+        let tipoTrenSeleccionado = null;
+        
+        /**
+         * Datos de los programas disponibles con emojis y nombres
+         * @type {Object}
+         */
+        const programsData = {
+            '3D2N': { emoji: '🌟', name: '3D2N' },
+            '4D3N': { emoji: '⭐', name: '4D3N' },
+            '4D4N': { emoji: '💎', name: '4D4N' },
+            '5D4N MONTAÑA': { emoji: '🏔️', name: '5D4N MONTAÑA' },
+            '5D5N': { emoji: '🎯', name: '5D5N' },
+            '6D5N HUMANTAY': { emoji: '💧', name: '6D5N HUMANTAY' },
+            '6D5N MÍSTICO': { emoji: '🔮', name: '6D5N MÍSTICO' },
+            '7D6N': { emoji: '🌈', name: '7D6N' },
+            '8D7N': { emoji: '🚀', name: '8D7N' },
+            '10D9N': { emoji: '🏕️', name: '10D9N' }
         };
         
         // ==========================================
-        // INICIALIZACIÓN
+        // INICIALIZACIÓN DE LA APLICACIÓN
         // ==========================================
+        
+        /**
+         * Función que se ejecuta cuando el DOM está completamente cargado
+         * Configura todos los event listeners y verifica la autenticación
+         */
         document.addEventListener('DOMContentLoaded', function() {
-            // Verificar autenticación
+            console.log('Inicializando aplicación Programas Fijos...');
+            
+            // Verificar autenticación del usuario
+            verificarAutenticacion();
+            
+            // Configurar eventos de selección de programas
+            configurarEventosProgramas();
+            
+            // Configurar eventos de selección de tren
+            configurarEventosTren();
+            
+            // Configurar evento de envío del formulario
+            configurarFormulario();
+            
+            console.log('Aplicación inicializada correctamente');
+        });
+        
+        /**
+         * Verifica si el usuario está autenticado
+         * Redirige al login si no hay token de autenticación
+         */
+        function verificarAutenticacion() {
             const session = sessionStorage.getItem('ores_session');
             if (!session) {
+                console.log('Usuario no autenticado, redirigiendo al login...');
                 window.location.href = '/login';
                 return;
             }
-            
-            // Configurar formulario
-            document.getElementById('tourPersonalizadoForm').addEventListener('submit', enviarCotizacion);
-            
-            // Ejecutar detección de transporte inicial
-            detectarTransporte();
-        });
-        
-        // ==========================================
-        // PASO 1: SELECCIÓN DE ACTIVIDADES
-        // ==========================================
-        
-        function toggleActivity(element) {
-            const actividad = element.dataset.activity;
-            const checkbox = element.querySelector('.activity-checkbox');
-            
-            if (element.classList.contains('selected')) {
-                // Deseleccionar
-                element.classList.remove('selected');
-                checkbox.textContent = '☐';
-                actividadesSeleccionadas = actividadesSeleccionadas.filter(a => a !== actividad);
-            } else {
-                // Seleccionar
-                element.classList.add('selected');
-                checkbox.textContent = '☑️';
-                actividadesSeleccionadas.push(actividad);
-            }
-            
-            actualizarResumenActividades();
-            actualizarActividadInicial();
-            detectarTransporte();
-            actualizarPreciosIndividuales();
+            console.log('Usuario autenticado correctamente');
         }
-        
-        function actualizarResumenActividades() {
-            const summary = document.getElementById('activitySummary');
-            const count = document.getElementById('activityCount');
-            const activities = document.getElementById('selectedActivities');
-            
-            if (actividadesSeleccionadas.length > 0) {
-                summary.style.display = 'block';
-                count.textContent = actividadesSeleccionadas.length;
-                activities.textContent = actividadesSeleccionadas.join(', ');
-            } else {
-                summary.style.display = 'none';
-            }
-        }
-        
-        function filtrarPorCategoria(categoria) {
-            categoriaActual = categoria;
-            
-            // Actualizar tabs
-            document.querySelectorAll('.category-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelector(`[data-category="${categoria}"]`).classList.add('active');
-            
-            // Mostrar/ocultar categorías
-            document.querySelectorAll('.activity-category').forEach(cat => {
-                if (categoria === 'all' || cat.dataset.category === categoria) {
-                    cat.style.display = 'block';
-                } else {
-                    cat.style.display = 'none';
-                }
-            });
-        }
-        
-        function filtrarActividades() {
-            const searchTerm = document.getElementById('searchActivities').value.toLowerCase();
-            
-            document.querySelectorAll('.activity-item').forEach(item => {
-                const activityName = item.querySelector('.activity-name').textContent.toLowerCase();
-                const category = item.closest('.activity-category');
-                
-                if (activityName.includes(searchTerm)) {
-                    item.style.display = 'flex';
-                    
-                    // Mostrar la categoría si tiene resultados
-                    if (categoriaActual === 'all' || category.dataset.category === categoriaActual) {
-                        category.style.display = 'block';
-                    }
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-            
-            // Ocultar categorías vacías
-            document.querySelectorAll('.activity-category').forEach(cat => {
-                const visibleItems = cat.querySelectorAll('.activity-item[style*="flex"]');
-                if (visibleItems.length === 0 && searchTerm) {
-                    cat.style.display = 'none';
-                }
-            });
-        }
-        
-        // ==========================================
-        // PASO 2: CONFIGURACIÓN DEL ITINERARIO
-        // ==========================================
-        
-        function actualizarActividadInicial() {
-            const select = document.getElementById('actividadInicial');
-            
-            // Limpiar opciones
-            select.innerHTML = '<option value="">Selecciona actividad</option>';
-            
-            // Agregar actividades seleccionadas
-            actividadesSeleccionadas.forEach(actividad => {
-                const option = document.createElement('option');
-                option.value = actividad;
-                option.textContent = actividad;
-                select.appendChild(option);
-            });
-        }
-        
-        function generarItinerario() {
-            const actividadInicial = document.getElementById('actividadInicial').value;
-            const fechaInicio = document.getElementById('fechaInicio').value;
-            
-            if (!actividadInicial || !fechaInicio || actividadesSeleccionadas.length === 0) {
-                document.getElementById('itinerarioGenerado').style.display = 'none';
-                return;
-            }
-            
-            itinerario = [];
-            
-            // Ordenar actividades comenzando con la inicial
-            const actividadesOrdenadas = [actividadInicial, ...actividadesSeleccionadas.filter(a => a !== actividadInicial)];
-            
-            // Generar itinerario
-            const fechaBase = new Date(fechaInicio);
-            actividadesOrdenadas.forEach((actividad, index) => {
-                const fecha = new Date(fechaBase);
-                fecha.setDate(fecha.getDate() + index);
-                
-                itinerario.push({
-                    dia: index + 1,
-                    fecha: fecha.toLocaleDateString('es-ES'),
-                    actividad: actividad
-                });
-            });
-            
-            // Mostrar itinerario
-            const content = document.getElementById('itinerarioContent');
-            content.innerHTML = itinerario.map(item => 
-                `<div class="itinerary-item">• DÍA ${item.dia} (${item.fecha}): ${item.actividad}</div>`
-            ).join('');
-            
-            document.getElementById('itinerarioGenerado').style.display = 'block';
-            
-            // Actualizar configuración de noches
-            actualizarConfiguracionNoches();
-        }
-        
-        // ==========================================
-        // PASO 3: TRANSPORTE
-        // ==========================================
-        
-        function detectarTransporte() {
-            console.log('Ejecutando detectarTransporte()');
-            console.log('Actividades seleccionadas:', actividadesSeleccionadas);
-            
-            const incluyeMachuPicchu = actividadesSeleccionadas.some(actividad => {
-                const incluye = actividades[actividad] && actividades[actividad].incluye_machu_picchu;
-                console.log(`Actividad ${actividad}: incluye MP = ${incluye}`);
-                return incluye;
-            });
-            
-            console.log('Incluye Machu Picchu:', incluyeMachuPicchu);
-            
-            const detectado = document.getElementById('transporteDetectado');
-            const noDetectado = document.getElementById('transporteNoDetectado');
-            const section = document.getElementById('transporteSection');
-            
-            if (incluyeMachuPicchu) {
-                // Mostrar selección de transporte
-                detectado.style.display = 'block';
-                noDetectado.style.display = 'none';
-                section.style.display = 'block';
-                console.log('Mostrando opciones de transporte');
-            } else {
-                // Mostrar mensaje informativo
-                detectado.style.display = 'none';
-                noDetectado.style.display = 'block';
-                section.style.display = 'none';
-                
-                // Limpiar selección de transporte
-                tipoTransporteSeleccionado = null;
-                document.getElementById('tipoTransporte').value = '';
-                document.querySelectorAll('.transport-option').forEach(opt => opt.classList.remove('selected'));
-                document.getElementById('transporteConfig').classList.remove('show');
-                console.log('Ocultando opciones de transporte');
-            }
-        }
-        
-        function mostrarTransporteManual() {
-            const detectado = document.getElementById('transporteDetectado');
-            const noDetectado = document.getElementById('transporteNoDetectado');
-            const section = document.getElementById('transporteSection');
-            
-            // Forzar mostrar sección de transporte
-            detectado.style.display = 'none';
-            noDetectado.style.display = 'none';
-            section.style.display = 'block';
-            
-            // Mostrar mensaje de configuración manual
-            const manualMessage = document.createElement('div');
-            manualMessage.className = 'warning-message';
-            manualMessage.innerHTML = '⚙️ CONFIGURACIÓN MANUAL: Puedes seleccionar el tipo de transporte según tus necesidades.';
-            
-            const stepSection = section.parentElement;
-            stepSection.insertBefore(manualMessage, section);
-            
-            console.log('Mostrando transporte manual');
-        }
-        
-        function seleccionarTransporte(tipo) {
-            // Remover selección previa
-            document.querySelectorAll('.transport-option').forEach(opt => opt.classList.remove('selected'));
-            
-            // Seleccionar nuevo
-            document.querySelector(`[data-transport="${tipo}"]`).classList.add('selected');
-            tipoTransporteSeleccionado = tipo;
-            document.getElementById('tipoTransporte').value = tipo;
-            
-            // Mostrar/ocultar configuración
-            const config = document.getElementById('transporteConfig');
-            if (tipo === 'turistico') {
-                config.classList.add('show');
-                // Mostrar mensaje de que se requiere configuración
-                console.log('Tren turístico seleccionado - Se requiere configuración');
-            } else if (tipo === 'local') {
-                config.classList.remove('show');
-                // Incluir automáticamente sin pedir datos
-                console.log('Tren local seleccionado - Incluido automáticamente');
-                // Limpiar campos del tren turístico
-                document.getElementById('personasTren').value = '';
-                document.getElementById('horaTren').value = '';
-                document.getElementById('fechaTren').value = '';
-                document.getElementById('precioTren').value = '';
-                document.getElementById('precioTotalTren').value = '';
-            }
-        }
-        
-        // ==========================================
-        // PASO 4: ALOJAMIENTO
-        // ==========================================
-        
-        function actualizarConfiguracionNoches() {
-            const container = document.getElementById('nochesConfig');
-            
-            if (itinerario.length === 0) {
-                container.innerHTML = '';
-                document.getElementById('totalNoches').style.display = 'none';
-                return;
-            }
-            
-            container.innerHTML = itinerario.map(item => `
-                <div class="nights-item">
-                    <div style="font-weight: 600; margin-bottom: 8px;">
-                        DÍA ${item.dia}: ${item.actividad} (${item.fecha})
-                    </div>
-                    <label class="form-label">Noches:</label>
-                    <input type="number" name="noches_dia_${item.dia}" class="form-input" 
-                           min="0" value="1" onchange="calcularTotalNoches()">
-                </div>
-            `).join('');
-            
-            calcularTotalNoches();
-        }
-        
-        function calcularTotalNoches() {
-            const inputs = document.querySelectorAll('input[name^="noches_dia_"]');
-            let total = 0;
-            
-            inputs.forEach(input => {
-                total += parseInt(input.value) || 0;
-            });
-            
-            document.getElementById('totalNochesCount').textContent = total;
-            document.getElementById('totalNoches').style.display = 'block';
-        }
-        
-        // ==========================================
-        // PASO 5: MODALIDAD DE PRECIOS
-        // ==========================================
-        
-        function seleccionarModalidadPrecio(modo) {
-            // Remover selección previa
-            document.querySelectorAll('.price-mode').forEach(mode => mode.classList.remove('selected'));
-            
-            // Seleccionar nuevo
-            document.querySelector(`[data-mode="${modo}"]`).classList.add('selected');
-            modalidadPrecioSeleccionada = modo;
-            document.getElementById('modalidadPrecio').value = modo;
-            
-            // Mostrar/ocultar configuraciones
-            document.getElementById('precioPaqueteConfig').classList.remove('show');
-            document.getElementById('precioIndividualConfig').classList.remove('show');
-            
-            if (modo === 'paquete') {
-                document.getElementById('precioPaqueteConfig').classList.add('show');
-            } else if (modo === 'individual') {
-                document.getElementById('precioIndividualConfig').classList.add('show');
-                actualizarPreciosIndividuales();
-            }
-        }
-        
-        function actualizarPreciosIndividuales() {
-            const container = document.getElementById('preciosIndividuales');
-            
-            if (actividadesSeleccionadas.length === 0) {
-                container.innerHTML = '';
-                document.getElementById('subtotalIndividual').style.display = 'none';
-                return;
-            }
-            
-            container.innerHTML = actividadesSeleccionadas.map(actividad => `
-                <div class="form-group">
-                    <label class="form-label">${actividad}:</label>
-                    <input type="number" name="precio_${actividad.replace(/\s+/g, '_')}" 
-                           class="form-input precio-individual" placeholder="S/. 0.00" 
-                           step="0.01" min="0" onchange="calcularSubtotal()">
-                </div>
-            `).join('');
-            
-            calcularSubtotal();
-        }
-        
-        function calcularSubtotal() {
-            const inputs = document.querySelectorAll('.precio-individual');
-            let subtotal = 0;
-            
-            inputs.forEach(input => {
-                subtotal += parseFloat(input.value) || 0;
-            });
-            
-            document.getElementById('subtotalAmount').textContent = subtotal.toFixed(2);
-            document.getElementById('subtotalIndividual').style.display = 'block';
-        }
-        
-        // ==========================================
-        // ENVÍO DEL FORMULARIO
-        // ==========================================
-        
-        async function enviarCotizacion(e) {
-            e.preventDefault();
-            
-            mostrarLoading(true);
-            ocultarMensajes();
-            
-            try {
-                // Validar datos requeridos
-                if (actividadesSeleccionadas.length === 0) {
-                    throw new Error('Debes seleccionar al menos una actividad');
-                }
-                
-                if (itinerario.length === 0) {
-                    throw new Error('Debes configurar el itinerario');
-                }
-                
-                if (!modalidadPrecioSeleccionada) {
-                    throw new Error('Debes seleccionar una modalidad de precio');
-                }
-                
-                // Recopilar datos del formulario
-                const formData = new FormData(e.target);
-                
-                // Recopilar noches por día
-                const nochesPorDia = {};
-                itinerario.forEach(item => {
-                    const noches = formData.get(`noches_dia_${item.dia}`) || '1';
-                    nochesPorDia[`dia_${item.dia}`] = {
-                        actividad: item.actividad,
-                        fecha: item.fecha,
-                        noches: parseInt(noches)
-                    };
-                });
-                
-                // Recopilar precios individuales si aplica
-                const preciosIndividuales = {};
-                if (modalidadPrecioSeleccionada === 'individual') {
-                    actividadesSeleccionadas.forEach(actividad => {
-                        const key = `precio_${actividad.replace(/\s+/g, '_')}`;
-                        const precio = formData.get(key) || '0';
-                        preciosIndividuales[actividad] = parseFloat(precio);
-                    });
-                }
-                
-                // Crear payload para n8n
-                const payload = {
-                    origen: 'formulario',
-                    tipo_tour: 'personalizado',
-                    actividades_seleccionadas: actividadesSeleccionadas,
-                    itinerario: itinerario,
-                    actividad_inicial: formData.get('actividad_inicial'),
-                    fecha_inicio: formData.get('fecha_inicio'),
-                    tipo_transporte: formData.get('tipo_transporte'),
-                    personas_tren: formData.get('personas_tren'),
-                    hora_tren: formData.get('hora_tren'),
-                    fecha_tren: formData.get('fecha_tren'),
-                    precio_tren: formData.get('precio_tren') ? parseFloat(formData.get('precio_tren')) : null,
-                    precio_total_tren: formData.get('precio_total_tren'),
-                    tipo_habitacion: formData.get('tipo_habitacion'),
-                    categoria_hotel: formData.get('categoria_hotel'),
-                    noches_por_dia: nochesPorDia,
-                    modalidad_precio: modalidadPrecioSeleccionada,
-                    precio_total: formData.get('precio_total') ? parseFloat(formData.get('precio_total')) : null,
-                    precios_individuales: preciosIndividuales,
-                    nombre_cliente: formData.get('nombre_cliente'),
-                    telefono: formData.get('telefono'),
-                    numero_personas: formData.get('numero_personas'),
-                    observaciones: formData.get('observaciones') || '',
-                    adelanto_pagado: parseFloat(formData.get('adelanto_pagado')) || 0,
-                    timestamp: new Date().toISOString()
-                };
-                
-                console.log('Enviando payload:', payload);
-                
-                // Enviar a n8n webhook
-                const webhookUrl = 'https://hvh-n8n.2ulbdq.easypanel.host/webhook/generar-pdf';
-                
-                const response = await fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(payload)
-                });
-                
-                if (response.ok) {
-                    mostrarMensaje('✅ Cotización personalizada generada exitosamente. Recibirás el PDF por WhatsApp en breve.', 'success');
-                    
-                    // Limpiar formulario después de 5 segundos
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 5000);
-                    
-                } else {
-                    throw new Error('Error en la respuesta del servidor');
-                }
-                
-            } catch (error) {
-                console.error('Error:', error);
-                mostrarMensaje(`❌ Error: ${error.message}`, 'error');
-            } finally {
-                mostrarLoading(false);
-            }
-        }
-        
-        // ==========================================
-        // FUNCIONES AUXILIARES
-        // ==========================================
-        
-        function volverAlDashboard() {
-            window.location.href = '/dashboard';
-        }
-        
-        function mostrarLoading(show) {
-            const submitButton = document.getElementById('submitButton');
-            const submitText = document.getElementById('submitText');
-            const loadingSpinner = document.getElementById('loadingSpinner');
-            
-            if (show) {
-                submitText.style.display = 'none';
-                loadingSpinner.style.display = 'block';
-                submitButton.disabled = true;
-            } else {
-                submitText.style.display = 'block';
-                loadingSpinner.style.display = 'none';
-                submitButton.disabled = false;
-            }
-        }
-        
-        function mostrarMensaje(mensaje, tipo) {
-            const messageContainer = document.getElementById('messageContainer');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${tipo}-message`;
-            messageDiv.textContent = mensaje;
-            messageDiv.style.display = 'block';
-            
-            messageContainer.innerHTML = '';
-            messageContainer.appendChild(messageDiv);
-            
-            // Auto-ocultar después de 10 segundos para éxito, 5 para errores
-            const timeout = tipo === 'success' ? 10000 : 5000;
-            setTimeout(ocultarMensajes, timeout);
-        }
-        
-        function ocultarMensajes() {
-            document.getElementById('messageContainer').innerHTML = '';
-        }
-        
-        // ============================================
-        // ENVÍO DE FORMULARIO Y MANEJO DE RESPUESTA
-        // ============================================
         
         /**
-         * Maneja el envío del formulario tour personalizado
+         * Configura los event listeners para la selección de programas
+         * Añade click listeners a todos los elementos .program-item
          */
-        function enviarFormularioPersonalizado() {
-            console.log('📡 Iniciando envío de tour personalizado...');
+        function configurarEventosProgramas() {
+            const programItems = document.querySelectorAll('.program-item');
+            console.log(`Configurando eventos para ${programItems.length} programas`);
+            
+            programItems.forEach((item, index) => {
+                item.addEventListener('click', function() {
+                    const programCode = this.dataset.program;
+                    console.log(`Click en programa ${index + 1}: ${programCode}`);
+                    seleccionarPrograma(programCode, this);
+                });
+            });
+        }
+        
+        /**
+         * Configura los event listeners para la selección de tren
+         * Añade click listeners a todos los elementos .tren-option
+         */
+        function configurarEventosTren() {
+            const trenOptions = document.querySelectorAll('.tren-option');
+            console.log(`Configurando eventos para ${trenOptions.length} opciones de tren`);
+            
+            trenOptions.forEach((option, index) => {
+                option.addEventListener('click', function() {
+                    const trenType = this.dataset.tren;
+                    console.log(`Click en tren ${index + 1}: ${trenType}`);
+                    seleccionarTren(trenType);
+                });
+            });
+        }
+        
+        /**
+         * Configura el event listener para el envío del formulario
+         */
+        function configurarFormulario() {
+            const form = document.getElementById('cotizacionForm');
+            if (form) {
+                form.addEventListener('submit', enviarCotizacion);
+                console.log('Evento de envío de formulario configurado');
+            }
+        }
+        
+        // ==========================================
+        // FUNCIONES DE SELECCIÓN DE PROGRAMAS
+        // ==========================================
+        
+        /**
+         * Maneja la selección de un programa fijo
+         * @param {string} programCode - Código del programa seleccionado
+         * @param {HTMLElement} element - Elemento DOM del programa seleccionado
+         */
+        function seleccionarPrograma(programCode, element) {
+            console.log(`Seleccionando programa: ${programCode}`);
+            
+            // Limpiar selección anterior
+            limpiarSeleccionProgramas();
+            
+            // Aplicar nueva selección
+            aplicarSeleccionPrograma(element, programCode);
+            
+            // Actualizar variables globales
+            selectedProgram = programCode;
+            
+            // Mostrar resumen de selección
+            mostrarResumenSeleccion(programCode);
+            
+            // Actualizar campo hidden del formulario
+            actualizarCampoPrograma(programCode);
+            
+            // Scroll suave al siguiente paso
+            scrollAlSiguientePaso();
+            
+            console.log(`Programa ${programCode} seleccionado correctamente`);
+        }
+        
+        /**
+         * Limpia todas las selecciones de programas anteriores
+         */
+        function limpiarSeleccionProgramas() {
+            document.querySelectorAll('.program-item').forEach(item => {
+                item.classList.remove('selected');
+                const checkbox = item.querySelector('.program-checkbox');
+                if (checkbox) {
+                    checkbox.textContent = '☐';
+                }
+            });
+        }
+        
+        /**
+         * Aplica la selección visual al programa elegido
+         * @param {HTMLElement} element - Elemento DOM del programa
+         * @param {string} programCode - Código del programa
+         */
+        function aplicarSeleccionPrograma(element, programCode) {
+            element.classList.add('selected');
+            const checkbox = element.querySelector('.program-checkbox');
+            if (checkbox) {
+                checkbox.textContent = '☑️';
+            }
+        }
+        
+        /**
+         * Muestra el resumen de selección del programa
+         * @param {string} programCode - Código del programa seleccionado
+         */
+        function mostrarResumenSeleccion(programCode) {
+            const selectedNameElement = document.getElementById('selectedProgramName');
+            const summaryElement = document.getElementById('selectionSummary');
+            
+            if (selectedNameElement && summaryElement) {
+                selectedNameElement.textContent = programCode;
+                summaryElement.style.display = 'block';
+                console.log('Resumen de selección mostrado');
+            }
+        }
+        
+        /**
+         * Actualiza el campo hidden con el programa seleccionado
+         * @param {string} programCode - Código del programa seleccionado
+         */
+        function actualizarCampoPrograma(programCode) {
+            const hiddenField = document.getElementById('programa_seleccionado');
+            if (hiddenField) {
+                hiddenField.value = programCode;
+                console.log(`Campo hidden actualizado: ${programCode}`);
+            }
+        }
+        
+        /**
+         * Realiza scroll suave al siguiente paso del formulario
+         */
+        function scrollAlSiguientePaso() {
+            setTimeout(() => {
+                const nextStep = document.querySelector('[data-step="2"]') || 
+                                 document.querySelector('.step-section:nth-child(2)');
+                if (nextStep) {
+                    nextStep.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                    console.log('Scroll al siguiente paso realizado');
+                }
+            }, 300);
+        }
+        
+        // ==========================================
+        // FUNCIONES DE SELECCIÓN DE TREN
+        // ==========================================
+        
+        /**
+         * Maneja la selección del tipo de tren
+         * @param {string} tipo - Tipo de tren seleccionado ('expedition' o 'vistadome')
+         */
+        function seleccionarTren(tipo) {
+            console.log(`Seleccionando tren: ${tipo}`);
+            
+            // Limpiar selección anterior
+            limpiarSeleccionTren();
+            
+            // Aplicar nueva selección
+            aplicarSeleccionTren(tipo);
+            
+            // Actualizar variables globales
+            tipoTrenSeleccionado = tipo;
+            
+            // Actualizar campo hidden
+            actualizarCampoTren(tipo);
+            
+            // Mostrar/ocultar configuración según el tipo
+            manejarConfiguracionTren(tipo);
+            
+            console.log(`Tren ${tipo} seleccionado correctamente`);
+        }
+        
+        /**
+         * Limpia todas las selecciones de tren anteriores
+         */
+        function limpiarSeleccionTren() {
+            document.querySelectorAll('.tren-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+        }
+        
+        /**
+         * Aplica la selección visual al tipo de tren elegido
+         * @param {string} tipo - Tipo de tren seleccionado
+         */
+        function aplicarSeleccionTren(tipo) {
+            const trenElement = document.querySelector(`[data-tren="${tipo}"]`);
+            if (trenElement) {
+                trenElement.classList.add('active');
+            }
+        }
+        
+        /**
+         * Actualiza el campo hidden con el tipo de tren seleccionado
+         * @param {string} tipo - Tipo de tren seleccionado
+         */
+        function actualizarCampoTren(tipo) {
+            const hiddenField = document.getElementById('tipo_tren');
+            if (hiddenField) {
+                hiddenField.value = tipo;
+                console.log(`Campo tipo_tren actualizado: ${tipo}`);
+            }
+        }
+        
+        /**
+         * Maneja la visualización de la configuración del tren y mensajes informativos
+         * @param {string} tipo - Tipo de tren seleccionado
+         */
+        function manejarConfiguracionTren(tipo) {
+            const trenConfig = document.getElementById('trenTuristicoConfig');
+            const expeditionInfo = document.getElementById('expeditionInfo');
+            
+            if (tipo === 'vistadome') {
+                // Mostrar configuración del tren turístico
+                if (trenConfig) {
+                    trenConfig.classList.add('show');
+                    console.log('Configuración Vistadome mostrada');
+                }
+                // Ocultar mensaje informativo de Expedition
+                if (expeditionInfo) {
+                    expeditionInfo.style.display = 'none';
+                }
+            } else if (tipo === 'expedition') {
+                // Ocultar configuración del tren turístico
+                if (trenConfig) {
+                    trenConfig.classList.remove('show');
+                    console.log('Configuración Vistadome ocultada');
+                }
+                // Mostrar mensaje informativo de Expedition
+                if (expeditionInfo) {
+                    expeditionInfo.style.display = 'block';
+                    console.log('Mensaje informativo de Expedition mostrado');
+                }
+            }
+        }
+        
+        // ==========================================
+        // FUNCIONES DE ENVÍO Y VALIDACIÓN
+        // ==========================================
+        
+        /**
+         * Maneja el envío del formulario de cotización
+         * @param {Event} e - Evento de envío del formulario
+         */
+        async function enviarCotizacion(e) {
+            e.preventDefault();
+            console.log('Iniciando proceso de envío de cotización...');
             
             // Validar datos antes del envío
-            if (!validarFormularioPersonalizado()) {
+            if (!validarFormulario()) {
                 return;
             }
             
@@ -1793,120 +1369,83 @@
             
             try {
                 // Preparar datos para envío
-                const payload = prepararPayloadPersonalizado();
+                const payload = prepararPayload(e.target);
                 
-                // Enviar al webhook
-                enviarAlWebhookPersonalizado(payload);
+                // Enviar datos al webhook
+                await enviarAlWebhook(payload);
+                
+                // Mostrar mensaje de éxito
+                mostrarMensaje('✅ Cotización generada exitosamente. Recibirás el PDF por WhatsApp en breve.', 'success');
+                
+                // Programar limpieza del formulario
+                programarLimpiezaFormulario();
                 
             } catch (error) {
-                console.error('❌ Error al preparar datos:', error);
-                mostrarMensaje('❌ Error al procesar los datos. Inténtalo de nuevo.', 'error');
+                console.error('Error al enviar cotización:', error);
+                mostrarMensaje('❌ Error al generar la cotización. Inténtalo de nuevo.', 'error');
+            } finally {
                 mostrarLoading(false);
             }
         }
         
         /**
-         * Validar formulario personalizado
+         * Valida que todos los campos requeridos estén completos
+         * @returns {boolean} - True si el formulario es válido
          */
-        function validarFormularioPersonalizado() {
-            if (actividadesSeleccionadas.length === 0) {
-                mostrarMensaje('❌ Selecciona al menos una actividad para continuar.', 'error');
+        function validarFormulario() {
+            // Validar programa seleccionado
+            if (!selectedProgram) {
+                mostrarMensaje('❌ Por favor selecciona un programa antes de continuar.', 'error');
                 return false;
             }
             
-            const nombre = document.getElementById('nombre_cliente').value.trim();
-            const telefono = document.getElementById('telefono').value.trim();
-            const fechaInicio = document.getElementById('fecha_inicio').value;
-            
-            if (!nombre || !telefono || !fechaInicio) {
-                mostrarMensaje('❌ Completa todos los campos obligatorios.', 'error');
+            // Validar tren seleccionado
+            if (!tipoTrenSeleccionado) {
+                mostrarMensaje('❌ Por favor selecciona un tipo de tren antes de continuar.', 'error');
                 return false;
             }
             
+            console.log('Formulario validado correctamente');
             return true;
         }
         
         /**
-         * Preparar payload para tour personalizado
+         * Prepara el payload para enviar al webhook
+         * @param {HTMLFormElement} form - Formulario con los datos
+         * @returns {Object} - Objeto con los datos preparados
          */
-        function prepararPayloadPersonalizado() {
-            const formData = new FormData(document.getElementById('tourForm'));
+        function prepararPayload(form) {
+            const formData = new FormData(form);
             
             const payload = {
                 origen: 'formulario',
-                tipo_tour: 'personalizado',
-                
-                // Datos del cliente
+                tipo_tour: 'fijo',
+                programa_seleccionado: selectedProgram,
                 nombre_cliente: formData.get('nombre_cliente'),
                 telefono: formData.get('telefono'),
-                email: formData.get('email') || '',
-                
-                // Datos del tour
-                actividades_seleccionadas: actividadesSeleccionadas,
-                fecha_inicio: formData.get('fecha_inicio'),
+                email: formData.get('email'),
                 numero_personas: formData.get('numero_personas'),
+                fecha_viaje: formData.get('fecha_viaje'),
                 tipo_habitacion: formData.get('tipo_habitacion'),
                 categoria_hotel: formData.get('categoria_hotel'),
-                modalidad_precios: formData.get('modalidad_precios') || 'PAQUETE_PRIVADO',
-                
-                // Configuraciones específicas
-                configuracion_noches: obtenerConfiguracionNoches(),
-                transporte: obtenerConfiguracionTransporte(),
-                precio_total: parseFloat(formData.get('precio_total')) || 0,
-                adelanto: parseFloat(formData.get('adelanto')) || 0,
-                
-                // Observaciones
+                tipo_tren: tipoTrenSeleccionado,
+                tren_horario: formData.get('tren_horario') || null,
+                personas_tren: formData.get('personas_tren') || null,
+                precio_usd: formData.get('precio_usd') || null,
+                adelanto_pagado: parseFloat(formData.get('adelanto_pagado')) || 0,
                 observaciones: formData.get('observaciones') || '',
-                
-                // Metadatos
                 timestamp: new Date().toISOString()
             };
             
-            console.log('📦 Payload preparado:', payload);
+            console.log('Payload preparado:', payload);
             return payload;
         }
         
         /**
-         * Obtener configuración de noches por actividad
+         * Envía los datos al webhook de n8n y maneja la respuesta con PDF
+         * @param {Object} payload - Datos a enviar
          */
-        function obtenerConfiguracionNoches() {
-            const configuracion = {};
-            actividadesSeleccionadas.forEach(actividad => {
-                const campo = document.getElementById(`noches_${actividad}`);
-                if (campo) {
-                    configuracion[actividad] = parseInt(campo.value) || 1;
-                }
-            });
-            return configuracion;
-        }
-        
-        /**
-         * Obtener configuración de transporte
-         */
-        function obtenerConfiguracionTransporte() {
-            const tipoTransporte = document.querySelector('input[name="tipo_transporte"]:checked');
-            
-            if (!tipoTransporte) {
-                return { tipo: 'no_especificado' };
-            }
-            
-            const config = {
-                tipo: tipoTransporte.value
-            };
-            
-            // Si es tren turístico, obtener configuración adicional
-            if (tipoTransporte.value === 'TURISTICO') {
-                config.personas_tren = document.getElementById('personas_tren')?.value || '';
-                config.precio_usd = document.getElementById('precio_usd')?.value || '';
-            }
-            
-            return config;
-        }
-        
-        /**
-         * Enviar datos al webhook de n8n
-         */
-        async function enviarAlWebhookPersonalizado(payload) {
+        async function enviarAlWebhook(payload) {
             const webhookUrl = 'https://hvh-n8n.2ulbdq.easypanel.host/webhook/generar-pdf';
             
             console.log('📡 Enviando datos al webhook...');
@@ -1942,10 +1481,162 @@
                         contenido: "No se pudo procesar la cotización. Verifica tu conexión e inténtalo de nuevo."
                     }
                 });
-            } finally {
-                mostrarLoading(false);
             }
         }
+        
+        /**
+         * Programa la limpieza automática del formulario después del envío exitoso
+         */
+        function programarLimpiezaFormulario() {
+            setTimeout(() => {
+                limpiarFormularioCompleto();
+                console.log('Formulario limpiado automáticamente');
+            }, 3000);
+        }
+        
+        // ==========================================
+        // FUNCIONES DE UTILIDAD Y UI
+        // ==========================================
+        
+        /**
+         * Muestra u oculta el spinner de loading en el botón de envío
+         * @param {boolean} show - True para mostrar, false para ocultar
+         */
+        function mostrarLoading(show) {
+            const submitButton = document.getElementById('submitButton');
+            const submitText = document.getElementById('submitText');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            
+            if (submitButton && submitText && loadingSpinner) {
+                if (show) {
+                    submitText.style.display = 'none';
+                    loadingSpinner.style.display = 'block';
+                    submitButton.disabled = true;
+                    console.log('Loading mostrado');
+                } else {
+                    submitText.style.display = 'block';
+                    loadingSpinner.style.display = 'none';
+                    submitButton.disabled = false;
+                    console.log('Loading ocultado');
+                }
+            }
+        }
+        
+        /**
+         * Muestra un mensaje al usuario
+         * @param {string} mensaje - Texto del mensaje
+         * @param {string} tipo - Tipo de mensaje ('success' o 'error')
+         */
+        function mostrarMensaje(mensaje, tipo) {
+            const messageContainer = document.getElementById('messageContainer');
+            
+            if (messageContainer) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${tipo}-message`;
+                messageDiv.textContent = mensaje;
+                messageDiv.style.display = 'block';
+                
+                messageContainer.innerHTML = '';
+                messageContainer.appendChild(messageDiv);
+                
+                console.log(`Mensaje ${tipo} mostrado: ${mensaje}`);
+                
+                // Auto-ocultar después de 5 segundos
+                setTimeout(ocultarMensajes, 5000);
+            }
+        }
+        
+        /**
+         * Oculta todos los mensajes mostrados al usuario
+         */
+        function ocultarMensajes() {
+            const messageContainer = document.getElementById('messageContainer');
+            if (messageContainer) {
+                messageContainer.innerHTML = '';
+                console.log('Mensajes ocultados');
+            }
+        }
+        
+        /**
+         * Limpia completamente el formulario y restablece el estado inicial
+         */
+        function limpiarFormularioCompleto() {
+            // Limpiar formulario HTML
+            const form = document.getElementById('cotizacionForm');
+            if (form) {
+                form.reset();
+            }
+            
+            // Restablecer variables globales
+            selectedProgram = null;
+            tipoTrenSeleccionado = null;
+            
+            // Limpiar selección de programas
+            limpiarSeleccionProgramas();
+            
+            // Limpiar selección de tren
+            limpiarSeleccionTren();
+            
+            // Ocultar configuración adicional del tren
+            const trenConfig = document.getElementById('trenTuristicoConfig');
+            if (trenConfig) {
+                trenConfig.classList.remove('show');
+            }
+            
+            // Ocultar mensaje informativo del Expedition
+            const expeditionInfo = document.getElementById('expeditionInfo');
+            if (expeditionInfo) {
+                expeditionInfo.style.display = 'none';
+            }
+            
+            // Ocultar resumen de selección
+            const summary = document.getElementById('selectionSummary');
+            if (summary) {
+                summary.style.display = 'none';
+            }
+            
+            // Ocultar mensajes
+            ocultarMensajes();
+            
+            // Scroll al inicio
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            console.log('Formulario completamente limpiado');
+        }
+        
+        // ==========================================
+        // FUNCIONES DE NAVEGACIÓN
+        // ==========================================
+        
+        /**
+         * Redirige al usuario de vuelta al dashboard principal
+         */
+        function volverAlDashboard() {
+            console.log('Navegando de vuelta al dashboard...');
+            window.location.href = '/dashboard';
+        }
+        
+        // ==========================================
+        // EVENTOS GLOBALES Y MANEJO DE ERRORES
+        // ==========================================
+        
+        /**
+         * Maneja errores globales de JavaScript
+         */
+        window.addEventListener('error', function(e) {
+            console.error('Error global capturado:', e.error);
+            mostrarMensaje('❌ Ha ocurrido un error inesperado. Por favor, recarga la página.', 'error');
+        });
+        
+        /**
+         * Maneja errores de promesas no capturadas
+         */
+        window.addEventListener('unhandledrejection', function(e) {
+            console.error('Promesa rechazada no manejada:', e.reason);
+            mostrarMensaje('❌ Error de conexión. Verifica tu internet e inténtalo de nuevo.', 'error');
+        });
+        
+        console.log('Script de Programas Fijos cargado completamente');
         
         // ============================================
         // FUNCIONES DE MANEJO DE RESPUESTA PDF
@@ -1961,23 +1652,16 @@
             // NUEVO: GUARDAR DATOS EN LOCALSTORAGE
             // ========================================
             try {
-                // Construir nombre del programa personalizado
-                const actividadesTexto = actividadesSeleccionadas.slice(0, 3).join(', ');
-                const programaNombre = actividadesSeleccionadas.length > 3 
-                    ? `${actividadesTexto}... (+${actividadesSeleccionadas.length - 3} más)`
-                    : actividadesTexto;
-                
                 // Obtener datos del formulario para guardar
                 const formData = {
                     id: Date.now(), // ID único basado en timestamp
-                    tipo: 'personalizado',
-                    cliente: document.getElementById('nombreCliente').value,
-                    programa: programaNombre,
-                    actividades: actividadesSeleccionadas,
-                    fecha: document.getElementById('fechaInicio').value,
-                    personas: document.getElementById('numeroPersonas').value,
+                    tipo: 'fijo',
+                    cliente: document.getElementById('nombre_cliente').value,
+                    programa: selectedProgram || document.getElementById('programa_seleccionado').value,
+                    fecha: document.getElementById('fecha_viaje').value,
+                    personas: document.getElementById('numero_personas').value,
                     telefono: document.getElementById('telefono').value || '',
-                    hotel: document.getElementById('categoriaHotel').value || '',
+                    hotel: document.getElementById('categoria_hotel').value || '',
                     pdf: {
                         download_url: resultado.pdf.download_url,
                         public_url: resultado.pdf.public_url,
@@ -2020,7 +1704,7 @@
             // ========================================
             
             // Ocultar el formulario
-            const form = document.getElementById('tourPersonalizadoForm');
+            const form = document.getElementById('cotizacionForm');
             if (form) {
                 form.style.display = 'none';
             }
@@ -2074,17 +1758,17 @@
                     <div class="acciones-container">
                         <button class="btn-accion btn-descargar" 
                                 onclick="descargarPDF('${pdf.download_url}')">
-                            📥 Descargar PDF
+                            ${acciones.descargar.texto}
                         </button>
                         
                         <button class="btn-accion btn-compartir" 
                                 onclick="compartirPDF('${pdf.public_url}')">
-                            🔗 Compartir
+                            ${acciones.compartir.texto}
                         </button>
                         
                         <button class="btn-accion btn-nueva" 
                                 onclick="nuevaCotizacion()">
-                            🆕 Nueva Cotización
+                            ${acciones.nueva_cotizacion.texto}
                         </button>
                     </div>
                     
