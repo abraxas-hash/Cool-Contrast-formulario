@@ -635,6 +635,52 @@
             from { transform: translateX(-30px); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
+    
+        
+        /* Botones de acción en tour detail */
+        .tour-action-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .tour-action-btn {
+            flex: 1;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        
+        .tour-action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .tour-action-btn.download {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .tour-action-btn.edit {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+        
+        .tour-action-btn.delete {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: #2d1b00;
+        }
+
     </style>
 </head>
 <body>
@@ -701,7 +747,11 @@
             <div class="pdf-list" id="pdf-list">
                 <!-- PDFs se cargarán dinámicamente aquí -->
                 <div class="empty-state" id="empty-pdfs">
-                    <div class="empty-icon">📁</div>
+                    <div class="empty-icon">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 13h6m-3-3v6m-2 4h8a2 2 0 002-2V8a2 2 0 00-2-2h-3.93a2 2 0 01-1.66-.9l-.82-1.2A2 2 0 0010.93 3H8a2 2 0 00-2 2v13a2 2 0 002 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+                        </svg>
+                    </div>
                     <div>No hay PDFs generados aún</div>
                     <div style="font-size: 0.8rem; margin-top: 4px;">Las cotizaciones aparecerán aquí automáticamente</div>
                 </div>
@@ -972,6 +1022,7 @@
                     }
                     
                     toursData[fechaString].push({
+                        id: cotizacion.id,
                         tipo: cotizacion.tipo,
                         programa: cotizacion.programa,
                         cliente: cotizacion.cliente,
@@ -981,6 +1032,7 @@
                         hotel: cotizacion.hotel || 'No especificado',
                         estado: 'confirmado',
                         hora: '08:00',
+                        pdf: cotizacion.pdf || null,
                         observaciones: cotizacion.actividades ? `Actividades: ${cotizacion.actividades.slice(0, 2).join(', ')}` : 'Tour programado'
                     });
                 });
@@ -1211,8 +1263,24 @@
                                 📝 <strong>Observaciones:</strong> ${tour.observaciones}
                             </div>
                         ` : ''}
+                        
+                        <!-- Botones de acción -->
+                        <div class="tour-action-buttons">
+                            ${tour.pdf && tour.pdf.download_url ? `
+                                <button class="tour-action-btn download" onclick="descargarPDFTour('${tour.pdf.download_url}')">
+                                    📥 Descargar PDF
+                                </button>
+                            ` : ''}
+                            <button class="tour-action-btn edit" onclick="editarTour(${tour.id})">
+                                ✏️ Editar
+                            </button>
+                            <button class="tour-action-btn delete" onclick="eliminarTour(${tour.id}, '${fecha}')">
+                                🗑️ Eliminar
+                            </button>
+                        </div>
                     </div>
                 `;
+
             });
             
             // Agregar resumen estadístico
@@ -1248,10 +1316,125 @@
             modal.classList.add('show');
         }
         
+        
+        
+        // ==========================================
         function cerrarModalTours() {
             const modal = document.getElementById('tours-modal');
             modal.classList.remove('show');
         }
+        
+                // FUNCIONES PARA GESTIÓN DE TOURS
+        // ==========================================
+        
+        function descargarPDFTour(downloadUrl) {
+            console.log('📥 Descargando PDF del tour');
+            window.open(downloadUrl, '_blank');
+        }
+        
+        function editarTour(tourId) {
+            console.log('✏️ Editando tour:', tourId);
+            
+            // Buscar la cotización en localStorage
+            let cotizaciones = [];
+            try {
+                const cotizacionesGuardadas = localStorage.getItem('ores_cotizaciones');
+                if (cotizacionesGuardadas) {
+                    cotizaciones = JSON.parse(cotizacionesGuardadas);
+                }
+            } catch (error) {
+                console.error('Error al leer cotizaciones:', error);
+                return;
+            }
+            
+            const cotizacion = cotizaciones.find(c => c.id === tourId);
+            if (!cotizacion) {
+                alert('❌ No se encontró la cotización');
+                return;
+            }
+            
+            // Redirigir al formulario correspondiente con parámetros
+            const formulario = cotizacion.tipo === 'fijo' ? 
+                'formulario-programas-fijos.html' : 
+                'formulario-tour-personalizado.html';
+            
+            // Guardar datos para edición
+            sessionStorage.setItem('editar_tour', JSON.stringify(cotizacion));
+            
+            // Mostrar confirmación
+            if (confirm('¿Deseas editar esta cotización?\n\nSerás redirigido al formulario con los datos cargados.')) {
+                window.location.href = formulario;
+            }
+        }
+        
+        function eliminarTour(tourId, fecha) {
+            console.log('🗑️ Eliminando tour:', tourId);
+            
+            if (!confirm('¿Estás seguro de eliminar esta cotización?\n\nEsta acción no se puede deshacer.')) {
+                return;
+            }
+            
+            // Buscar y eliminar la cotización
+            let cotizaciones = [];
+            try {
+                const cotizacionesGuardadas = localStorage.getItem('ores_cotizaciones');
+                if (cotizacionesGuardadas) {
+                    cotizaciones = JSON.parse(cotizacionesGuardadas);
+                }
+            } catch (error) {
+                console.error('Error al leer cotizaciones:', error);
+                alert('❌ Error al eliminar la cotización');
+                return;
+            }
+            
+            // Filtrar la cotización eliminada
+            const cotizacionesFiltradas = cotizaciones.filter(c => c.id !== tourId);
+            
+            // Guardar de vuelta en localStorage
+            try {
+                localStorage.setItem('ores_cotizaciones', JSON.stringify(cotizacionesFiltradas));
+                console.log('✅ Cotización eliminada');
+                
+                // Mostrar notificación
+                mostrarNotificacion('Cotización eliminada exitosamente');
+                
+                // Cerrar modal y actualizar
+                cerrarModalTours();
+                cargarPDFs();
+                generarCalendario();
+                cargarEstadisticas();
+                
+            } catch (error) {
+                console.error('Error al guardar cambios:', error);
+                alert('❌ Error al eliminar la cotización');
+            }
+        }
+        
+        function mostrarNotificacion(mensaje) {
+            const notificacion = document.createElement('div');
+            notificacion.textContent = mensaje;
+            notificacion.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 16px 24px;
+                border-radius: 12px;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+                z-index: 10000;
+                font-weight: 600;
+                animation: slideInRight 0.3s ease;
+            `;
+            
+            document.body.appendChild(notificacion);
+            
+            setTimeout(() => {
+                notificacion.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => notificacion.remove(), 300);
+            }, 3000);
+        }
+
         
         // Cerrar modal al hacer click fuera del contenido
         document.addEventListener('click', (e) => {
@@ -1272,3 +1455,5 @@
             console.log('✅ Dashboard inicializado');
         });
     </script>
+</body>
+</html>
