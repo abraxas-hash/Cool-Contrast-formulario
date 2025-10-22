@@ -744,7 +744,10 @@
             </div>
             <div class="session-info">
                 <span class="session-timestamp" id="session-timestamp"></span>
-                <button class="logout-btn" onclick="logout()">Salir</button>
+                <div style="display: flex; gap: 8px;">
+                    <button class="logout-btn" onclick="limpiarDatosCorruptos()" style="background: rgba(251, 191, 36, 0.2); border-color: rgba(251, 191, 36, 0.4); color: var(--gold);" title="Limpiar datos corruptos">🧹</button>
+                    <button class="logout-btn" onclick="logout()">Salir</button>
+                </div>
             </div>
         </div>
 
@@ -887,9 +890,9 @@
             try {
                 console.log('☁️ Cargando cotizaciones desde Google Sheets...');
                 
-                // Crear promesa con timeout de 5 segundos
+                // Crear promesa con timeout de 15 segundos (aumentado)
                 const timeoutPromise = new Promise((_, reject) => 
-                    setTimeout(() => reject(new Error('Timeout: Google Sheets tardó más de 5 segundos')), 5000)
+                    setTimeout(() => reject(new Error('Timeout: Google Sheets tardó más de 15 segundos')), 15000)
                 );
                 
                 const fetchPromise = fetch(GOOGLE_SHEETS_URL, {
@@ -913,10 +916,16 @@
                     // DEBUG: Ver estructura de datos
                     console.log('🔍 DATOS RECIBIDOS:', JSON.stringify(resultado.data, null, 2));
                     
+                    // Validar y limpiar datos antes de guardar
+                    const datosValidos = resultado.data.filter(item => {
+                        return item && typeof item === 'object' && item.cliente && item.programa;
+                    });
+                    
+                    console.log(`✅ ${datosValidos.length} de ${resultado.data.length} cotizaciones válidas`);
+                    
                     // Sincronizar con localStorage
-                    localStorage.setItem('ores_cotizaciones', JSON.stringify(resultado.data));
-                    console.log(`✅ ${resultado.data.length} cotizaciones cargadas desde Google Sheets`);
-                    return resultado.data;
+                    localStorage.setItem('ores_cotizaciones', JSON.stringify(datosValidos));
+                    return datosValidos;
                 }
                 
                 return [];
@@ -1020,6 +1029,17 @@
                 window.location.href = '/login';
             }
         }
+        
+        // Limpiar datos corruptos
+        function limpiarDatosCorruptos() {
+            if (confirm('⚠️ ¿Limpiar todos los datos locales y volver a sincronizar desde Google Sheets?\n\nEsto puede ayudar si ves errores o datos incorrectos.')) {
+                console.log('🧹 Limpiando datos locales...');
+                localStorage.removeItem('ores_cotizaciones');
+                localStorage.removeItem('ores_pdfs_generados');
+                console.log('✅ Datos limpiados. Recargando...');
+                location.reload();
+            }
+        }
 
         // Simular estadísticas (en producción conectar con API)
         async function cargarEstadisticas() {
@@ -1034,22 +1054,33 @@
                 }
                 const hoy = new Date().toISOString().split('T')[0];
                 
-                // Contar cotizaciones de hoy
+                // Contar cotizaciones de hoy (con validación)
                 const cotizacionesHoy = cotizaciones.filter(c => {
-                    const fechaCotizacion = new Date(c.timestamp).toISOString().split('T')[0];
-                    return fechaCotizacion === hoy;
+                    try {
+                        if (!c.timestamp) return false;
+                        const fechaCotizacion = new Date(c.timestamp);
+                        if (isNaN(fechaCotizacion.getTime())) return false;
+                        return fechaCotizacion.toISOString().split('T')[0] === hoy;
+                    } catch (e) {
+                        return false;
+                    }
                 }).length;
                 
                 // Contar tours activos (fechas futuras o de hoy)
                 const toursActivos = cotizaciones.filter(c => {
-                    return c.fecha >= hoy;
+                    try {
+                        if (!c.fecha) return false;
+                        return c.fecha >= hoy;
+                    } catch (e) {
+                        return false;
+                    }
                 }).length;
                 
                 document.getElementById('cotizaciones-hoy').textContent = cotizacionesHoy;
                 document.getElementById('tours-activos').textContent = toursActivos;
                 
             } catch (error) {
-                console.error('Error al cargar estadísticas:', error);
+                console.error('❌ Error al cargar estadísticas:', error);
                 document.getElementById('cotizaciones-hoy').textContent = '0';
                 document.getElementById('tours-activos').textContent = '0';
             }
@@ -1080,14 +1111,35 @@
             const existingItems = pdfList.querySelectorAll('.pdf-item');
             existingItems.forEach(item => item.remove());
             
-            // Generar items de PDF
+            // Generar items de PDF (con validación)
             cotizaciones.forEach(cotizacion => {
+                // Validar que tenga los datos mínimos
+                if (!cotizacion.cliente || !cotizacion.programa) {
+                    console.warn('⚠️ Cotización sin datos completos, omitiendo:', cotizacion);
+                    return;
+                }
+                
                 const pdfItem = document.createElement('div');
                 pdfItem.className = 'pdf-item';
                 
                 const tipoBadge = cotizacion.tipo === 'fijo' ? 'Programa Fijo' : 'Personalizado';
                 const tipoClass = cotizacion.tipo === 'personalizado' ? 'personalizado' : '';
-                const fechaFormateada = new Date(cotizacion.fecha).toLocaleDateString('es-ES');
+                
+                // Validar fecha
+                let fechaFormateada = 'Fecha no disponible';
+                try {
+                    if (cotizacion.fecha) {
+                        const fecha = new Date(cotizacion.fecha);
+                        if (!isNaN(fecha.getTime())) {
+                            fechaFormateada = fecha.toLocaleDateString('es-ES');
+                        }
+                    }
+                } catch (e) {
+                    console.warn('⚠️ Error al formatear fecha:', e);
+                }
+                
+                // Validar PDF URL
+                const tienePDF = cotizacion.pdf && cotizacion.pdf.download_url;
                 
                 pdfItem.innerHTML = `
                     <div class="pdf-info">
@@ -1098,10 +1150,17 @@
                             <span>📅 ${fechaFormateada}</span>
                         </div>
                     </div>
-                    <button class="download-btn" onclick="descargarPDF('${cotizacion.pdf.download_url}')">
-                        <span>📥</span>
-                        <span>Descargar</span>
-                    </button>
+                    ${tienePDF ? `
+                        <button class="download-btn" onclick="descargarPDF('${cotizacion.pdf.download_url}')">
+                            <span>📥</span>
+                            <span>Descargar</span>
+                        </button>
+                    ` : `
+                        <button class="download-btn" style="opacity: 0.5; cursor: not-allowed;" disabled>
+                            <span>⚠️</span>
+                            <span>Sin PDF</span>
+                        </button>
+                    `}
                 `;
                 
                 pdfList.appendChild(pdfItem);
@@ -1138,6 +1197,12 @@
                 console.log(`📊 Total de cotizaciones: ${cotizaciones.length}`);
                 
                 cotizaciones.forEach(cotizacion => {
+                    // Validar datos mínimos
+                    if (!cotizacion.fecha || !cotizacion.cliente || !cotizacion.programa) {
+                        console.warn('⚠️ Cotización con datos incompletos:', cotizacion);
+                        return;
+                    }
+                    
                     const fechaString = cotizacion.fecha; // YYYY-MM-DD
                     console.log(`📆 Procesando cotización: ${cotizacion.cliente} - ${fechaString}`);
                     
