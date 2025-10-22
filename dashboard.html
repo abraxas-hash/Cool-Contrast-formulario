@@ -671,6 +671,16 @@
             color: white;
         }
         
+        .tour-action-btn.whatsapp {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+        }
+        
+        .tour-action-btn.whatsapp:hover {
+            background: linear-gradient(135deg, #128C7E, #075E54);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+        }
+        
         .tour-action-btn.edit {
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             color: white;
@@ -679,6 +689,42 @@
         .tour-action-btn.delete {
             background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
             color: #2d1b00;
+        }
+        
+        /* Estilos para el resumen completo de tour */
+        .tour-full-summary {
+            margin-top: 16px;
+        }
+        
+        .tour-section {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border-left: 3px solid var(--primary);
+        }
+        
+        .tour-section-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .tour-detail-value.destacado {
+            color: var(--gold);
+            font-weight: 700;
+            background: rgba(194, 65, 12, 0.15);
+            border-left: 3px solid var(--gold);
+        }
+        
+        .tour-detail-value.precio {
+            color: var(--success);
+            font-weight: 700;
+            background: rgba(16, 185, 129, 0.15);
+            border-left: 3px solid var(--success);
         }
 
     </style>
@@ -1218,38 +1264,162 @@
                     'en_proceso': 'En Proceso'
                 }[tour.estado] || 'Sin Estado';
                 
+                // Obtener TODOS los datos completos del tour desde localStorage
+                let tourCompleto = tour;
+                try {
+                    const cotizacionesGuardadas = localStorage.getItem('ores_cotizaciones');
+                    if (cotizacionesGuardadas) {
+                        const cotizaciones = JSON.parse(cotizacionesGuardadas);
+                        const cotizacionCompleta = cotizaciones.find(c => c.id === tour.id);
+                        if (cotizacionCompleta) {
+                            tourCompleto = cotizacionCompleta;
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error al obtener datos completos:', error);
+                }
+                
                 contenido += `
                     <div class="tour-detail-item">
-                        <div class="tour-client-name">👤 ${tour.cliente}</div>
+                        <div class="tour-client-name">👤 ${tourCompleto.cliente || tour.cliente}</div>
                         
-                        <div class="tour-details-grid">
-                            <div class="tour-detail-field">
-                                <div class="tour-detail-label">Programa</div>
-                                <div class="tour-detail-value">${tour.programa}</div>
+                        <!-- RESUMEN COMPLETO DE DATOS -->
+                        <div class="tour-full-summary">
+                            
+                            <!-- Datos del Cliente -->
+                            <div class="tour-section">
+                                <div class="tour-section-title">👤 DATOS DEL CLIENTE</div>
+                                <div class="tour-details-grid">
+                                    <div class="tour-detail-field">
+                                        <div class="tour-detail-label">Nombre</div>
+                                        <div class="tour-detail-value">${tourCompleto.cliente || tour.cliente || 'N/A'}</div>
+                                    </div>
+                                    <div class="tour-detail-field">
+                                        <div class="tour-detail-label">Teléfono</div>
+                                        <div class="tour-detail-value">📞 ${tourCompleto.telefono || tour.telefono || 'N/A'}</div>
+                                    </div>
+                                    <div class="tour-detail-field">
+                                        <div class="tour-detail-label">Email</div>
+                                        <div class="tour-detail-value">📧 ${tourCompleto.email || tour.email || 'N/A'}</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="tour-detail-field">
-                                <div class="tour-detail-label">Hora</div>
-                                <div class="tour-detail-value">🕰️ ${tour.hora}</div>
+                            
+                            <!-- Datos del Programa -->
+                            <div class="tour-section">
+                                <div class="tour-section-title">🎯 PROGRAMA</div>
+                                <div class="tour-details-grid">
+                                    <div class="tour-detail-field">
+                                        <div class="tour-detail-label">Programa</div>
+                                        <div class="tour-detail-value destacado">${tourCompleto.programa || tour.programa || 'N/A'}</div>
+                                    </div>
+                                    <div class="tour-detail-field">
+                                        <div class="tour-detail-label">Fecha de Viaje</div>
+                                        <div class="tour-detail-value">📅 ${tourCompleto.fecha || tour.fecha || fecha}</div>
+                                    </div>
+                                    <div class="tour-detail-field">
+                                        <div class="tour-detail-label">Personas</div>
+                                        <div class="tour-detail-value">👥 ${tourCompleto.personas || tour.personas || 'N/A'}</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="tour-detail-field">
-                                <div class="tour-detail-label">Personas</div>
-                                <div class="tour-detail-value">👥 ${tour.personas}</div>
+                            
+                            <!-- Datos de Alojamiento -->
+                            <div class="tour-section">
+                                <div class="tour-section-title">🏨 ALOJAMIENTO</div>
+                                <div class="tour-details-grid">
+                                    <div class="tour-detail-field">
+                                        <div class="tour-detail-label">Tipo de Habitación</div>
+                                        <div class="tour-detail-value">${tourCompleto.tipo_habitacion || 'N/A'}</div>
+                                    </div>
+                                    <div class="tour-detail-field">
+                                        <div class="tour-detail-label">Categoría de Hotel</div>
+                                        <div class="tour-detail-value">🏨 ${tourCompleto.hotel || tour.hotel || 'N/A'}</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="tour-detail-field">
-                                <div class="tour-detail-label">Hotel</div>
-                                <div class="tour-detail-value">🏨 ${tour.hotel}</div>
+                            
+                            <!-- Datos del Tren (si existen) -->
+                            ${tourCompleto.tipo_tren || tourCompleto.tren_horario || tourCompleto.precio_tren ? `
+                            <div class="tour-section">
+                                <div class="tour-section-title">🚂 TREN A MACHU PICCHU</div>
+                                <div class="tour-details-grid">
+                                    ${tourCompleto.tipo_tren ? `
+                                    <div class="tour-detail-field">
+                                        <div class="tour-detail-label">Tipo de Tren</div>
+                                        <div class="tour-detail-value">${tourCompleto.tipo_tren === 'expedition' ? 'Expedition (Local)' : 'Vistadome (Turístico)'}</div>
+                                    </div>
+                                    ` : ''}
+                                    ${tourCompleto.tren_horario ? `
+                                    <div class="tour-detail-field">
+                                        <div class="tour-detail-label">Horario</div>
+                                        <div class="tour-detail-value">🕰️ ${tourCompleto.tren_horario}</div>
+                                    </div>
+                                    ` : ''}
+                                    ${tourCompleto.personas_tren ? `
+                                    <div class="tour-detail-field">
+                                        <div class="tour-detail-label">Personas en Tren</div>
+                                        <div class="tour-detail-value">${tourCompleto.personas_tren}</div>
+                                    </div>
+                                    ` : ''}
+                                    ${tourCompleto.precio_tren ? `
+                                    <div class="tour-detail-field">
+                                        <div class="tour-detail-label">Precio Tren (USD)</div>
+                                        <div class="tour-detail-value precio">💰 USD ${tourCompleto.precio_tren}</div>
+                                    </div>
+                                    ` : ''}
+                                </div>
                             </div>
-                            <div class="tour-detail-field">
-                                <div class="tour-detail-label">Teléfono</div>
-                                <div class="tour-detail-value">📞 ${tour.telefono}</div>
+                            ` : ''}
+                            
+                            <!-- Datos del Asesor (si existen) -->
+                            ${tourCompleto.nombre_asesor ? `
+                            <div class="tour-section">
+                                <div class="tour-section-title">👨‍💼 ASESOR DE VIAJES</div>
+                                <div class="tour-details-grid">
+                                    <div class="tour-detail-field">
+                                        <div class="tour-detail-label">Nombre</div>
+                                        <div class="tour-detail-value">${tourCompleto.nombre_asesor}</div>
+                                    </div>
+                                    ${tourCompleto.email_asesor ? `
+                                    <div class="tour-detail-field">
+                                        <div class="tour-detail-label">Email</div>
+                                        <div class="tour-detail-value">📧 ${tourCompleto.email_asesor}</div>
+                                    </div>
+                                    ` : ''}
+                                    ${tourCompleto.telefono_asesor ? `
+                                    <div class="tour-detail-field">
+                                        <div class="tour-detail-label">Teléfono</div>
+                                        <div class="tour-detail-value">📞 ${tourCompleto.telefono_asesor}</div>
+                                    </div>
+                                    ` : ''}
+                                </div>
                             </div>
-                            <div class="tour-detail-field">
-                                <div class="tour-detail-label">Email</div>
-                                <div class="tour-detail-value">📧 ${tour.email}</div>
+                            ` : ''}
+                            
+                            <!-- Información Adicional -->
+                            ${tourCompleto.adelanto_pagado || tourCompleto.observaciones ? `
+                            <div class="tour-section">
+                                <div class="tour-section-title">ℹ️ INFORMACIÓN ADICIONAL</div>
+                                <div class="tour-details-grid">
+                                    ${tourCompleto.adelanto_pagado && tourCompleto.adelanto_pagado !== '0' ? `
+                                    <div class="tour-detail-field">
+                                        <div class="tour-detail-label">Adelanto Pagado</div>
+                                        <div class="tour-detail-value precio">💰 S/. ${tourCompleto.adelanto_pagado}</div>
+                                    </div>
+                                    ` : ''}
+                                    ${tourCompleto.observaciones ? `
+                                    <div class="tour-detail-field" style="grid-column: 1 / -1;">
+                                        <div class="tour-detail-label">Observaciones</div>
+                                        <div class="tour-detail-value">📝 ${tourCompleto.observaciones}</div>
+                                    </div>
+                                    ` : ''}
+                                </div>
                             </div>
+                            ` : ''}
                         </div>
                         
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--glass-border);">
                             <span class="tour-type-badge ${tour.tipo}">
                                 ${tour.tipo === 'fijo' ? 'Programa Fijo' : 'Personalizado'}
                             </span>
@@ -1258,17 +1428,16 @@
                             </span>
                         </div>
                         
-                        ${tour.observaciones ? `
-                            <div style="margin-top: 12px; padding: 8px 12px; background: rgba(255,255,255,0.05); border-radius: 8px; font-size: 0.85rem; color: var(--text-secondary);">
-                                📝 <strong>Observaciones:</strong> ${tour.observaciones}
-                            </div>
-                        ` : ''}
-                        
                         <!-- Botones de acción -->
                         <div class="tour-action-buttons">
                             ${tour.pdf && tour.pdf.download_url ? `
                                 <button class="tour-action-btn download" onclick="descargarPDFTour('${tour.pdf.download_url}')">
                                     📥 Descargar PDF
+                                </button>
+                            ` : ''}
+                            ${tour.pdf && tour.pdf.public_url ? `
+                                <button class="tour-action-btn whatsapp" onclick='compartirTourPorWhatsApp(${JSON.stringify(tourCompleto).replace(/'/g, "&apos;")}, "${tour.pdf.public_url}")'>
+                                    📱 Compartir por WhatsApp
                                 </button>
                             ` : ''}
                             <button class="tour-action-btn edit" onclick="editarTour(${tour.id})">
@@ -1330,6 +1499,101 @@
         function descargarPDFTour(downloadUrl) {
             console.log('📥 Descargando PDF del tour');
             window.open(downloadUrl, '_blank');
+        }
+        
+        /**
+         * Función para compartir el tour por WhatsApp
+         */
+        function compartirTourPorWhatsApp(tourDatos, linkPDF) {
+            console.log('📱 Compartiendo tour por WhatsApp');
+            
+            try {
+                // Formatear mensaje para WhatsApp
+                let mensaje = `🎉 *COTIZACIÓN - ORES TRAVEL*\n\n`;
+                
+                // Datos del cliente
+                mensaje += `👤 *DATOS DEL CLIENTE*\n`;
+                mensaje += `• Nombre: ${tourDatos.cliente || 'N/A'}\n`;
+                mensaje += `• Teléfono: ${tourDatos.telefono || 'N/A'}\n`;
+                if (tourDatos.email) {
+                    mensaje += `• Email: ${tourDatos.email}\n`;
+                }
+                mensaje += `\n`;
+                
+                // Datos del programa
+                mensaje += `🎯 *PROGRAMA*\n`;
+                mensaje += `• Programa: *${tourDatos.programa || 'N/A'}*\n`;
+                mensaje += `• Fecha: ${tourDatos.fecha || 'N/A'}\n`;
+                mensaje += `• Personas: ${tourDatos.personas || 'N/A'}\n`;
+                mensaje += `\n`;
+                
+                // Datos de alojamiento
+                if (tourDatos.tipo_habitacion || tourDatos.hotel) {
+                    mensaje += `🏨 *ALOJAMIENTO*\n`;
+                    if (tourDatos.tipo_habitacion) {
+                        mensaje += `• Habitación: ${tourDatos.tipo_habitacion}\n`;
+                    }
+                    if (tourDatos.hotel) {
+                        mensaje += `• Hotel: ${tourDatos.hotel}\n`;
+                    }
+                    mensaje += `\n`;
+                }
+                
+                // Datos del tren
+                if (tourDatos.tipo_tren || tourDatos.precio_tren) {
+                    mensaje += `🚂 *TREN A MACHU PICCHU*\n`;
+                    if (tourDatos.tipo_tren) {
+                        const tipoTren = tourDatos.tipo_tren === 'expedition' ? 'Expedition (Local)' : 'Vistadome (Turístico)';
+                        mensaje += `• Tipo: ${tipoTren}\n`;
+                    }
+                    if (tourDatos.tren_horario) {
+                        mensaje += `• Horario: ${tourDatos.tren_horario}\n`;
+                    }
+                    if (tourDatos.personas_tren) {
+                        mensaje += `• Personas: ${tourDatos.personas_tren}\n`;
+                    }
+                    if (tourDatos.precio_tren) {
+                        mensaje += `• Precio: USD ${tourDatos.precio_tren}\n`;
+                    }
+                    mensaje += `\n`;
+                }
+                
+                // Datos del asesor
+                if (tourDatos.nombre_asesor) {
+                    mensaje += `👨‍💼 *ASESOR*\n`;
+                    mensaje += `• ${tourDatos.nombre_asesor}\n`;
+                    if (tourDatos.telefono_asesor) {
+                        mensaje += `• Tel: ${tourDatos.telefono_asesor}\n`;
+                    }
+                    mensaje += `\n`;
+                }
+                
+                // Observaciones
+                if (tourDatos.observaciones && tourDatos.observaciones !== 'Ninguna') {
+                    mensaje += `ℹ️ *OBSERVACIONES*\n`;
+                    mensaje += `${tourDatos.observaciones}\n\n`;
+                }
+                
+                // Link del PDF
+                mensaje += `📄 *DOCUMENTO PDF*\n`;
+                mensaje += `${linkPDF}\n\n`;
+                mensaje += `✅ Descarga tu cotización completa`;
+                
+                // Codificar para URL
+                const mensajeCodificado = encodeURIComponent(mensaje);
+                
+                // Crear link de WhatsApp
+                const urlWhatsApp = `https://wa.me/?text=${mensajeCodificado}`;
+                
+                // Abrir WhatsApp
+                window.open(urlWhatsApp, '_blank');
+                
+                console.log('✅ WhatsApp abierto correctamente');
+                
+            } catch (error) {
+                console.error('❌ Error al compartir por WhatsApp:', error);
+                alert('❌ Error al preparar el mensaje de WhatsApp');
+            }
         }
         
         function editarTour(tourId) {
