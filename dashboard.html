@@ -1103,20 +1103,19 @@
         /**
          * Construir datos de tours desde las cotizaciones guardadas
          */
-        function obtenerToursData() {
-            console.log('🔍 Obteniendo datos de tours desde localStorage...');
+        async function obtenerToursData() {
+            console.log('🔍 Obteniendo datos de tours desde Google Sheets...');
             const toursData = {};
             
             try {
-                const cotizacionesGuardadas = localStorage.getItem('ores_cotizaciones');
-                console.log('📋 Cotizaciones guardadas:', cotizacionesGuardadas ? 'Sí' : 'No');
+                // Usar la función que sincroniza con Google Sheets
+                const cotizaciones = await obtenerCotizaciones();
+                console.log('📋 Cotizaciones obtenidas:', cotizaciones ? 'Sí' : 'No');
                 
-                if (!cotizacionesGuardadas) {
-                    console.log('⚠️ No hay cotizaciones en localStorage');
+                if (!cotizaciones || cotizaciones.length === 0) {
+                    console.log('⚠️ No hay cotizaciones disponibles');
                     return toursData;
                 }
-                
-                const cotizaciones = JSON.parse(cotizacionesGuardadas);
                 console.log(`📊 Total de cotizaciones: ${cotizaciones.length}`);
                 
                 cotizaciones.forEach(cotizacion => {
@@ -1152,13 +1151,13 @@
             return toursData;
         }
         
-        function generarCalendario() {
+        async function generarCalendario() {
             console.log('📅 Generando calendario...');
             const grid = document.getElementById('calendar-grid');
             const monthElement = document.getElementById('calendar-month');
             
-            // Obtener datos de tours reales
-            const toursData = obtenerToursData();
+            // Obtener datos de tours reales desde Google Sheets
+            const toursData = await obtenerToursData();
             console.log('📋 Tours data:', toursData);
             console.log('📆 Fecha actual:', fechaActual);
             
@@ -1285,11 +1284,11 @@
             return dayElement;
         }
         
-        function cambiarMes(direccion) {
+        async function cambiarMes(direccion) {
             console.log('🔄 Cambiando mes:', direccion);
             fechaActual.setMonth(fechaActual.getMonth() + direccion);
             console.log('📆 Nueva fecha:', fechaActual);
-            generarCalendario();
+            await generarCalendario();
         }
         
         function mostrarToursDia(tours, fecha) {
@@ -1691,7 +1690,7 @@
             }
         }
         
-        function eliminarTour(tourId, fecha) {
+        async function eliminarTour(tourId, fecha) {
             console.log('🗑️ Eliminando tour:', tourId);
             
             if (!confirm('¿Estás seguro de eliminar esta cotización?\n\nEsta acción no se puede deshacer.')) {
@@ -1724,9 +1723,9 @@
                 
                 // Cerrar modal y actualizar
                 cerrarModalTours();
-                cargarPDFs();
-                generarCalendario();
-                cargarEstadisticas();
+                await cargarPDFs();
+                await generarCalendario();
+                await cargarEstadisticas();
                 
             } catch (error) {
                 console.error('Error al guardar cambios:', error);
@@ -1778,7 +1777,7 @@
             await cargarPDFs();
             
             console.log('📅 Llamando a generarCalendario()...');
-            generarCalendario();
+            await generarCalendario();
             console.log('✅ Dashboard inicializado');
         });
     </script>
