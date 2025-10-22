@@ -897,7 +897,7 @@
                             <input type="email" id="email_asesor" name="email_asesor" class="form-input" 
                                    placeholder="Ej: asesor@orestravel.com">
                             <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">
-                                Por defecto: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6c05020a032c031e091f181e0d1a0900420f0301">[email&#160;protected]</a>
+                                Por defecto: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="adc4c3cbc2edc2dfc8ded9dfccdbc8c183cec2c0">[email&#160;protected]</a>
                             </div>
                         </div>
                     </div>
@@ -1038,18 +1038,12 @@
                                    placeholder="Ej: 2 adultos, 1 niño">
                         </div>
                         
-                        <div class="form-group">
-                            <label class="form-label" for="precio_usd">PRECIO TOTAL EN DÓLARES (USD):</label>
-                            <input type="text" id="precio_usd" name="precio_usd" class="form-input" 
-                                   placeholder="Ej: 150.00 (solo número)">
-                        </div>
-                        
                         <div class="form-group" id="grupo_precio_tren">
-                            <label class="form-label" for="precio_tren">💰 Precio del Tren Turístico (S/.):</label>
-                            <input type="number" id="precio_tren" name="precio_tren" class="form-input" 
-                                   placeholder="Ej: 150" step="0.01" min="0">
+                            <label class="form-label" for="precio_tren">💰 Precio del Tren Turístico (USD):</label>
+                            <input type="text" id="precio_tren" name="precio_tren" class="form-input" 
+                                   placeholder="Ej: 150.00 (cualquier formato)">
                             <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">
-                                💡 Precio en soles del tren turístico Vistadome por persona.
+                                💡 Precio en dólares del tren turístico Vistadome por persona.
                             </div>
                         </div>
                     </div>
@@ -1501,7 +1495,6 @@
                 tipo_tren: tipoTrenSeleccionado,
                 tren_horario: formData.get('tren_horario') || null,
                 personas_tren: formData.get('personas_tren') || null,
-                precio_usd: formData.get('precio_usd') || null,
                 adelanto_pagado: parseFloat(formData.get('adelanto_pagado')) || 0,
                 observaciones: formData.get('observaciones') || '',
                 // ✅ NUEVOS CAMPOS: Datos del asesor y precio del tren
@@ -1995,3 +1988,5 @@
             }
         }
     </script>
+</body>
+</html>
