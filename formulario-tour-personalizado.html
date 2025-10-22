@@ -1052,7 +1052,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label" for="horaTren">Hora del tren *</label>
-                                    <input type="time" id="horaTren" name="hora_tren" class="form-input">
+                                    <input type="time" id="horaTren" name="hora_tren" class="form-input" required>
                                 </div>
                             </div>
                             
@@ -1957,8 +1957,70 @@
         function mostrarResultadoExitoso(resultado) {
             console.log('🎉 Mostrando resultado exitoso');
             
+            // ========================================
+            // NUEVO: GUARDAR DATOS EN LOCALSTORAGE
+            // ========================================
+            try {
+                // Construir nombre del programa personalizado
+                const actividadesTexto = actividadesSeleccionadas.slice(0, 3).join(', ');
+                const programaNombre = actividadesSeleccionadas.length > 3 
+                    ? `${actividadesTexto}... (+${actividadesSeleccionadas.length - 3} más)`
+                    : actividadesTexto;
+                
+                // Obtener datos del formulario para guardar
+                const formData = {
+                    id: Date.now(), // ID único basado en timestamp
+                    tipo: 'personalizado',
+                    cliente: document.getElementById('nombreCliente').value,
+                    programa: programaNombre,
+                    actividades: actividadesSeleccionadas,
+                    fecha: document.getElementById('fechaInicio').value,
+                    personas: document.getElementById('numeroPersonas').value,
+                    telefono: document.getElementById('telefono').value || '',
+                    hotel: document.getElementById('categoriaHotel').value || '',
+                    pdf: {
+                        download_url: resultado.pdf.download_url,
+                        public_url: resultado.pdf.public_url,
+                        nombre: resultado.pdf.nombre
+                    },
+                    timestamp: new Date().toISOString(),
+                    estado: 'nuevo'
+                };
+                
+                // Leer cotizaciones existentes de localStorage
+                let cotizaciones = [];
+                const cotizacionesGuardadas = localStorage.getItem('ores_cotizaciones');
+                if (cotizacionesGuardadas) {
+                    try {
+                        cotizaciones = JSON.parse(cotizacionesGuardadas);
+                    } catch (e) {
+                        console.error('Error al parsear cotizaciones:', e);
+                        cotizaciones = [];
+                    }
+                }
+                
+                // Agregar nueva cotización al inicio del array
+                cotizaciones.unshift(formData);
+                
+                // Limitar a las últimas 100 cotizaciones para no sobrecargar localStorage
+                if (cotizaciones.length > 100) {
+                    cotizaciones = cotizaciones.slice(0, 100);
+                }
+                
+                // Guardar en localStorage
+                localStorage.setItem('ores_cotizaciones', JSON.stringify(cotizaciones));
+                console.log('✅ Cotización guardada en localStorage:', formData);
+                
+            } catch (error) {
+                console.error('❌ Error al guardar en localStorage:', error);
+                // No interrumpir el flujo si falla el guardado
+            }
+            // ========================================
+            // FIN GUARDADO EN LOCALSTORAGE
+            // ========================================
+            
             // Ocultar el formulario
-            const form = document.getElementById('tourForm');
+            const form = document.getElementById('tourPersonalizadoForm');
             if (form) {
                 form.style.display = 'none';
             }

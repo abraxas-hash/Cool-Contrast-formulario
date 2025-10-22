@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -921,13 +921,22 @@
                         <div class="form-group">
                             <label class="form-label" for="tipo_habitacion">Tipo de Habitación:</label>
                             <input type="text" id="tipo_habitacion" name="tipo_habitacion" class="form-input" 
-                                   placeholder="Ej: Doble, Matrimonial, Triple" required>
+                                   placeholder="Ej: Doble, Matrimonial, Simple, Triple" required>
                         </div>
                         
                         <div class="form-group">
                             <label class="form-label" for="categoria_hotel">Categoría Hotel:</label>
                             <input type="text" id="categoria_hotel" name="categoria_hotel" class="form-input" 
                                    placeholder="Ej: 3 estrellas, 4 estrellas, boutique" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="adelanto_pagado">Adelanto Pagado (S/.) - Opcional:</label>
+                        <input type="number" id="adelanto_pagado" name="adelanto_pagado" class="form-input" 
+                               placeholder="Escribe 0 si no dio adelanto" step="0.01" min="0" value="0">
+                        <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">
+                            💡 Ingresa el monto del adelanto si el cliente ya realizó un pago inicial. Si no hay adelanto, déjalo en 0.
                         </div>
                     </div>
                 </div>
@@ -958,36 +967,35 @@
                     
                     <!-- Mensaje informativo para Expedition -->
                     <div id="expeditionInfo" class="info-message" style="display: none;">
-                        <p>✅ <strong>Expedition seleccionado:</strong> Este tren se incluye automáticamente en tu programa. No requiere configuración adicional.</p>
+                        <p>✅ <strong>Tren Local (Expedition) seleccionado:</strong> Este tren se incluye automáticamente en tu programa sin costo adicional. No requiere configuración adicional.</p>
                     </div>
                     
                     <!-- Configuración adicional para Vistadome -->
                     <div id="trenTuristicoConfig" class="tren-config">
-                        <div class="config-title">
+                        <div class="config-title" style="font-weight: 700; color: var(--gold); margin-bottom: 16px;">
                             <span>⚙️</span>
-                            <span>Configuración Vistadome</span>
+                            <span>CONFIGURACIÓN TREN TURÍSTICO VISTADOME</span>
+                        </div>
+                        
+                        <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; margin-bottom: 16px; color: var(--text-secondary); font-size: 0.9rem;">
+                            ℹ️ Complete los siguientes datos para el tren turístico Vistadome
                         </div>
                         
                         <div class="form-group">
-                            <label class="form-label" for="tren_horario">Horario Preferido:</label>
-                            <select id="tren_horario" name="tren_horario" class="form-select">
-                                <option value="">Seleccionar...</option>
-                                <option value="Mañana">Mañana (6:00 - 9:00)</option>
-                                <option value="Medio día">Medio día (10:00 - 14:00)</option>
-                                <option value="Tarde">Tarde (15:00 - 18:00)</option>
-                            </select>
+                            <label class="form-label" for="tren_horario">Hora del tren:</label>
+                            <input type="time" id="tren_horario" name="tren_horario" class="form-input">
                         </div>
                         
                         <div class="form-group">
-                            <label class="form-label" for="personas_tren">Personas en tren:</label>
+                            <label class="form-label" for="personas_tren">PERSONAS EN TREN:</label>
                             <input type="text" id="personas_tren" name="personas_tren" class="form-input" 
                                    placeholder="Ej: 2 adultos, 1 niño">
                         </div>
                         
                         <div class="form-group">
-                            <label class="form-label" for="precio_usd">Precio total en dólares (USD):</label>
+                            <label class="form-label" for="precio_usd">PRECIO TOTAL EN DÓLARES (USD):</label>
                             <input type="text" id="precio_usd" name="precio_usd" class="form-input" 
-                                   placeholder="Ej: $150.00">
+                                   placeholder="Ej: 150.00 (solo número)">
                         </div>
                     </div>
                 </div>
@@ -1424,6 +1432,7 @@
                 tren_horario: formData.get('tren_horario') || null,
                 personas_tren: formData.get('personas_tren') || null,
                 precio_usd: formData.get('precio_usd') || null,
+                adelanto_pagado: parseFloat(formData.get('adelanto_pagado')) || 0,
                 observaciones: formData.get('observaciones') || '',
                 timestamp: new Date().toISOString()
             };
@@ -1639,6 +1648,61 @@
         function mostrarResultadoExitoso(resultado) {
             console.log('🎉 Mostrando resultado exitoso');
             
+            // ========================================
+            // NUEVO: GUARDAR DATOS EN LOCALSTORAGE
+            // ========================================
+            try {
+                // Obtener datos del formulario para guardar
+                const formData = {
+                    id: Date.now(), // ID único basado en timestamp
+                    tipo: 'fijo',
+                    cliente: document.getElementById('nombre_cliente').value,
+                    programa: selectedProgram || document.getElementById('programa_seleccionado').value,
+                    fecha: document.getElementById('fecha_viaje').value,
+                    personas: document.getElementById('numero_personas').value,
+                    telefono: document.getElementById('telefono').value || '',
+                    hotel: document.getElementById('categoria_hotel').value || '',
+                    pdf: {
+                        download_url: resultado.pdf.download_url,
+                        public_url: resultado.pdf.public_url,
+                        nombre: resultado.pdf.nombre
+                    },
+                    timestamp: new Date().toISOString(),
+                    estado: 'nuevo'
+                };
+                
+                // Leer cotizaciones existentes de localStorage
+                let cotizaciones = [];
+                const cotizacionesGuardadas = localStorage.getItem('ores_cotizaciones');
+                if (cotizacionesGuardadas) {
+                    try {
+                        cotizaciones = JSON.parse(cotizacionesGuardadas);
+                    } catch (e) {
+                        console.error('Error al parsear cotizaciones:', e);
+                        cotizaciones = [];
+                    }
+                }
+                
+                // Agregar nueva cotización al inicio del array
+                cotizaciones.unshift(formData);
+                
+                // Limitar a las últimas 100 cotizaciones para no sobrecargar localStorage
+                if (cotizaciones.length > 100) {
+                    cotizaciones = cotizaciones.slice(0, 100);
+                }
+                
+                // Guardar en localStorage
+                localStorage.setItem('ores_cotizaciones', JSON.stringify(cotizaciones));
+                console.log('✅ Cotización guardada en localStorage:', formData);
+                
+            } catch (error) {
+                console.error('❌ Error al guardar en localStorage:', error);
+                // No interrumpir el flujo si falla el guardado
+            }
+            // ========================================
+            // FIN GUARDADO EN LOCALSTORAGE
+            // ========================================
+            
             // Ocultar el formulario
             const form = document.getElementById('cotizacionForm');
             if (form) {
@@ -1666,22 +1730,17 @@
          * Crear HTML del resultado exitoso
          */
         function crearResultadoHTML(resultado) {
-            const mensaje = resultado.mensaje || {};
-            const pdf = resultado.pdf || {};
-            const acciones = resultado.acciones || {};
-            
-            // Valores por defecto para los textos de los botones
-            const textoDescargar = (acciones.descargar && acciones.descargar.texto) || "📥 Descargar PDF";
-            const textoCompartir = (acciones.compartir && acciones.compartir.texto) || "🔗 Compartir enlace";
-            const textoNueva = (acciones.nueva_cotizacion && acciones.nueva_cotizacion.texto) || "➕ Nueva cotización";
+            const mensaje = resultado.mensaje;
+            const pdf = resultado.pdf;
+            const acciones = resultado.acciones;
             
             return `
                 <div class="resultado-exitoso">
                     <!-- Header de éxito -->
                     <div class="resultado-header">
-                        <h1 class="resultado-titulo">${mensaje.titulo || '¡Cotización Generada!'}</h1>
+                        <h1 class="resultado-titulo">${mensaje.titulo}</h1>
                         <div class="resultado-contenido">
-                            ${(mensaje.contenido || 'Tu cotización ha sido generada exitosamente.').replace(/\n/g, '<br>')}
+                            ${mensaje.contenido.replace(/\n/g, '<br>')}
                         </div>
                     </div>
                     
@@ -1690,7 +1749,7 @@
                         <div class="pdf-icon">📄</div>
                         <div class="pdf-details">
                             <h3>Documento generado:</h3>
-                            <p class="pdf-nombre">${pdf.nombre || 'Cotizacion_ORES_Travel.pdf'}</p>
+                            <p class="pdf-nombre">${pdf.nombre}</p>
                             <p class="descarga-info">💡 Haz clic en el enlace para descargar automáticamente</p>
                         </div>
                     </div>
@@ -1698,23 +1757,23 @@
                     <!-- Botones de acción -->
                     <div class="acciones-container">
                         <button class="btn-accion btn-descargar" 
-                                onclick="descargarPDF('${pdf.download_url || pdf.url_descargar || ''}')">
-                            ${textoDescargar}
+                                onclick="descargarPDF('${pdf.download_url}')">
+                            ${acciones.descargar.texto}
                         </button>
                         
                         <button class="btn-accion btn-compartir" 
-                                onclick="compartirPDF('${pdf.public_url || pdf.url_ver || ''}')">
-                            ${textoCompartir}
+                                onclick="compartirPDF('${pdf.public_url}')">
+                            ${acciones.compartir.texto}
                         </button>
                         
                         <button class="btn-accion btn-nueva" 
                                 onclick="nuevaCotizacion()">
-                            ${textoNueva}
+                            ${acciones.nueva_cotizacion.texto}
                         </button>
                     </div>
                     
                     <!-- Link directo (oculto, para copiar) -->
-                    <input type="hidden" id="linkCompartir" value="${pdf.public_url || pdf.url_ver || ''}">
+                    <input type="hidden" id="linkCompartir" value="${pdf.public_url}">
                 </div>
             `;
         }
