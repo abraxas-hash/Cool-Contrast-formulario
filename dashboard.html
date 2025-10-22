@@ -881,18 +881,26 @@
         const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxyMwt1ywrb74yLEAfF2QNVf6wDGStAV6Qiu1nA5cgkJhEvFq8szcubM_RfpaFeZumbvQ/exec';
         
         /**
-         * Cargar cotizaciones desde Google Sheets
+         * Cargar cotizaciones desde Google Sheets con timeout
          */
         async function cargarDesdeGoogleSheets() {
             try {
                 console.log('☁️ Cargando cotizaciones desde Google Sheets...');
                 
-                const response = await fetch(GOOGLE_SHEETS_URL, {
+                // Crear promesa con timeout de 5 segundos
+                const timeoutPromise = new Promise((_, reject) => 
+                    setTimeout(() => reject(new Error('Timeout: Google Sheets tardó más de 5 segundos')), 5000)
+                );
+                
+                const fetchPromise = fetch(GOOGLE_SHEETS_URL, {
                     method: 'GET',
                     headers: {
                         'Accept': 'application/json',
                     }
                 });
+                
+                // Race entre fetch y timeout
+                const response = await Promise.race([fetchPromise, timeoutPromise]);
                 
                 if (!response.ok) {
                     throw new Error(`Error HTTP: ${response.status}`);
@@ -902,6 +910,9 @@
                 console.log('✅ Respuesta de Google Sheets:', resultado);
                 
                 if (resultado.status === 'success' && resultado.data) {
+                    // DEBUG: Ver estructura de datos
+                    console.log('🔍 DATOS RECIBIDOS:', JSON.stringify(resultado.data, null, 2));
+                    
                     // Sincronizar con localStorage
                     localStorage.setItem('ores_cotizaciones', JSON.stringify(resultado.data));
                     console.log(`✅ ${resultado.data.length} cotizaciones cargadas desde Google Sheets`);
@@ -911,36 +922,43 @@
                 return [];
                 
             } catch (error) {
-                console.warn('⚠️ No se pudo cargar desde Google Sheets:', error);
+                console.warn('⚠️ No se pudo cargar desde Google Sheets:', error.message);
                 // Fallar silenciosamente y usar localStorage como respaldo
                 return null;
             }
         }
         
         /**
-         * Obtener cotizaciones (Google Sheets primero, luego localStorage)
+         * Obtener cotizaciones (localStorage primero para velocidad, Google Sheets en segundo plano)
          */
         async function obtenerCotizaciones() {
-            // Intentar cargar desde Google Sheets
-            const datosSheets = await cargarDesdeGoogleSheets();
-            
-            if (datosSheets && datosSheets.length > 0) {
-                return datosSheets;
-            }
-            
-            // Usar localStorage como respaldo
+            // PRIMERO: Cargar desde localStorage (RÁPIDO)
+            let cotizacionesLocal = [];
             try {
                 const cotizacionesGuardadas = localStorage.getItem('ores_cotizaciones');
                 if (cotizacionesGuardadas) {
-                    const cotizaciones = JSON.parse(cotizacionesGuardadas);
-                    console.log(`📦 ${cotizaciones.length} cotizaciones cargadas desde localStorage (respaldo)`);
-                    return cotizaciones;
+                    cotizacionesLocal = JSON.parse(cotizacionesGuardadas);
+                    console.log(`⚡ ${cotizacionesLocal.length} cotizaciones cargadas desde localStorage (rápido)`);
                 }
             } catch (error) {
                 console.error('❌ Error al leer localStorage:', error);
             }
             
-            return [];
+            // SEGUNDO: Sincronizar con Google Sheets en segundo plano (no bloqueante)
+            cargarDesdeGoogleSheets().then(datosSheets => {
+                if (datosSheets && datosSheets.length > 0) {
+                    console.log('🔄 Datos actualizados desde Google Sheets en segundo plano');
+                    // Si hay cambios, recargar la UI
+                    if (JSON.stringify(datosSheets) !== JSON.stringify(cotizacionesLocal)) {
+                        console.log('🆕 Hay datos nuevos, recargando UI...');
+                        location.reload();
+                    }
+                }
+            }).catch(err => {
+                console.warn('⚠️ Sincronización en segundo plano falló:', err);
+            });
+            
+            return cotizacionesLocal;
         }
         
         // Verificar autenticación
@@ -951,8 +969,9 @@
                 return;
             }
             
+            let sessionData;
             try {
-                const sessionData = JSON.parse(session);
+                sessionData = JSON.parse(session);
                 
                 // Verificar expiración de sesión
                 const now = new Date();
