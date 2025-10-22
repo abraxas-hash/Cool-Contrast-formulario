@@ -875,6 +875,74 @@
     </div>
 
     <script>
+        // ==========================================
+        // CONFIGURACIÓN GOOGLE SHEETS
+        // ==========================================
+        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxyMwt1ywrb74yLEAfF2QNVf6wDGStAV6Qiu1nA5cgkJhEvFq8szcubM_RfpaFeZumbvQ/exec';
+        
+        /**
+         * Cargar cotizaciones desde Google Sheets
+         */
+        async function cargarDesdeGoogleSheets() {
+            try {
+                console.log('☁️ Cargando cotizaciones desde Google Sheets...');
+                
+                const response = await fetch(GOOGLE_SHEETS_URL, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Error HTTP: ${response.status}`);
+                }
+                
+                const resultado = await response.json();
+                console.log('✅ Respuesta de Google Sheets:', resultado);
+                
+                if (resultado.status === 'success' && resultado.data) {
+                    // Sincronizar con localStorage
+                    localStorage.setItem('ores_cotizaciones', JSON.stringify(resultado.data));
+                    console.log(`✅ ${resultado.data.length} cotizaciones cargadas desde Google Sheets`);
+                    return resultado.data;
+                }
+                
+                return [];
+                
+            } catch (error) {
+                console.warn('⚠️ No se pudo cargar desde Google Sheets:', error);
+                // Fallar silenciosamente y usar localStorage como respaldo
+                return null;
+            }
+        }
+        
+        /**
+         * Obtener cotizaciones (Google Sheets primero, luego localStorage)
+         */
+        async function obtenerCotizaciones() {
+            // Intentar cargar desde Google Sheets
+            const datosSheets = await cargarDesdeGoogleSheets();
+            
+            if (datosSheets && datosSheets.length > 0) {
+                return datosSheets;
+            }
+            
+            // Usar localStorage como respaldo
+            try {
+                const cotizacionesGuardadas = localStorage.getItem('ores_cotizaciones');
+                if (cotizacionesGuardadas) {
+                    const cotizaciones = JSON.parse(cotizacionesGuardadas);
+                    console.log(`📦 ${cotizaciones.length} cotizaciones cargadas desde localStorage (respaldo)`);
+                    return cotizaciones;
+                }
+            } catch (error) {
+                console.error('❌ Error al leer localStorage:', error);
+            }
+            
+            return [];
+        }
+        
         // Verificar autenticación
         function verificarAutenticacion() {
             const session = sessionStorage.getItem('ores_session');
@@ -935,16 +1003,16 @@
         }
 
         // Simular estadísticas (en producción conectar con API)
-        function cargarEstadisticas() {
+        async function cargarEstadisticas() {
             try {
-                const cotizacionesGuardadas = localStorage.getItem('ores_cotizaciones');
-                if (!cotizacionesGuardadas) {
+                // Obtener cotizaciones (Google Sheets + localStorage)
+                const cotizaciones = await obtenerCotizaciones();
+                
+                if (!cotizaciones || cotizaciones.length === 0) {
                     document.getElementById('cotizaciones-hoy').textContent = '0';
                     document.getElementById('tours-activos').textContent = '0';
                     return;
                 }
-                
-                const cotizaciones = JSON.parse(cotizacionesGuardadas);
                 const hoy = new Date().toISOString().split('T')[0];
                 
                 // Contar cotizaciones de hoy
@@ -972,21 +1040,13 @@
         // GESTIÓN DE PDFs GENERADOS
         // ==========================================
         
-        function cargarPDFs() {
+        async function cargarPDFs() {
             const pdfList = document.getElementById('pdf-list');
             const emptyState = document.getElementById('empty-pdfs');
             const pdfCount = document.getElementById('pdf-count');
             
-            // Leer cotizaciones de localStorage
-            let cotizaciones = [];
-            try {
-                const cotizacionesGuardadas = localStorage.getItem('ores_cotizaciones');
-                if (cotizacionesGuardadas) {
-                    cotizaciones = JSON.parse(cotizacionesGuardadas);
-                }
-            } catch (error) {
-                console.error('Error al leer cotizaciones:', error);
-            }
+            // Obtener cotizaciones (Google Sheets + localStorage)
+            const cotizaciones = await obtenerCotizaciones();
             
             if (cotizaciones.length === 0) {
                 emptyState.style.display = 'block';
@@ -1709,11 +1769,14 @@
         });
 
         // Inicialización
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
             console.log('🚀 Inicializando dashboard...');
             verificarAutenticacion();
-            cargarEstadisticas();
-            cargarPDFs();
+            
+            // Cargar datos de forma asíncrona
+            await cargarEstadisticas();
+            await cargarPDFs();
+            
             console.log('📅 Llamando a generarCalendario()...');
             generarCalendario();
             console.log('✅ Dashboard inicializado');

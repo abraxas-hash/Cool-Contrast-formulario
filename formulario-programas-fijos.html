@@ -527,6 +527,102 @@
             margin: 0 auto;
         }
 
+        /* Estilos para el resumen completo */
+        .resumen-completo {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 32px;
+            margin: 40px auto;
+            max-width: 900px;
+            text-align: left;
+            backdrop-filter: blur(10px);
+        }
+
+        .resumen-titulo {
+            font-size: 1.8rem;
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: 32px;
+            text-align: center;
+            border-bottom: 2px solid var(--glass-border);
+            padding-bottom: 16px;
+        }
+
+        .seccion-resumen {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .seccion-resumen:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        .seccion-titulo {
+            font-size: 1.2rem;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .datos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+        }
+
+        .dato-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .dato-item.dato-full {
+            grid-column: 1 / -1;
+        }
+
+        .dato-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .dato-valor {
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            font-weight: 500;
+            padding: 8px 12px;
+            background: rgba(194, 65, 12, 0.08);
+            border-radius: 6px;
+            border-left: 3px solid var(--gold);
+        }
+
+        .dato-valor.destacado {
+            background: linear-gradient(135deg, rgba(194, 65, 12, 0.2), rgba(194, 65, 12, 0.1));
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1.15rem;
+            border-left: 4px solid var(--gold);
+        }
+
+        .dato-valor.precio {
+            color: var(--success);
+            font-weight: 700;
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 3px solid var(--success);
+        }
+
         .pdf-info {
             display: flex;
             align-items: center;
@@ -590,6 +686,17 @@
             background: #0d9488;
             transform: translateY(-2px);
             box-shadow: 0 8px 32px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+        }
+
+        .btn-whatsapp:hover {
+            background: linear-gradient(135deg, #128C7E, #075E54);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(37, 211, 102, 0.4);
         }
 
         .btn-compartir {
@@ -709,6 +816,33 @@
             .btn-accion {
                 width: 100%;
                 max-width: 300px;
+            }
+            
+            /* Responsive para resumen completo */
+            .resumen-completo {
+                padding: 20px;
+                margin: 20px auto;
+            }
+            
+            .resumen-titulo {
+                font-size: 1.4rem;
+            }
+            
+            .seccion-resumen {
+                padding: 16px;
+            }
+            
+            .seccion-titulo {
+                font-size: 1rem;
+            }
+            
+            .datos-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .dato-valor {
+                font-size: 0.95rem;
             }
         }
     </style>
@@ -897,7 +1031,7 @@
                             <input type="email" id="email_asesor" name="email_asesor" class="form-input" 
                                    placeholder="Ej: asesor@orestravel.com">
                             <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">
-                                Por defecto: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="adc4c3cbc2edc2dfc8ded9dfccdbc8c183cec2c0">[email&#160;protected]</a>
+                                Por defecto: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3e575058517e514c5b4d4a4c5f485b52105d5153">[email&#160;protected]</a>
                             </div>
                         </div>
                     </div>
@@ -1084,6 +1218,12 @@
         // ==========================================
         // VARIABLES GLOBALES
         // ==========================================
+        
+        /**
+         * URL del Google Apps Script para sincronización
+         * @type {string}
+         */
+        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxyMwt1ywrb74yLEAfF2QNVf6wDGStAV6Qiu1nA5cgkJhEvFq8szcubM_RfpaFeZumbvQ/exec';
         
         /**
          * Variable para almacenar el programa seleccionado actualmente
@@ -1717,19 +1857,55 @@
             console.log('🎉 Mostrando resultado exitoso');
             
             // ========================================
-            // NUEVO: GUARDAR DATOS EN LOCALSTORAGE
+            // RECOPILAR TODOS LOS DATOS DEL FORMULARIO
+            // ========================================
+            const datosCompletos = {
+                // Datos del cliente
+                nombre_cliente: document.getElementById('nombre_cliente').value || 'N/A',
+                telefono: document.getElementById('telefono').value || 'N/A',
+                email: document.getElementById('email').value || 'N/A',
+                
+                // Datos del programa
+                programa: selectedProgram || document.getElementById('programa_seleccionado').value || 'N/A',
+                fecha_viaje: document.getElementById('fecha_viaje').value || 'N/A',
+                numero_personas: document.getElementById('numero_personas').value || 'N/A',
+                
+                // Datos de alojamiento
+                tipo_habitacion: document.getElementById('tipo_habitacion').value || 'N/A',
+                categoria_hotel: document.getElementById('categoria_hotel').value || 'N/A',
+                
+                // Datos del tren
+                tipo_tren: tipoTrenSeleccionado === 'expedition' ? 'Expedition (Local)' : 'Vistadome (Turístico)',
+                tren_horario: document.getElementById('tren_horario') ? document.getElementById('tren_horario').value || 'N/A' : 'N/A',
+                personas_tren: document.getElementById('personas_tren') ? document.getElementById('personas_tren').value || 'N/A' : 'N/A',
+                precio_tren: document.getElementById('precio_tren') ? document.getElementById('precio_tren').value || 'N/A' : 'N/A',
+                
+                // Datos del asesor
+                nombre_asesor: document.getElementById('nombre_asesor') ? document.getElementById('nombre_asesor').value || 'N/A' : 'N/A',
+                email_asesor: document.getElementById('email_asesor') ? document.getElementById('email_asesor').value || 'N/A' : 'N/A',
+                telefono_asesor: document.getElementById('telefono_asesor') ? document.getElementById('telefono_asesor').value || 'N/A' : 'N/A',
+                
+                // Otros datos
+                adelanto_pagado: document.getElementById('adelanto_pagado') ? document.getElementById('adelanto_pagado').value || '0' : '0',
+                observaciones: document.getElementById('observaciones') ? document.getElementById('observaciones').value || 'Ninguna' : 'Ninguna',
+                
+                // Datos del PDF
+                pdf: resultado.pdf
+            };
+            
+            // ========================================
+            // GUARDAR DATOS EN LOCALSTORAGE
             // ========================================
             try {
-                // Obtener datos del formulario para guardar
                 const formData = {
-                    id: Date.now(), // ID único basado en timestamp
+                    id: Date.now(),
                     tipo: 'fijo',
-                    cliente: document.getElementById('nombre_cliente').value,
-                    programa: selectedProgram || document.getElementById('programa_seleccionado').value,
-                    fecha: document.getElementById('fecha_viaje').value,
-                    personas: document.getElementById('numero_personas').value,
-                    telefono: document.getElementById('telefono').value || '',
-                    hotel: document.getElementById('categoria_hotel').value || '',
+                    cliente: datosCompletos.nombre_cliente,
+                    programa: datosCompletos.programa,
+                    fecha: datosCompletos.fecha_viaje,
+                    personas: datosCompletos.numero_personas,
+                    telefono: datosCompletos.telefono,
+                    hotel: datosCompletos.categoria_hotel,
                     pdf: {
                         download_url: resultado.pdf.download_url,
                         public_url: resultado.pdf.public_url,
@@ -1763,6 +1939,14 @@
                 localStorage.setItem('ores_cotizaciones', JSON.stringify(cotizaciones));
                 console.log('✅ Cotización guardada en localStorage:', formData);
                 
+                // Enviar a Google Sheets en segundo plano (no bloqueante)
+                enviarAGoogleSheets(formData).then(() => {
+                    console.log('✅ Cotización sincronizada con Google Sheets');
+                }).catch((error) => {
+                    console.warn('⚠️ No se pudo sincronizar con Google Sheets:', error);
+                    // No interrumpir el flujo aunque falle Google Sheets
+                });
+                
             } catch (error) {
                 console.error('❌ Error al guardar en localStorage:', error);
                 // No interrumpir el flujo si falla el guardado
@@ -1777,8 +1961,8 @@
                 form.style.display = 'none';
             }
             
-            // Crear contenedor de resultado
-            const resultadoHTML = crearResultadoHTML(resultado);
+            // Crear contenedor de resultado con todos los datos
+            const resultadoHTML = crearResultadoHTML(resultado, datosCompletos);
             
             // Insertar en el contenedor principal
             const container = document.querySelector('.form-container');
@@ -1795,12 +1979,12 @@
         }
         
         /**
-         * Crear HTML del resultado exitoso
+         * Crear HTML del resultado exitoso con resumen completo
          */
-        function crearResultadoHTML(resultado) {
+        function crearResultadoHTML(resultado, datosCompletos) {
             const mensaje = resultado.mensaje;
             const pdf = resultado.pdf;
-            const acciones = resultado.acciones;
+            const datos = datosCompletos;
             
             return `
                 <div class="resultado-exitoso">
@@ -1812,13 +1996,142 @@
                         </div>
                     </div>
                     
+                    <!-- RESUMEN COMPLETO DE DATOS -->
+                    <div class="resumen-completo">
+                        <h2 class="resumen-titulo">📋 RESUMEN DE LA COTIZACIÓN</h2>
+                        
+                        <!-- Datos del Cliente -->
+                        <div class="seccion-resumen">
+                            <h3 class="seccion-titulo">👤 DATOS DEL CLIENTE</h3>
+                            <div class="datos-grid">
+                                <div class="dato-item">
+                                    <span class="dato-label">Nombre:</span>
+                                    <span class="dato-valor">${datos.nombre_cliente}</span>
+                                </div>
+                                <div class="dato-item">
+                                    <span class="dato-label">Teléfono:</span>
+                                    <span class="dato-valor">${datos.telefono}</span>
+                                </div>
+                                <div class="dato-item">
+                                    <span class="dato-label">Email:</span>
+                                    <span class="dato-valor">${datos.email}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Datos del Programa -->
+                        <div class="seccion-resumen">
+                            <h3 class="seccion-titulo">🎯 PROGRAMA SELECCIONADO</h3>
+                            <div class="datos-grid">
+                                <div class="dato-item">
+                                    <span class="dato-label">Programa:</span>
+                                    <span class="dato-valor destacado">${datos.programa}</span>
+                                </div>
+                                <div class="dato-item">
+                                    <span class="dato-label">Fecha de Viaje:</span>
+                                    <span class="dato-valor">${datos.fecha_viaje}</span>
+                                </div>
+                                <div class="dato-item">
+                                    <span class="dato-label">Número de Personas:</span>
+                                    <span class="dato-valor">${datos.numero_personas}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Datos de Alojamiento -->
+                        <div class="seccion-resumen">
+                            <h3 class="seccion-titulo">🏨 ALOJAMIENTO</h3>
+                            <div class="datos-grid">
+                                <div class="dato-item">
+                                    <span class="dato-label">Tipo de Habitación:</span>
+                                    <span class="dato-valor">${datos.tipo_habitacion}</span>
+                                </div>
+                                <div class="dato-item">
+                                    <span class="dato-label">Categoría de Hotel:</span>
+                                    <span class="dato-valor">${datos.categoria_hotel}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Datos del Tren -->
+                        <div class="seccion-resumen">
+                            <h3 class="seccion-titulo">🚂 TREN A MACHU PICCHU</h3>
+                            <div class="datos-grid">
+                                <div class="dato-item">
+                                    <span class="dato-label">Tipo de Tren:</span>
+                                    <span class="dato-valor">${datos.tipo_tren}</span>
+                                </div>
+                                ${datos.tren_horario !== 'N/A' ? `
+                                <div class="dato-item">
+                                    <span class="dato-label">Horario:</span>
+                                    <span class="dato-valor">${datos.tren_horario}</span>
+                                </div>
+                                ` : ''}
+                                ${datos.personas_tren !== 'N/A' ? `
+                                <div class="dato-item">
+                                    <span class="dato-label">Personas en Tren:</span>
+                                    <span class="dato-valor">${datos.personas_tren}</span>
+                                </div>
+                                ` : ''}
+                                ${datos.precio_tren !== 'N/A' ? `
+                                <div class="dato-item">
+                                    <span class="dato-label">Precio Tren:</span>
+                                    <span class="dato-valor precio">USD ${datos.precio_tren}</span>
+                                </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                        
+                        <!-- Datos del Asesor -->
+                        ${datos.nombre_asesor !== 'N/A' ? `
+                        <div class="seccion-resumen">
+                            <h3 class="seccion-titulo">👨‍💼 ASESOR DE VIAJES</h3>
+                            <div class="datos-grid">
+                                <div class="dato-item">
+                                    <span class="dato-label">Nombre:</span>
+                                    <span class="dato-valor">${datos.nombre_asesor}</span>
+                                </div>
+                                ${datos.email_asesor !== 'N/A' ? `
+                                <div class="dato-item">
+                                    <span class="dato-label">Email:</span>
+                                    <span class="dato-valor">${datos.email_asesor}</span>
+                                </div>
+                                ` : ''}
+                                ${datos.telefono_asesor !== 'N/A' ? `
+                                <div class="dato-item">
+                                    <span class="dato-label">Teléfono:</span>
+                                    <span class="dato-valor">${datos.telefono_asesor}</span>
+                                </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                        ` : ''}
+                        
+                        <!-- Información Adicional -->
+                        <div class="seccion-resumen">
+                            <h3 class="seccion-titulo">ℹ️ INFORMACIÓN ADICIONAL</h3>
+                            <div class="datos-grid">
+                                ${datos.adelanto_pagado !== '0' ? `
+                                <div class="dato-item">
+                                    <span class="dato-label">Adelanto Pagado:</span>
+                                    <span class="dato-valor precio">S/. ${datos.adelanto_pagado}</span>
+                                </div>
+                                ` : ''}
+                                <div class="dato-item dato-full">
+                                    <span class="dato-label">Observaciones:</span>
+                                    <span class="dato-valor">${datos.observaciones}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <!-- Información del PDF -->
                     <div class="pdf-info">
                         <div class="pdf-icon">📄</div>
                         <div class="pdf-details">
                             <h3>Documento generado:</h3>
                             <p class="pdf-nombre">${pdf.nombre}</p>
-                            <p class="descarga-info">💡 Haz clic en el enlace para descargar automáticamente</p>
+                            <p class="descarga-info">💡 La descarga se iniciará automáticamente</p>
                         </div>
                     </div>
                     
@@ -1829,9 +2142,14 @@
                             📥 Descargar PDF
                         </button>
                         
+                        <button class="btn-accion btn-whatsapp" 
+                                onclick="compartirPorWhatsApp()">
+                            📱 Compartir por WhatsApp
+                        </button>
+                        
                         <button class="btn-accion btn-compartir" 
                                 onclick="compartirPDF('${pdf.public_url}')">
-                            🔗 Compartir
+                            🔗 Copiar Link
                         </button>
                         
                         <button class="btn-accion btn-nueva" 
@@ -1840,8 +2158,9 @@
                         </button>
                     </div>
                     
-                    <!-- Link directo (oculto, para copiar) -->
+                    <!-- Datos ocultos para compartir -->
                     <input type="hidden" id="linkCompartir" value="${pdf.public_url}">
+                    <input type="hidden" id="datosResumen" value='${JSON.stringify(datos).replace(/'/g, "&apos;")}'>
                 </div>
             `;
         }
@@ -1925,6 +2244,96 @@
         }
         
         /**
+         * Función para compartir por WhatsApp con resumen completo
+         */
+        function compartirPorWhatsApp() {
+            console.log('📱 Compartiendo por WhatsApp');
+            
+            try {
+                // Obtener datos del resumen
+                const datosResumenElement = document.getElementById('datosResumen');
+                const linkPDF = document.getElementById('linkCompartir').value;
+                
+                if (!datosResumenElement || !linkPDF) {
+                    mostrarNotificacion('❌ Error al obtener los datos');
+                    return;
+                }
+                
+                const datos = JSON.parse(datosResumenElement.value);
+                
+                // Formatear mensaje para WhatsApp
+                let mensaje = `🎉 *COTIZACIÓN GENERADA - ORES TRAVEL*\n\n`;
+                
+                // Datos del cliente
+                mensaje += `👤 *DATOS DEL CLIENTE*\n`;
+                mensaje += `• Nombre: ${datos.nombre_cliente}\n`;
+                mensaje += `• Teléfono: ${datos.telefono}\n`;
+                mensaje += `• Email: ${datos.email}\n\n`;
+                
+                // Datos del programa
+                mensaje += `🎯 *PROGRAMA SELECCIONADO*\n`;
+                mensaje += `• Programa: *${datos.programa}*\n`;
+                mensaje += `• Fecha de Viaje: ${datos.fecha_viaje}\n`;
+                mensaje += `• Número de Personas: ${datos.numero_personas}\n\n`;
+                
+                // Datos de alojamiento
+                mensaje += `🏨 *ALOJAMIENTO*\n`;
+                mensaje += `• Habitación: ${datos.tipo_habitacion}\n`;
+                mensaje += `• Categoría: ${datos.categoria_hotel}\n\n`;
+                
+                // Datos del tren
+                mensaje += `🚂 *TREN A MACHU PICCHU*\n`;
+                mensaje += `• Tipo: ${datos.tipo_tren}\n`;
+                if (datos.tren_horario !== 'N/A') {
+                    mensaje += `• Horario: ${datos.tren_horario}\n`;
+                }
+                if (datos.personas_tren !== 'N/A') {
+                    mensaje += `• Personas: ${datos.personas_tren}\n`;
+                }
+                if (datos.precio_tren !== 'N/A') {
+                    mensaje += `• Precio: USD ${datos.precio_tren}\n`;
+                }
+                mensaje += `\n`;
+                
+                // Datos del asesor (si existen)
+                if (datos.nombre_asesor !== 'N/A') {
+                    mensaje += `👨‍💼 *ASESOR DE VIAJES*\n`;
+                    mensaje += `• ${datos.nombre_asesor}\n`;
+                    if (datos.telefono_asesor !== 'N/A') {
+                        mensaje += `• Tel: ${datos.telefono_asesor}\n`;
+                    }
+                    mensaje += `\n`;
+                }
+                
+                // Información adicional
+                if (datos.observaciones !== 'Ninguna') {
+                    mensaje += `ℹ️ *OBSERVACIONES*\n`;
+                    mensaje += `${datos.observaciones}\n\n`;
+                }
+                
+                // Link del PDF
+                mensaje += `📄 *DOCUMENTO PDF*\n`;
+                mensaje += `${linkPDF}\n\n`;
+                mensaje += `✅ Descarga tu cotización completa en el link de arriba`;
+                
+                // Codificar para URL
+                const mensajeCodificado = encodeURIComponent(mensaje);
+                
+                // Crear link de WhatsApp
+                const urlWhatsApp = `https://wa.me/?text=${mensajeCodificado}`;
+                
+                // Abrir WhatsApp
+                window.open(urlWhatsApp, '_blank');
+                
+                console.log('✅ WhatsApp abierto correctamente');
+                
+            } catch (error) {
+                console.error('❌ Error al compartir por WhatsApp:', error);
+                mostrarNotificacion('❌ Error al preparar el mensaje de WhatsApp');
+            }
+        }
+        
+        /**
          * Mostrar link para copiar manualmente
          */
         function mostrarLinkManual(url) {
@@ -1985,6 +2394,58 @@
             const modal = document.querySelector('.modal-link');
             if (modal) {
                 modal.remove();
+            }
+        }
+        
+        // ==========================================
+        // FUNCIONES DE SINCRONIZACIÓN GOOGLE SHEETS
+        // ==========================================
+        
+        /**
+         * Envía los datos de la cotización a Google Sheets
+         * @param {Object} cotizacion - Datos de la cotización
+         * @returns {Promise} - Promesa de la operación
+         */
+        async function enviarAGoogleSheets(cotizacion) {
+            try {
+                console.log('📤 Enviando cotización a Google Sheets...');
+                
+                // Preparar datos para Google Sheets
+                const datosParaSheets = {
+                    id: cotizacion.id,
+                    fecha_creacion: cotizacion.timestamp,
+                    nombre_cliente: cotizacion.cliente,
+                    email: '',
+                    telefono: cotizacion.telefono,
+                    programa: cotizacion.programa,
+                    fecha_tour: cotizacion.fecha,
+                    num_adultos: '',
+                    num_ninos: '',
+                    hotel: cotizacion.hotel,
+                    tren: '',
+                    precio_tren: '',
+                    total: '',
+                    pdf_url: cotizacion.pdf.public_url || '',
+                    tipo_cotizacion: cotizacion.tipo,
+                    personas: cotizacion.personas
+                };
+                
+                const response = await fetch(GOOGLE_SHEETS_URL, {
+                    method: 'POST',
+                    mode: 'no-cors', // Importante para Google Apps Script
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(datosParaSheets)
+                });
+                
+                // Con no-cors, no podemos leer la respuesta, pero asumimos éxito
+                console.log('✅ Datos enviados a Google Sheets');
+                return true;
+                
+            } catch (error) {
+                console.error('❌ Error al enviar a Google Sheets:', error);
+                throw error;
             }
         }
     </script>
