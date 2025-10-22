@@ -941,6 +941,60 @@
                     </div>
                 </div>
                 
+                <!-- PASO 3.5: DATOS DEL ASESOR Y CONFIGURACIÓN ADICIONAL -->
+                <div class="step-section">
+                    <div class="step-title">
+                        <span>👤</span>
+                        <span>PASO 3.5: Datos del Asesor (Opcional)</span>
+                    </div>
+                    
+                    <div style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 12px; padding: 16px; margin-bottom: 20px;">
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0; line-height: 1.4;">
+                            💡 <strong>Estos campos son opcionales.</strong> Si los dejas vacíos, se usarán automáticamente los datos de contacto de ORES TRAVEL PERU.
+                        </p>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="nombre_asesor">Nombre del Asesor:</label>
+                            <input type="text" id="nombre_asesor" name="nombre_asesor" class="form-input" 
+                                   placeholder="Ej: Juan Pérez">
+                            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">
+                                Por defecto: ORES TRAVEL PERU
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="email_asesor">Email del Asesor:</label>
+                            <input type="email" id="email_asesor" name="email_asesor" class="form-input" 
+                                   placeholder="Ej: asesor@orestravel.com">
+                            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">
+                                Por defecto: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="046d6a626b446b7661777076657261682a676b69">[email&#160;protected]</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="telefono_asesor">Teléfono del Asesor:</label>
+                            <input type="tel" id="telefono_asesor" name="telefono_asesor" class="form-input" 
+                                   placeholder="Ej: +51 984 123 456">
+                            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">
+                                Por defecto: +51 984 123 456
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" id="grupo_precio_tren">
+                            <label class="form-label" for="precio_tren">💰 Precio del Tren Turístico (S/.):</label>
+                            <input type="number" id="precio_tren" name="precio_tren" class="form-input" 
+                                   placeholder="Ej: 150" step="0.01" min="0">
+                            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">
+                                💡 Este campo solo se usa si seleccionas <strong>Tren Turístico Vistadome</strong> en el PASO 4. Si seleccionas Tren Local, será ignorado.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 <!-- PASO 4: CONFIGURACIÓN DE TREN -->
                 <div class="step-section">
                     <div class="step-title">
@@ -952,13 +1006,13 @@
                         <div class="tren-option" data-tren="expedition" onclick="seleccionarTren('expedition')">
                             <span class="tren-icon">🚂</span>
                             <div class="tren-title">Expedition</div>
-                            <div class="tren-price">Económico</div>
+                            <div class="tren-price">✅ Incluido en el programa</div>
                         </div>
                         
                         <div class="tren-option" data-tren="vistadome" onclick="seleccionarTren('vistadome')">
                             <span class="tren-icon">🚅</span>
                             <div class="tren-title">Vistadome</div>
-                            <div class="tren-price">Turístico</div>
+                            <div class="tren-price">💰 Costo adicional</div>
                         </div>
                     </div>
                     
@@ -967,7 +1021,7 @@
                     
                     <!-- Mensaje informativo para Expedition -->
                     <div id="expeditionInfo" class="info-message" style="display: none;">
-                        <p>✅ <strong>Tren Local (Expedition) seleccionado:</strong> Este tren se incluye automáticamente en tu programa sin costo adicional. No requiere configuración adicional.</p>
+                        <p>✅ <strong>Tren Local (Expedition) seleccionado:</strong> Este tren se incluye automáticamente en tu programa sin costo adicional. <strong>En el PDF aparecerá como: "incluye (local)"</strong>. No se requiere ingresar precio.</p>
                     </div>
                     
                     <!-- Configuración adicional para Vistadome -->
@@ -1031,7 +1085,7 @@
     <!-- ==========================================
          JAVASCRIPT - FUNCIONALIDAD COMPLETA
     ========================================== -->
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // ==========================================
         // VARIABLES GLOBALES
         // ==========================================
@@ -1321,6 +1375,7 @@
         function manejarConfiguracionTren(tipo) {
             const trenConfig = document.getElementById('trenTuristicoConfig');
             const expeditionInfo = document.getElementById('expeditionInfo');
+            const grupoPrecioTren = document.getElementById('grupo_precio_tren');
             
             if (tipo === 'vistadome') {
                 // Mostrar configuración del tren turístico
@@ -1332,6 +1387,13 @@
                 if (expeditionInfo) {
                     expeditionInfo.style.display = 'none';
                 }
+                // Resaltar el campo de precio en PASO 3.5
+                if (grupoPrecioTren) {
+                    grupoPrecioTren.style.background = 'rgba(194, 65, 12, 0.1)';
+                    grupoPrecioTren.style.borderRadius = '12px';
+                    grupoPrecioTren.style.padding = '16px';
+                    grupoPrecioTren.style.border = '2px solid rgba(194, 65, 12, 0.3)';
+                }
             } else if (tipo === 'expedition') {
                 // Ocultar configuración del tren turístico
                 if (trenConfig) {
@@ -1342,6 +1404,13 @@
                 if (expeditionInfo) {
                     expeditionInfo.style.display = 'block';
                     console.log('Mensaje informativo de Expedition mostrado');
+                }
+                // Quitar resaltado del campo de precio en PASO 3.5
+                if (grupoPrecioTren) {
+                    grupoPrecioTren.style.background = '';
+                    grupoPrecioTren.style.borderRadius = '';
+                    grupoPrecioTren.style.padding = '';
+                    grupoPrecioTren.style.border = '';
                 }
             }
         }
@@ -1434,6 +1503,11 @@
                 precio_usd: formData.get('precio_usd') || null,
                 adelanto_pagado: parseFloat(formData.get('adelanto_pagado')) || 0,
                 observaciones: formData.get('observaciones') || '',
+                // ✅ NUEVOS CAMPOS: Datos del asesor y precio del tren
+                nombre_asesor: formData.get('nombre_asesor') || null,
+                email_asesor: formData.get('email_asesor') || null,
+                telefono_asesor: formData.get('telefono_asesor') || null,
+                precio_tren: formData.get('precio_tren') || null,
                 timestamp: new Date().toISOString()
             };
             
@@ -1758,17 +1832,17 @@
                     <div class="acciones-container">
                         <button class="btn-accion btn-descargar" 
                                 onclick="descargarPDF('${pdf.download_url}')">
-                            ${acciones.descargar.texto}
+                            📥 Descargar PDF
                         </button>
                         
                         <button class="btn-accion btn-compartir" 
                                 onclick="compartirPDF('${pdf.public_url}')">
-                            ${acciones.compartir.texto}
+                            🔗 Compartir
                         </button>
                         
                         <button class="btn-accion btn-nueva" 
                                 onclick="nuevaCotizacion()">
-                            ${acciones.nueva_cotizacion.texto}
+                            🆕 Nueva Cotización
                         </button>
                     </div>
                     
