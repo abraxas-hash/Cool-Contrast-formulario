@@ -1052,7 +1052,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label" for="horaTren">Hora del tren *</label>
-                                    <input type="time" id="horaTren" name="hora_tren" class="form-input" required>
+                                    <input type="time" id="horaTren" name="hora_tren" class="form-input">
                                 </div>
                             </div>
                             
@@ -1226,20 +1226,12 @@
         // ==========================================
         // CONFIGURACIÓN DEL FORMULARIO
         // ==========================================
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 Inicializando Tour Personalizado...');
-            
-            // Configurar evento de envío del formulario
-            const form = document.getElementById('tourPersonalizadoForm');
-            if (form) {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    console.log('📤 Formulario enviado');
-                    enviarFormularioPersonalizado();
-                });
-                console.log('✅ Evento submit configurado');
-            }
-        });
+        // Eliminado: event listener duplicado
+        
+        // ==========================================
+        // CONFIGURACIÓN GOOGLE SHEETS
+        // ==========================================
+        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxyMwt1ywrb74yLEAfF2QNVf6wDGStAV6Qiu1nA5cgkJhEvFq8szcubM_RfpaFeZumbvQ/exec';
         
         const actividades = {
             'LLEGADA': { emoji: '🛬', categoria: 'traslados', incluye_machu_picchu: false },
@@ -1274,15 +1266,14 @@
         // INICIALIZACIÓN
         // ==========================================
         document.addEventListener('DOMContentLoaded', function() {
-            // Verificar autenticación
-            const session = sessionStorage.getItem('ores_session');
-            if (!session) {
-                window.location.href = '/login';
-                return;
-            }
+            console.log('🚀 Inicializando Tour Personalizado...');
             
             // Configurar formulario
-            document.getElementById('tourPersonalizadoForm').addEventListener('submit', enviarCotizacion);
+            const form = document.getElementById('tourPersonalizadoForm');
+            if (form) {
+                form.addEventListener('submit', enviarCotizacion);
+                console.log('✅ Evento submit configurado');
+            }
             
             // Ejecutar detección de transporte inicial
             detectarTransporte();
@@ -1668,32 +1659,49 @@
                     });
                 }
                 
-                // Crear payload para n8n
+                // Crear payload para n8n (compatible con Google Sheets)
                 const payload = {
-                    origen: 'formulario',
-                    tipo_tour: 'personalizado',
+                    origen: 'formulario_web',
+                    tipo_cotizacion: 'TOUR PERSONALIZADO',
+                    programa: actividadesSeleccionadas.join(', '),
                     actividades_seleccionadas: actividadesSeleccionadas,
                     itinerario: itinerario,
+                    
+                    // Datos del cliente
+                    nombre_cliente: formData.get('nombre_cliente'),
+                    telefono: formData.get('telefono'),
+                    numero_personas: parseInt(formData.get('numero_personas')) || 2,
+                    
+                    // Fechas (formato compatible con dashboard)
+                    fecha_tour: formData.get('fecha_inicio'),
                     actividad_inicial: formData.get('actividad_inicial'),
-                    fecha_inicio: formData.get('fecha_inicio'),
+                    
+                    // Transporte
                     tipo_transporte: formData.get('tipo_transporte'),
                     personas_tren: formData.get('personas_tren'),
                     hora_tren: formData.get('hora_tren'),
                     fecha_tren: formData.get('fecha_tren'),
                     precio_tren: formData.get('precio_tren') ? parseFloat(formData.get('precio_tren')) : null,
                     precio_total_tren: formData.get('precio_total_tren'),
+                    
+                    // Alojamiento
                     tipo_habitacion: formData.get('tipo_habitacion'),
                     categoria_hotel: formData.get('categoria_hotel'),
                     noches_por_dia: nochesPorDia,
+                    
+                    // Precios
                     modalidad_precio: modalidadPrecioSeleccionada,
                     precio_total: formData.get('precio_total') ? parseFloat(formData.get('precio_total')) : null,
                     precios_individuales: preciosIndividuales,
-                    nombre_cliente: formData.get('nombre_cliente'),
-                    telefono: formData.get('telefono'),
-                    numero_personas: formData.get('numero_personas'),
-                    observaciones: formData.get('observaciones') || '',
                     adelanto_pagado: parseFloat(formData.get('adelanto_pagado')) || 0,
-                    timestamp: new Date().toISOString()
+                    
+                    // Adicionales
+                    observaciones: formData.get('observaciones') || '',
+                    
+                    // Metadatos para Google Sheets
+                    fecha_creacion: new Date().toISOString(),
+                    timestamp: new Date().toISOString(),
+                    estado: 'PENDIENTE'
                 };
                 
                 console.log('Enviando payload:', payload);
@@ -1710,6 +1718,68 @@
                 });
                 
                 if (response.ok) {
+                    const resultado = await response.json();
+                    console.log('✅ Respuesta de n8n:', resultado);
+                    
+                    // ========================================
+                    // GUARDAR EN LOCALSTORAGE Y SINCRONIZAR
+                    // ========================================
+                    try {
+                        // Preparar datos para almacenamiento
+                        const cotizacionParaGuardar = {
+                            id: Date.now().toString(),
+                            timestamp: new Date().toISOString(),
+                            tipo_cotizacion: 'TOUR PERSONALIZADO',
+                            programa: payload.programa,
+                            nombre_cliente: payload.nombre_cliente,
+                            telefono: payload.telefono,
+                            numero_personas: payload.numero_personas,
+                            fecha_tour: payload.fecha_tour,
+                            precio_total: payload.precio_total,
+                            adelanto_pagado: payload.adelanto_pagado,
+                            observaciones: payload.observaciones,
+                            pdf_url: resultado.pdf?.public_url || '',
+                            estado: 'PENDIENTE'
+                        };
+                        
+                        // Obtener cotizaciones existentes
+                        let cotizaciones = [];
+                        const cotizacionesGuardadas = localStorage.getItem('ores_cotizaciones');
+                        if (cotizacionesGuardadas) {
+                            try {
+                                cotizaciones = JSON.parse(cotizacionesGuardadas);
+                            } catch (e) {
+                                console.error('Error al parsear cotizaciones:', e);
+                                cotizaciones = [];
+                            }
+                        }
+                        
+                        // Agregar nueva cotización al inicio
+                        cotizaciones.unshift(cotizacionParaGuardar);
+                        
+                        // Limitar a 100 cotizaciones
+                        if (cotizaciones.length > 100) {
+                            cotizaciones = cotizaciones.slice(0, 100);
+                        }
+                        
+                        // Guardar en localStorage
+                        localStorage.setItem('ores_cotizaciones', JSON.stringify(cotizaciones));
+                        console.log('✅ Cotización guardada en localStorage');
+                        
+                        // Sincronizar con Google Sheets en segundo plano
+                        enviarAGoogleSheets(cotizacionParaGuardar).then(() => {
+                            console.log('✅ Cotización sincronizada con Google Sheets');
+                        }).catch((error) => {
+                            console.warn('⚠️ No se pudo sincronizar con Google Sheets:', error);
+                        });
+                        
+                    } catch (error) {
+                        console.error('❌ Error al guardar:', error);
+                    }
+                    // ========================================
+                    // FIN GUARDADO Y SINCRONIZACIÓN
+                    // ========================================
+                    
                     mostrarMensaje('✅ Cotización personalizada generada exitosamente. Recibirás el PDF por WhatsApp en breve.', 'success');
                     
                     // Limpiar formulario después de 5 segundos
@@ -1957,70 +2027,8 @@
         function mostrarResultadoExitoso(resultado) {
             console.log('🎉 Mostrando resultado exitoso');
             
-            // ========================================
-            // NUEVO: GUARDAR DATOS EN LOCALSTORAGE
-            // ========================================
-            try {
-                // Construir nombre del programa personalizado
-                const actividadesTexto = actividadesSeleccionadas.slice(0, 3).join(', ');
-                const programaNombre = actividadesSeleccionadas.length > 3 
-                    ? `${actividadesTexto}... (+${actividadesSeleccionadas.length - 3} más)`
-                    : actividadesTexto;
-                
-                // Obtener datos del formulario para guardar
-                const formData = {
-                    id: Date.now(), // ID único basado en timestamp
-                    tipo: 'personalizado',
-                    cliente: document.getElementById('nombreCliente').value,
-                    programa: programaNombre,
-                    actividades: actividadesSeleccionadas,
-                    fecha: document.getElementById('fechaInicio').value,
-                    personas: document.getElementById('numeroPersonas').value,
-                    telefono: document.getElementById('telefono').value || '',
-                    hotel: document.getElementById('categoriaHotel').value || '',
-                    pdf: {
-                        download_url: resultado.pdf.download_url,
-                        public_url: resultado.pdf.public_url,
-                        nombre: resultado.pdf.nombre
-                    },
-                    timestamp: new Date().toISOString(),
-                    estado: 'nuevo'
-                };
-                
-                // Leer cotizaciones existentes de localStorage
-                let cotizaciones = [];
-                const cotizacionesGuardadas = localStorage.getItem('ores_cotizaciones');
-                if (cotizacionesGuardadas) {
-                    try {
-                        cotizaciones = JSON.parse(cotizacionesGuardadas);
-                    } catch (e) {
-                        console.error('Error al parsear cotizaciones:', e);
-                        cotizaciones = [];
-                    }
-                }
-                
-                // Agregar nueva cotización al inicio del array
-                cotizaciones.unshift(formData);
-                
-                // Limitar a las últimas 100 cotizaciones para no sobrecargar localStorage
-                if (cotizaciones.length > 100) {
-                    cotizaciones = cotizaciones.slice(0, 100);
-                }
-                
-                // Guardar en localStorage
-                localStorage.setItem('ores_cotizaciones', JSON.stringify(cotizaciones));
-                console.log('✅ Cotización guardada en localStorage:', formData);
-                
-            } catch (error) {
-                console.error('❌ Error al guardar en localStorage:', error);
-                // No interrumpir el flujo si falla el guardado
-            }
-            // ========================================
-            // FIN GUARDADO EN LOCALSTORAGE
-            // ========================================
-            
             // Ocultar el formulario
-            const form = document.getElementById('tourPersonalizadoForm');
+            const form = document.getElementById('tourForm');
             if (form) {
                 form.style.display = 'none';
             }
@@ -2074,17 +2082,17 @@
                     <div class="acciones-container">
                         <button class="btn-accion btn-descargar" 
                                 onclick="descargarPDF('${pdf.download_url}')">
-                            📥 Descargar PDF
+                            ${acciones.descargar.texto}
                         </button>
                         
                         <button class="btn-accion btn-compartir" 
                                 onclick="compartirPDF('${pdf.public_url}')">
-                            🔗 Compartir
+                            ${acciones.compartir.texto}
                         </button>
                         
                         <button class="btn-accion btn-nueva" 
                                 onclick="nuevaCotizacion()">
-                            🆕 Nueva Cotización
+                            ${acciones.nueva_cotizacion.texto}
                         </button>
                     </div>
                     
@@ -2233,6 +2241,55 @@
             const modal = document.querySelector('.modal-link');
             if (modal) {
                 modal.remove();
+            }
+        }
+        
+        // ==========================================
+        // FUNCIONES DE SINCRONIZACIÓN GOOGLE SHEETS
+        // ==========================================
+        
+        /**
+         * Envía los datos de la cotización a Google Sheets
+         * @param {Object} cotizacion - Datos de la cotización
+         * @returns {Promise} - Promesa de la operación
+         */
+        async function enviarAGoogleSheets(cotizacion) {
+            try {
+                console.log('📤 Enviando cotización a Google Sheets...');
+                
+                // Preparar datos para Google Sheets
+                const datosParaSheets = {
+                    id: cotizacion.id,
+                    fecha_creacion: cotizacion.timestamp,
+                    nombre_cliente: cotizacion.nombre_cliente,
+                    telefono: cotizacion.telefono,
+                    programa: cotizacion.programa,
+                    fecha_tour: cotizacion.fecha_tour,
+                    numero_personas: cotizacion.numero_personas,
+                    precio_total: cotizacion.precio_total || '',
+                    adelanto_pagado: cotizacion.adelanto_pagado || '',
+                    pdf_url: cotizacion.pdf_url || '',
+                    tipo_cotizacion: cotizacion.tipo_cotizacion,
+                    observaciones: cotizacion.observaciones || '',
+                    estado: cotizacion.estado
+                };
+                
+                const response = await fetch(GOOGLE_SHEETS_URL, {
+                    method: 'POST',
+                    mode: 'no-cors', // Importante para Google Apps Script
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(datosParaSheets)
+                });
+                
+                // Con no-cors, no podemos leer la respuesta, pero asumimos éxito
+                console.log('✅ Datos enviados a Google Sheets');
+                return true;
+                
+            } catch (error) {
+                console.error('❌ Error al enviar a Google Sheets:', error);
+                throw error;
             }
         }
     </script>
