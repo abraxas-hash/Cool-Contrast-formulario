@@ -918,7 +918,7 @@
                     
                     // Validar y limpiar datos antes de guardar
                     const datosValidos = resultado.data.filter(item => {
-                        return item && typeof item === 'object' && item.cliente && item.programa;
+                        return item && typeof item === 'object' && item.nombre_cliente && item.programa;
                     });
                     
                     console.log(`✅ ${datosValidos.length} de ${resultado.data.length} cotizaciones válidas`);
@@ -1069,8 +1069,9 @@
                 // Contar tours activos (fechas futuras o de hoy)
                 const toursActivos = cotizaciones.filter(c => {
                     try {
-                        if (!c.fecha) return false;
-                        return c.fecha >= hoy;
+                        const fechaTour = c.fecha_tour || c.fecha;
+                        if (!fechaTour) return false;
+                        return fechaTour >= hoy;
                     } catch (e) {
                         return false;
                     }
@@ -1114,7 +1115,7 @@
             // Generar items de PDF (con validación)
             cotizaciones.forEach(cotizacion => {
                 // Validar que tenga los datos mínimos
-                if (!cotizacion.cliente || !cotizacion.programa) {
+                if (!cotizacion.nombre_cliente || !cotizacion.programa) {
                     console.warn('⚠️ Cotización sin datos completos, omitiendo:', cotizacion);
                     return;
                 }
@@ -1122,14 +1123,14 @@
                 const pdfItem = document.createElement('div');
                 pdfItem.className = 'pdf-item';
                 
-                const tipoBadge = cotizacion.tipo === 'fijo' ? 'Programa Fijo' : 'Personalizado';
-                const tipoClass = cotizacion.tipo === 'personalizado' ? 'personalizado' : '';
+                const tipoBadge = (cotizacion.tipo_cotizacion || cotizacion.tipo) === 'fijo' ? 'Programa Fijo' : 'Personalizado';
+                const tipoClass = (cotizacion.tipo_cotizacion || cotizacion.tipo) === 'personalizado' ? 'personalizado' : '';
                 
                 // Validar fecha
                 let fechaFormateada = 'Fecha no disponible';
                 try {
-                    if (cotizacion.fecha) {
-                        const fecha = new Date(cotizacion.fecha);
+                    if (cotizacion.fecha_tour || cotizacion.fecha) {
+                        const fecha = new Date(cotizacion.fecha_tour || cotizacion.fecha);
                         if (!isNaN(fecha.getTime())) {
                             fechaFormateada = fecha.toLocaleDateString('es-ES');
                         }
@@ -1139,11 +1140,11 @@
                 }
                 
                 // Validar PDF URL
-                const tienePDF = cotizacion.pdf && cotizacion.pdf.download_url;
+                const tienePDF = (cotizacion.pdf && cotizacion.pdf.download_url) || cotizacion.pdf_url;
                 
                 pdfItem.innerHTML = `
                     <div class="pdf-info">
-                        <div class="pdf-client">${cotizacion.cliente}</div>
+                        <div class="pdf-client">${cotizacion.nombre_cliente}</div>
                         <div class="pdf-details">
                             <span class="pdf-badge ${tipoClass}">${tipoBadge}</span>
                             <span>${cotizacion.programa}</span>
@@ -1151,7 +1152,7 @@
                         </div>
                     </div>
                     ${tienePDF ? `
-                        <button class="download-btn" onclick="descargarPDF('${cotizacion.pdf.download_url}')">
+                        <button class="download-btn" onclick="descargarPDF('${cotizacion.pdf_url || cotizacion.pdf.download_url}')">
                             <span>📥</span>
                             <span>Descargar</span>
                         </button>
@@ -1198,13 +1199,13 @@
                 
                 cotizaciones.forEach(cotizacion => {
                     // Validar datos mínimos
-                    if (!cotizacion.fecha || !cotizacion.cliente || !cotizacion.programa) {
+                    if (!cotizacion.fecha_tour || !cotizacion.nombre_cliente || !cotizacion.programa) {
                         console.warn('⚠️ Cotización con datos incompletos:', cotizacion);
                         return;
                     }
                     
-                    const fechaString = cotizacion.fecha; // YYYY-MM-DD
-                    console.log(`📆 Procesando cotización: ${cotizacion.cliente} - ${fechaString}`);
+                    const fechaString = cotizacion.fecha_tour; // YYYY-MM-DD
+                    console.log(`📆 Procesando cotización: ${cotizacion.nombre_cliente} - ${fechaString}`);
                     
                     if (!toursData[fechaString]) {
                         toursData[fechaString] = [];
@@ -1212,16 +1213,16 @@
                     
                     toursData[fechaString].push({
                         id: cotizacion.id,
-                        tipo: cotizacion.tipo,
+                        tipo: cotizacion.tipo_cotizacion || cotizacion.tipo,
                         programa: cotizacion.programa,
-                        cliente: cotizacion.cliente,
+                        cliente: cotizacion.nombre_cliente,
                         telefono: cotizacion.telefono || 'No especificado',
                         email: cotizacion.email || 'No especificado',
                         personas: cotizacion.personas || 'No especificado',
                         hotel: cotizacion.hotel || 'No especificado',
                         estado: 'confirmado',
                         hora: '08:00',
-                        pdf: cotizacion.pdf || null,
+                        pdf: cotizacion.pdf || (cotizacion.pdf_url ? {download_url: cotizacion.pdf_url, public_url: cotizacion.pdf_url} : null),
                         observaciones: cotizacion.actividades ? `Actividades: ${cotizacion.actividades.slice(0, 2).join(', ')}` : 'Tour programado'
                     });
                 });
