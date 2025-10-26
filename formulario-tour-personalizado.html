@@ -1062,12 +1062,6 @@
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label" for="precioTren">Precio tren por pasajero (USD) *</label>
-                                <input type="number" id="precioTren" name="precio_tren" class="form-input" 
-                                       placeholder="Ingresa el precio en USD" step="0.01" min="0">
-                            </div>
-                            
-                            <div class="form-group">
                                 <label class="form-label" for="precioTotalTren">Precio total en dólares (USD) *</label>
                                 <input type="text" id="precioTotalTren" name="precio_total_tren" class="form-input" 
                                        placeholder="Ej: $500.00 USD">
@@ -1805,7 +1799,7 @@
         // ==========================================
         
         function volverAlDashboard() {
-            window.location.href = '/dashboard';
+            window.location.href = 'dashboard.html';
         }
         
         function mostrarLoading(show) {
@@ -2047,7 +2041,6 @@
                 tipo_tren: tipoTransporteSeleccionado === 'local' ? 'Expedition (Local)' : 'Vistadome (Turístico)',
                 tren_horario: document.getElementById('horaTren') ? document.getElementById('horaTren').value || 'N/A' : 'N/A',
                 personas_tren: document.getElementById('personasTren') ? document.getElementById('personasTren').value || 'N/A' : 'N/A',
-                precio_tren: document.getElementById('precioTren') ? document.getElementById('precioTren').value || 'N/A' : 'N/A',
                 
                 // Otros datos
                 observaciones: document.getElementById('observaciones') ? document.getElementById('observaciones').value || 'Ninguna' : 'Ninguna',
@@ -2255,6 +2248,52 @@
             } else {
                 mostrarLinkManual(publicUrl);
             }
+        }
+        
+        /**
+         * Compartir por WhatsApp
+         */
+        function compartirPorWhatsApp() {
+            console.log('📱 Compartiendo por WhatsApp');
+            
+            // Obtener datos almacenados
+            const datosResumen = JSON.parse(document.getElementById('datosResumen').value);
+            const linkPDF = document.getElementById('linkCompartir').value;
+            
+            // Construir mensaje
+            let mensaje = `*COTIZACIÓN DE TOUR PERSONALIZADO*\n\n`;
+            mensaje += `👤 *Cliente:* ${datosResumen.nombre_cliente}\n`;
+            mensaje += `👥 *N° Personas:* ${datosResumen.numero_personas}\n`;
+            mensaje += `📅 *Fecha:* ${datosResumen.fecha_viaje}\n\n`;
+            mensaje += `🎯 *Programa:* ${datosResumen.programa}\n\n`;
+            mensaje += `🏨 *Hospedaje:*\n`;
+            mensaje += `- Tipo: ${datosResumen.tipo_habitacion}\n`;
+            mensaje += `- Categoría: ${datosResumen.categoria_hotel}\n\n`;
+            
+            if (datosResumen.tipo_tren !== 'N/A') {
+                mensaje += `🚂 *Tren:*\n`;
+                mensaje += `- Servicio: ${datosResumen.tipo_tren}\n`;
+                if (datosResumen.tren_horario !== 'N/A') {
+                    mensaje += `- Horario: ${datosResumen.tren_horario}\n`;
+                }
+                if (datosResumen.personas_tren !== 'N/A') {
+                    mensaje += `- ${datosResumen.personas_tren}\n`;
+                }
+            }
+            
+            mensaje += `\n💰 *Adelanto:* S/. ${datosResumen.adelanto_pagado}\n\n`;
+            
+            if (datosResumen.observaciones !== 'Ninguna') {
+                mensaje += `📝 *Observaciones:*\n${datosResumen.observaciones}\n\n`;
+            }
+            
+            mensaje += `📄 *PDF Cotización:*\n${linkPDF}`;
+            
+            // Codificar mensaje para URL
+            const mensajeCodificado = encodeURIComponent(mensaje);
+            
+            // Abrir WhatsApp
+            window.open(`https://wa.me/${datosResumen.telefono.replace(/\D/g, '')}?text=${mensajeCodificado}`);
         }
         
         /**

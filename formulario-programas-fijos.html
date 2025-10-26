@@ -1821,7 +1821,7 @@
          */
         function volverAlDashboard() {
             console.log('Navegando de vuelta al dashboard...');
-            window.location.href = '/dashboard';
+            window.location.href = 'dashboard.html';
         }
         
         // ==========================================
@@ -2160,7 +2160,7 @@
                     
                     <!-- Datos ocultos para compartir -->
                     <input type="hidden" id="linkCompartir" value="${pdf.public_url}">
-                    <input type="hidden" id="datosResumen" value='${JSON.stringify(datos).replace(/'/g, "&apos;")}'>
+                    <input type="hidden" id="datosResumen" value="${encodeURIComponent(JSON.stringify(datos))}">
                 </div>
             `;
         }
@@ -2259,7 +2259,8 @@
                     return;
                 }
                 
-                const datos = JSON.parse(datosResumenElement.value);
+                const datos = JSON.parse(decodeURIComponent(datosResumenElement.value));
+                console.log('Datos recuperados:', datos);
                 
                 // Formatear mensaje para WhatsApp
                 let mensaje = `🎉 *COTIZACIÓN GENERADA - ORES TRAVEL*\n\n`;
@@ -2319,8 +2320,9 @@
                 // Codificar para URL
                 const mensajeCodificado = encodeURIComponent(mensaje);
                 
-                // Crear link de WhatsApp
-                const urlWhatsApp = `https://wa.me/?text=${mensajeCodificado}`;
+                // Crear link de WhatsApp con el número del cliente (limpiando caracteres no numéricos)
+                const telefono = datos.telefono.replace(/\D/g, '');
+                const urlWhatsApp = `https://wa.me/${telefono}?text=${mensajeCodificado}`;
                 
                 // Abrir WhatsApp
                 window.open(urlWhatsApp, '_blank');

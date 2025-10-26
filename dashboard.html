@@ -974,15 +974,13 @@
         function verificarAutenticacion() {
             const session = sessionStorage.getItem('ores_session');
             if (!session) {
-                window.location.href = '/login';
-                return;
-            }
-            
-            let sessionData;
-            try {
-                sessionData = JSON.parse(session);
-                
-                // Verificar expiración de sesión
+            window.location.href = 'login.html';
+            return;
+        }
+        
+        let sessionData;
+        try {
+            sessionData = JSON.parse(session);                // Verificar expiración de sesión
                 const now = new Date();
                 const expiresAt = new Date(sessionData.expiresAt);
                 
@@ -1014,11 +1012,11 @@
 
         // Navegación a formularios
         function irAProgramasFijos() {
-            window.location.href = '/programas-fijos';
+            window.location.href = 'formulario-programas-fijos.html';
         }
 
         function irATourPersonalizado() {
-            window.location.href = '/tour-personalizado';
+            window.location.href = 'formulario-tour-personalizado.html';
         }
 
         // Logout
@@ -1026,7 +1024,7 @@
             if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
                 sessionStorage.removeItem('ores_session');
                 localStorage.removeItem('ores_pdfs_generados');
-                window.location.href = '/login';
+                window.location.href = 'login.html';
             }
         }
         
