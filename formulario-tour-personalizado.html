@@ -2028,14 +2028,90 @@
         function mostrarResultadoExitoso(resultado) {
             console.log('🎉 Mostrando resultado exitoso');
             
+            // Recopilar todos los datos del formulario
+            const datosCompletos = {
+                // Datos del cliente
+                nombre_cliente: document.getElementById('nombreCliente').value || 'N/A',
+                telefono: document.getElementById('telefono').value || 'N/A',
+                numero_personas: document.getElementById('numeroPersonas').value || 'N/A',
+                
+                // Datos del programa
+                programa: actividadesSeleccionadas.join(', '),
+                fecha_viaje: document.getElementById('fechaInicio').value || 'N/A',
+                
+                // Datos de alojamiento
+                tipo_habitacion: document.getElementById('tipoHabitacion').value || 'N/A',
+                categoria_hotel: document.getElementById('categoriaHotel').value || 'N/A',
+                
+                // Datos del tren
+                tipo_tren: tipoTransporteSeleccionado === 'local' ? 'Expedition (Local)' : 'Vistadome (Turístico)',
+                tren_horario: document.getElementById('horaTren') ? document.getElementById('horaTren').value || 'N/A' : 'N/A',
+                personas_tren: document.getElementById('personasTren') ? document.getElementById('personasTren').value || 'N/A' : 'N/A',
+                precio_tren: document.getElementById('precioTren') ? document.getElementById('precioTren').value || 'N/A' : 'N/A',
+                
+                // Otros datos
+                observaciones: document.getElementById('observaciones') ? document.getElementById('observaciones').value || 'Ninguna' : 'Ninguna',
+                adelanto_pagado: document.getElementById('adelantoPagado') ? document.getElementById('adelantoPagado').value || '0' : '0',
+                
+                // Datos del PDF
+                pdf: resultado.pdf
+            };
+            
             // Ocultar el formulario
-            const form = document.getElementById('tourForm');
+            const form = document.getElementById('tourPersonalizadoForm');
             if (form) {
                 form.style.display = 'none';
             }
             
-            // Crear contenedor de resultado
-            const resultadoHTML = crearResultadoHTML(resultado);
+            // Crear contenedor de resultado con todos los datos
+            const resultadoHTML = `
+                <div class="resultado-exitoso">
+                    <div class="resultado-header">
+                        <h1 class="resultado-titulo">${resultado.mensaje.titulo || '¡Cotización Generada!'}</h1>
+                        <div class="resultado-contenido">
+                            ${resultado.mensaje.contenido || 'Tu cotización personalizada ha sido generada exitosamente.'}
+                        </div>
+                    </div>
+                    
+                    <!-- Información del PDF -->
+                    <div class="pdf-info">
+                        <div class="pdf-icon">📄</div>
+                        <div class="pdf-details">
+                            <h3>Documento generado:</h3>
+                            <p class="pdf-nombre">${resultado.pdf?.nombre || 'Cotización_Personalizada.pdf'}</p>
+                            <p class="descarga-info">💡 La descarga se iniciará automáticamente</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Botones de acción -->
+                    <div class="acciones-container">
+                        <button class="btn-accion btn-descargar" 
+                                onclick="descargarPDF('${resultado.pdf?.download_url || '#'}')"
+                                ${!resultado.pdf?.download_url ? 'disabled' : ''}>
+                            📥 Descargar PDF
+                        </button>
+                        
+                        <button class="btn-accion btn-whatsapp" 
+                                onclick="compartirPorWhatsApp()">
+                            📱 Compartir por WhatsApp
+                        </button>
+                        
+                        <button class="btn-accion btn-compartir" 
+                                onclick="compartirPDF('${resultado.pdf.public_url}')">
+                            🔗 Copiar Link
+                        </button>
+                        
+                        <button class="btn-accion btn-nueva" 
+                                onclick="nuevaCotizacion()">
+                            🆕 Nueva Cotización
+                        </button>
+                    </div>
+                    
+                    <!-- Datos ocultos para compartir -->
+                    <input type="hidden" id="linkCompartir" value="${resultado.pdf.public_url}">
+                    <input type="hidden" id="datosResumen" value='${JSON.stringify(datosCompletos).replace(/'/g, "&apos;")}'>
+                </div>
+            `;
             
             // Insertar en el contenedor principal
             const container = document.querySelector('.form-container');
