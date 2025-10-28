@@ -8,7 +8,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Dashboard ORES Travel - Sistema de Cotizaciones</title>
-    
+
+    <!-- DOMPurify para protección XSS -->
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
+
     <style>
         /* ==========================================
            COMPONENTE: Theming ORES Travel
@@ -879,6 +882,40 @@
 
     <script>
         // ==========================================
+        // PROTECCIÓN XSS - Funciones de sanitización
+        // ==========================================
+
+        /**
+         * Escapa texto para prevenir XSS
+         */
+        function escapeHTML(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        /**
+         * Sanitiza HTML usando DOMPurify - Permitiendo más tags para UI rica
+         */
+        function sanitizeHTML(html) {
+            return DOMPurify.sanitize(html, {
+                ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'span', 'div', 'p', 'br', 'button'],
+                ALLOWED_ATTR: ['class', 'style', 'onclick', 'data-*']
+            });
+        }
+
+        /**
+         * Crea un elemento de forma segura con texto escapado
+         */
+        function createSafeElement(tag, className, textContent) {
+            const element = document.createElement(tag);
+            if (className) element.className = className;
+            if (textContent) element.textContent = textContent;
+            return element;
+        }
+
+        // ==========================================
         // CONFIGURACIÓN GOOGLE SHEETS
         // ==========================================
         const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxyMwt1ywrb74yLEAfF2QNVf6wDGStAV6Qiu1nA5cgkJhEvFq8szcubM_RfpaFeZumbvQ/exec';
@@ -1110,20 +1147,20 @@
             const existingItems = pdfList.querySelectorAll('.pdf-item');
             existingItems.forEach(item => item.remove());
             
-            // Generar items de PDF (con validación)
+            // Generar items de PDF (con validación y protección XSS)
             cotizaciones.forEach(cotizacion => {
                 // Validar que tenga los datos mínimos
                 if (!cotizacion.nombre_cliente || !cotizacion.programa) {
                     console.warn('⚠️ Cotización sin datos completos, omitiendo:', cotizacion);
                     return;
                 }
-                
+
                 const pdfItem = document.createElement('div');
                 pdfItem.className = 'pdf-item';
-                
+
                 const tipoBadge = (cotizacion.tipo_cotizacion || cotizacion.tipo) === 'fijo' ? 'Programa Fijo' : 'Personalizado';
                 const tipoClass = (cotizacion.tipo_cotizacion || cotizacion.tipo) === 'personalizado' ? 'personalizado' : '';
-                
+
                 // Validar fecha
                 let fechaFormateada = 'Fecha no disponible';
                 try {
@@ -1136,32 +1173,70 @@
                 } catch (e) {
                     console.warn('⚠️ Error al formatear fecha:', e);
                 }
-                
+
                 // Validar PDF URL
                 const tienePDF = (cotizacion.pdf && cotizacion.pdf.download_url) || cotizacion.pdf_url;
-                
-                pdfItem.innerHTML = `
-                    <div class="pdf-info">
-                        <div class="pdf-client">${cotizacion.nombre_cliente}</div>
-                        <div class="pdf-details">
-                            <span class="pdf-badge ${tipoClass}">${tipoBadge}</span>
-                            <span>${cotizacion.programa}</span>
-                            <span>📅 ${fechaFormateada}</span>
-                        </div>
-                    </div>
-                    ${tienePDF ? `
-                        <button class="download-btn" onclick="descargarPDF('${cotizacion.pdf_url || cotizacion.pdf.download_url}')">
-                            <span>📥</span>
-                            <span>Descargar</span>
-                        </button>
-                    ` : `
-                        <button class="download-btn" style="opacity: 0.5; cursor: not-allowed;" disabled>
-                            <span>⚠️</span>
-                            <span>Sin PDF</span>
-                        </button>
-                    `}
-                `;
-                
+
+                // CREAR ELEMENTOS DE FORMA SEGURA (sin innerHTML)
+                const pdfInfo = document.createElement('div');
+                pdfInfo.className = 'pdf-info';
+
+                const pdfClient = document.createElement('div');
+                pdfClient.className = 'pdf-client';
+                pdfClient.textContent = cotizacion.nombre_cliente; // textContent previene XSS
+
+                const pdfDetails = document.createElement('div');
+                pdfDetails.className = 'pdf-details';
+
+                const badge = document.createElement('span');
+                badge.className = `pdf-badge ${tipoClass}`;
+                badge.textContent = tipoBadge;
+
+                const programaSpan = document.createElement('span');
+                programaSpan.textContent = cotizacion.programa;
+
+                const fechaSpan = document.createElement('span');
+                fechaSpan.textContent = `📅 ${fechaFormateada}`;
+
+                pdfDetails.appendChild(badge);
+                pdfDetails.appendChild(programaSpan);
+                pdfDetails.appendChild(fechaSpan);
+
+                pdfInfo.appendChild(pdfClient);
+                pdfInfo.appendChild(pdfDetails);
+
+                pdfItem.appendChild(pdfInfo);
+
+                // Crear botón de descarga de forma segura
+                const downloadBtn = document.createElement('button');
+                downloadBtn.className = 'download-btn';
+
+                if (tienePDF) {
+                    const pdfUrl = cotizacion.pdf_url || cotizacion.pdf.download_url;
+                    downloadBtn.onclick = () => descargarPDF(pdfUrl);
+
+                    const iconSpan = document.createElement('span');
+                    iconSpan.textContent = '📥';
+                    const textSpan = document.createElement('span');
+                    textSpan.textContent = 'Descargar';
+
+                    downloadBtn.appendChild(iconSpan);
+                    downloadBtn.appendChild(textSpan);
+                } else {
+                    downloadBtn.style.opacity = '0.5';
+                    downloadBtn.style.cursor = 'not-allowed';
+                    downloadBtn.disabled = true;
+
+                    const iconSpan = document.createElement('span');
+                    iconSpan.textContent = '⚠️';
+                    const textSpan = document.createElement('span');
+                    textSpan.textContent = 'Sin PDF';
+
+                    downloadBtn.appendChild(iconSpan);
+                    downloadBtn.appendChild(textSpan);
+                }
+
+                pdfItem.appendChild(downloadBtn);
                 pdfList.appendChild(pdfItem);
             });
         }
@@ -1329,11 +1404,26 @@
             
             const resumenContent = document.getElementById('tour-summary-content');
             if (resumenContent) {
-                resumenContent.innerHTML = `
-                    <div class="tour-summary-item">📋 ${programasFijos} Programas Fijos programados</div>
-                    <div class="tour-summary-item">🎨 ${personalizados} Tours Personalizados</div>
-                    <div class="tour-summary-item">✅ ${totalTours} Tours totales este mes</div>
-                `;
+                // Limpiar contenido existente
+                resumenContent.innerHTML = '';
+
+                // Crear elementos de forma segura
+                const item1 = document.createElement('div');
+                item1.className = 'tour-summary-item';
+                item1.textContent = `📋 ${programasFijos} Programas Fijos programados`;
+
+                const item2 = document.createElement('div');
+                item2.className = 'tour-summary-item';
+                item2.textContent = `🎨 ${personalizados} Tours Personalizados`;
+
+                const item3 = document.createElement('div');
+                item3.className = 'tour-summary-item';
+                item3.textContent = `✅ ${totalTours} Tours totales este mes`;
+
+                resumenContent.appendChild(item1);
+                resumenContent.appendChild(item2);
+                resumenContent.appendChild(item3);
+
                 console.log('✅ Resumen actualizado en el DOM');
             } else {
                 console.error('❌ No se encontró el elemento tour-summary-content');
