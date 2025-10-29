@@ -1139,10 +1139,32 @@
                             💎 PRECIO PAQUETE PRIVADO
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="precioTotal">Precio total del tour (S/.) *</label>
-                            <input type="number" id="precioTotal" name="precio_total" class="form-input" 
-                                   placeholder="Ingresa el precio total en soles" step="0.01" min="0">
+                            <label class="form-label" for="precioPorPersona">Precio por persona (S/.) *</label>
+                            <input type="number" id="precioPorPersona" name="precio_por_persona" class="form-input"
+                                   placeholder="Ingresa el precio por persona" step="0.01" min="0"
+                                   oninput="calcularPrecioTotal()">
+                            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+                                💡 El total se calculará automáticamente según el número de personas
+                            </div>
                         </div>
+
+                        <!-- Total calculado automáticamente -->
+                        <div class="form-group" style="background: rgba(251, 191, 36, 0.1); border: 2px solid var(--gold); border-radius: 12px; padding: 16px; margin-top: 16px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div style="font-weight: 700; color: var(--gold); font-size: 1.1rem;">
+                                    💰 TOTAL DEL TOUR:
+                                </div>
+                                <div id="precioTotalCalculado" style="font-weight: 700; color: var(--text-primary); font-size: 1.5rem;">
+                                    S/. 0.00
+                                </div>
+                            </div>
+                            <div id="detalleCalculo" style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 8px; text-align: right;">
+                                Ingresa el precio por persona y la cantidad de personas
+                            </div>
+                        </div>
+
+                        <!-- Campo oculto para guardar el precio total calculado -->
+                        <input type="hidden" id="precioTotal" name="precio_total" value="0">
                     </div>
                     
                     <div id="precioIndividualConfig" class="price-config">
@@ -1179,8 +1201,12 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="numeroPersonas">Número de personas *</label>
-                            <input type="text" id="numeroPersonas" name="numero_personas" class="form-input" 
-                                   placeholder="Ej: 2 adultos, 1 niño" required>
+                            <input type="number" id="numeroPersonas" name="numero_personas" class="form-input"
+                                   placeholder="Ej: 2" min="1" step="1" required
+                                   oninput="calcularPrecioTotal()">
+                            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+                                💡 Ingresa solo números (ej: 2, 4, 6)
+                            </div>
                         </div>
                     </div>
                     
@@ -1591,24 +1617,67 @@
         function seleccionarModalidadPrecio(modo) {
             // Remover selección previa
             document.querySelectorAll('.price-mode').forEach(mode => mode.classList.remove('selected'));
-            
+
             // Seleccionar nuevo
             document.querySelector(`[data-mode="${modo}"]`).classList.add('selected');
             modalidadPrecioSeleccionada = modo;
             document.getElementById('modalidadPrecio').value = modo;
-            
+
             // Mostrar/ocultar configuraciones
             document.getElementById('precioPaqueteConfig').classList.remove('show');
             document.getElementById('precioIndividualConfig').classList.remove('show');
-            
+
             if (modo === 'paquete') {
                 document.getElementById('precioPaqueteConfig').classList.add('show');
+                // Recalcular precio al mostrar
+                calcularPrecioTotal();
             } else if (modo === 'individual') {
                 document.getElementById('precioIndividualConfig').classList.add('show');
                 actualizarPreciosIndividuales();
             }
         }
-        
+
+        /**
+         * Calcula automáticamente el precio total del tour
+         * basado en el precio por persona y la cantidad de personas
+         */
+        function calcularPrecioTotal() {
+            // Obtener valores de los campos
+            const precioPorPersona = parseFloat(document.getElementById('precioPorPersona')?.value) || 0;
+            const numeroPersonas = parseInt(document.getElementById('numeroPersonas')?.value) || 0;
+
+            // Calcular total
+            const total = precioPorPersona * numeroPersonas;
+
+            // Actualizar display del total
+            const displayTotal = document.getElementById('precioTotalCalculado');
+            if (displayTotal) {
+                displayTotal.textContent = `S/. ${total.toFixed(2)}`;
+            }
+
+            // Actualizar campo oculto para envío del formulario
+            const inputTotal = document.getElementById('precioTotal');
+            if (inputTotal) {
+                inputTotal.value = total.toFixed(2);
+            }
+
+            // Actualizar detalle del cálculo
+            const detalleCalculo = document.getElementById('detalleCalculo');
+            if (detalleCalculo) {
+                if (precioPorPersona > 0 && numeroPersonas > 0) {
+                    detalleCalculo.textContent = `S/. ${precioPorPersona.toFixed(2)} × ${numeroPersonas} persona${numeroPersonas !== 1 ? 's' : ''} = S/. ${total.toFixed(2)}`;
+                } else if (precioPorPersona > 0 && numeroPersonas === 0) {
+                    detalleCalculo.textContent = 'Falta ingresar el número de personas en el PASO 6';
+                } else if (precioPorPersona === 0 && numeroPersonas > 0) {
+                    detalleCalculo.textContent = 'Falta ingresar el precio por persona';
+                } else {
+                    detalleCalculo.textContent = 'Ingresa el precio por persona y la cantidad de personas';
+                }
+            }
+
+            console.log(`💰 Precio calculado: S/. ${precioPorPersona.toFixed(2)} × ${numeroPersonas} = S/. ${total.toFixed(2)}`);
+        }
+
         function actualizarPreciosIndividuales() {
             const container = document.getElementById('preciosIndividuales');
             
