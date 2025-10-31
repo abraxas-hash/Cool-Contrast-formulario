@@ -1,7 +1,12 @@
 {
   "version": 2,
+  "build": {
+    "env": {
+      "VERCEL_FORCE_DEPLOY": "1"
+    }
+  },
   "rewrites": [
-    { "source": "/", "destination": "/login.html" },
+    { "source": "/", "destination": "/login.html" }, // Updated for main deployment
     { "source": "/login", "destination": "/login.html" },
     { "source": "/dashboard", "destination": "/dashboard.html" },
     { "source": "/programas-fijos", "destination": "/formulario-programas-fijos.html" },
