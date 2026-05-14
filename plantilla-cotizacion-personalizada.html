@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @page {
+      size: A4;
+      margin: 12mm;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      color: #333;
+      background-color: #fff;
+      margin: 0;
+      padding: 10px;
+      padding-bottom: 40px;
+      /* Espacio para pie de página fijo */
+      font-size: 10.5pt;
+      line-height: 1.35;
+    }
+
+    .marca-agua {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.70;
+      z-index: -1;
+      width: 50%;
+    }
+
+    /* Pie de página fijo */
+    .footer-fixed {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 8pt;
+      color: #003366;
+      border-top: 1px solid #ccc;
+      padding: 8px 15px;
+      background: white;
+      z-index: 999;
+    }
+
+    /* Numeración de página fija */
+    .page-number-fixed {
+      position: fixed;
+      top: 10px;
+      right: 20px;
+      font-size: 10pt;
+      font-weight: bold;
+      color: #003366;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.6);
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+
+    .page-number-fixed:after {
+      content: "Página " counter(page);
+    }
+
+    .portada {
+      page-break-after: always;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 5px 0;
+      font-size: 16pt;
+      font-weight: bold;
+      color: #003366;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-size: 12pt;
+      color: #003366;
+      font-weight: bold;
+      margin: 8px 0 4px 0;
+      text-align: center;
+    }
+
+    table.info-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 8px;
+      font-size: 10pt;
+    }
+
+    table.info-table td {
+      padding: 2px 6px;
+      vertical-align: top;
+    }
+
+    .label {
+      color: #003366;
+      font-weight: bold;
+      width: 35%;
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid #000;
+      margin: 8px 0;
+    }
+
+    /* ========== ACTIVIDADES COMPACTAS CON IMAGEN AL LADO ========== */
+    .actividades-container {
+      page-break-inside: avoid;
+    }
+
+    .actividad-compacta {
+      margin-bottom: 15px;
+      padding: 8px;
+      border-left: 3px solid #bb7b00;
+      background: rgba(250, 250, 250, 0.75);
+      display: flex !important;
+      gap: 12px !important;
+      align-items: flex-start !important;
+      width: 100% !important;
+    }
+
+    /* Cada 2 actividades, salto de página */
+    .actividad-compacta:nth-child(2n) {
+      page-break-after: always;
+    }
+
+    .actividad-texto {
+      flex: 1 !important;
+      position: relative !important;
+      z-index: 0 !important;
+    }
+
+    .actividad-imagen {
+      position: relative !important;
+      z-index: 0 !important;
+      flex-shrink: 0 !important;
+      width: 200px !important;
+      min-width: 200px !important;
+      flex-basis: 200px !important;
+      flex-grow: 0 !important;
+    }
+
+    .actividad-imagen img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .actividad-compacta h3 {
+      color: #bb7b00;
+      font-size: 12pt;
+      margin: 0 0 4px 0;
+      font-weight: bold;
+    }
+
+    .fecha-texto {
+      font-size: 10pt;
+      color: #666;
+      margin-bottom: 6px;
+    }
+
+    .actividad-compacta h4 {
+      color: #003366;
+      font-size: 11pt;
+      margin: 6px 0 3px 0;
+    }
+
+    .actividad-compacta ul {
+      padding-left: 16px;
+      margin: 3px 0;
+      list-style-type: disc;
+    }
+
+    .actividad-compacta li {
+      font-size: 10pt;
+      line-height: 1.3;
+      margin: 2px 0;
+    }
+
+    .actividad-compacta p {
+      font-size: 10pt;
+      margin: 3px 0;
+    }
+
+    /* ========== SECCIONES FIJAS EN 2 COLUMNAS ========== */
+    .seccion-fija {
+      page-break-after: always;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.95);
+      font-size: 10.5pt;
+    }
+
+    /* Contenedor para agrupar secciones que deben ir en la misma página */
+    .seccion-conjunta {
+      page-break-inside: avoid;
+      page-break-after: always;
+      padding: 4px 0;
+    }
+
+    /* Evitar que cada .seccion-fija dentro del contenedor haga su propio salto */
+    .seccion-conjunta .seccion-fija {
+      page-break-after: auto;
+    }
+
+    .seccion-fija h3 {
+      color: #003366;
+      font-size: 14pt;
+      font-weight: bold;
+      margin: 10px 0 8px 0;
+      border-bottom: 2px solid #bb7b00;
+      padding-bottom: 3px;
+    }
+
+    /* Estilos específicos para el título de programa incluye */
+    .titulo-programa-incluye {
+      display: block !important;
+      width: 100% !important;
+      white-space: nowrap !important;
+      font-weight: bold !important;
+      text-transform: uppercase !important;
+      font-size: 12pt !important;
+      border-bottom: 2px solid #e0b467 !important;
+      padding-bottom: 3px !important;
+      margin: 8px 0 !important;
+      color: #003366 !important;
+      line-height: 1.2 !important;
+      overflow: hidden !important;
+    }
+
+    /* Estilos específicos para el contenedor de programa incluye */
+    .seccion-programa-incluye {
+      width: 100% !important;
+      max-width: 100% !important;
+      overflow: hidden !important;
+    }
+
+    /* Estilos específicos para la tabla del título programa incluye */
+    .seccion-programa-incluye table {
+      width: 100% !important;
+      border-collapse: collapse !important;
+      margin-bottom: 10px !important;
+    }
+
+    .seccion-programa-incluye td {
+      border-bottom: 2px solid #e0b467 !important;
+      padding-bottom: 3px !important;
+      font-weight: bold !important;
+      text-transform: uppercase !important;
+      font-size: 12pt !important;
+      color: #003366 !important;
+      text-align: left !important;
+      display: table-cell !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+    }
+
+    .seccion-fija h4 {
+      color: #bb7b00;
+      font-size: 11.5pt;
+      font-weight: bold;
+      margin: 8px 0 4px 0;
+    }
+
+    .seccion-fija p {
+      font-size: 10.5pt;
+      line-height: 1.4;
+      margin: 6px 0;
+      text-align: justify;
+    }
+
+    /* Listas en 1 columna */
+    .seccion-fija ul {
+      padding-left: 18px;
+      margin: 6px 0;
+      column-count: 1;
+      column-gap: 20px;
+    }
+
+    .seccion-fija li {
+      font-size: 10.5pt;
+      line-height: 1.5;
+      margin: 3px 0;
+      break-inside: avoid;
+    }
+
+    /* ========== PÁGINAS DE IMÁGENES ========== */
+    .pagina-imagen-completa {
+      page-break-after: always;
+      page-break-inside: avoid;
+      text-align: center;
+      padding: 15px;
+    }
+
+    .pagina-imagen-completa h2 {
+      color: #003366;
+      font-size: 14pt;
+      font-weight: bold;
+      margin: 0 0 15px 0;
+      text-transform: uppercase;
+    }
+
+    .pagina-imagen-completa p {
+      color: #666;
+      font-size: 10pt;
+      margin: 8px 0 15px 0;
+    }
+
+    .pagina-imagen-completa img {
+      width: 90%;
+      max-width: 700px;
+      height: auto;
+      border-radius: 6px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    /* ========== TOURS ADICIONALES LADO A LADO ========== */
+    .pagina-imagen-doble {
+      page-break-after: always;
+      page-break-inside: avoid;
+      text-align: center;
+      padding: 5px;
+      margin: 0;
+    }
+
+    .pagina-imagen-doble h2 {
+      color: #003366;
+      font-size: 14pt;
+      font-weight: bold;
+      margin: 5px 0 10px 0;
+      text-transform: uppercase;
+    }
+
+    .imagenes-lado-a-lado {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 100%;
+      height: 270mm;
+    }
+
+    .imagen-contenedor {
+      flex: 0 0 49.5%;
+      max-width: 49.5%;
+      flex-shrink: 0 !important;
+      height: 270mm;
+    }
+
+    .imagen-contenedor img {
+      width: 100%;
+      height: 270mm;
+      object-fit: cover;
+      border-radius: 6px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    }
+  </style>
+</head>
+
+<body>
+
+  <img class="marca-agua" src="{{ $json.IMAGEN_LOGO }}" alt="Marca de agua Ores Travel Perú">
+
+  <!-- Número de página fijo -->
+  <div class="page-number-fixed"></div>
+
+  <!-- Pie de página fijo -->
+  <div class="footer-fixed">
+    <strong>AGENCIA OPERADORA DE TURISMO SOSTENIBLE</strong><br>
+    Office: Calle Coquimbo A3 — Cusco, Perú | Phones: +51 918 818 503 | reservasorestravelperu@gmail.com
+  </div>
+
+  <!-- ========== PORTADA ========== -->
+  <div class="portada">
+    <h1>AGENCIA OPERADORA DE TURISMO SOSTENIBLE</h1>
+    <h2>COTIZACIÓN TURÍSTICA PERSONALIZADA</h2>
+    <h2>ORES TRAVEL PERÚ</h2>
+    <hr>
+
+    <table class="info-table">
+      <tr>
+        <td class="label">AGENCIA OPERADORA</td>
+        <td>: ORES TRAVEL PERÚ</td>
+      </tr>
+      <tr>
+        <td class="label">ACTIVIDADES SELECCIONADAS</td>
+        <td>: {{ $json.NOMBRE_PROGRAMA }}</td>
+      </tr>
+      <tr>
+        <td class="label">DURACIÓN</td>
+        <td>: {{ $json.DURACION_PROGRAMA }}</td>
+      </tr>
+      <tr>
+        <td class="label">ASESOR DE VIAJES</td>
+        <td>: {{ $json.NOMBRE_ASESOR }}</td>
+      </tr>
+      <tr>
+        <td class="label">EMAIL</td>
+        <td>: {{ $json.EMAIL_ASESOR }}</td>
+      </tr>
+      <tr>
+        <td class="label">TELÉFONO</td>
+        <td>: {{ $json.TELEFONO_CLIENTE }}</td>
+      </tr>
+    </table>
+
+    <h2>INFORMACIÓN DEL CLIENTE</h2>
+    <table class="info-table">
+      <tr>
+        <td class="label">CLIENTE</td>
+        <td>: {{ $json.NOMBRE_CLIENTE }}</td>
+      </tr>
+      <tr>
+        <td class="label">TIPO DE HABITACIÓN</td>
+        <td>: {{ $json.TIPO_HABITACION }}</td>
+      </tr>
+      <tr>
+        <td class="label">NÚMERO DE PERSONAS</td>
+        <td>: {{ $json.NUMERO_PERSONAS }}</td>
+      </tr>
+    </table>
+
+    <h2>INFORMACIÓN FINANCIERA</h2>
+    <table class="info-table">
+      <tr>
+        <td class="label">TARIFA POR PERSONA</td>
+        <td>: S/. {{ $json.PRECIO_POR_PERSONA }}</td>
+      </tr>
+      <tr>
+        <td class="label">TOTAL A PAGAR</td>
+        <td>: S/. {{ $json.PRECIO_TOTAL }}</td>
+      </tr>
+      <tr>
+        <td class="label">ADELANTO</td>
+        <td>: S/. {{ $json.ADELANTO_RESERVA }}</td>
+      </tr>
+      <tr>
+        <td class="label">SALDO</td>
+        <td>: S/. {{ $json.SALDO_PENDIENTE }}</td>
+      </tr>
+    </table>
+
+    <h2>INFORMACIÓN DEL TREN</h2>
+    <h3 style="font-size: 11pt; margin: 5px 0;">DETALLES DEL TREN</h3>
+    <table class="info-table">
+      <tr>
+        <td class="label">N° PERSONAS</td>
+        <td>: {{ $json.NUMERO_PERSONAS }}</td>
+      </tr>
+      <tr>
+        <td class="label">PRECIO</td>
+        <td>: {{ $json.PRECIO_TREN }}</td>
+      </tr>
+      <tr>
+        <td class="label">HORA IDA</td>
+        <td>: {{ $json.HORA_IDA_TREN }}</td>
+      </tr>
+      <tr>
+        <td class="label">HORA RETORNO</td>
+        <td>: {{ $json.HORA_RETORNO_TREN }}</td>
+      </tr>
+      <tr>
+        <td class="label">TOTAL</td>
+        <td>: {{ $json.PRECIO_TOTAL_TREN }}</td>
+      </tr>
+      <tr>
+        <td class="label">TIPO</td>
+        <td>: {{ $json.TIPO_TREN }}</td>
+      </tr>
+    </table>
+
+    <h2>OBSERVACIONES</h2>
+    <table class="info-table">
+      <tr>
+        <td colspan="2">: {{ $json.observaciones }}</td>
+      </tr>
+    </table>
+
+    <h2>INFORMACIÓN DE FECHAS</h2>
+    <table class="info-table">
+      <tr>
+        <td class="label">FECHA DE INICIO</td>
+        <td>: {{ $json.FECHA_INICIO }}</td>
+      </tr>
+      <tr>
+        <td class="label">FECHA DE FIN</td>
+        <td>: {{ $json.FECHA_FIN }}</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ========== ACTIVIDADES COMPACTAS CON IMÁGENES AL LADO (2 POR PÁGINA) ========== -->
+  <div class="actividades-container">
+    {{ $json.json_estructura.actividades.tarjetas.map(function(actividad, index) {
+    return `
+    <div class="actividad-compacta">
+      <div class="actividad-texto">
+        <h3>${actividad.titulo_dia}</h3>
+        <div class="fecha-texto">📅 ${actividad.fecha_dia}</div>
+
+        <h4>Itinerario:</h4>
+        ${actividad.descripcion}
+      </div>
+
+      ${actividad.imagen ? `
+      <div class="actividad-imagen">
+        <img src="${actividad.imagen}" alt="${actividad.titulo_dia}">
+      </div>
+      ` : ''}
+    </div>`;
+    }).join('') }}
+  </div>
+
+  <!-- ========== SECCIÓN: PROGRAMA INCLUYE ========== -->
+  <div class="seccion-fija seccion-programa-incluye">
+    {{ $json.PROGRAMA_INCLUYE }}
+  </div>
+
+  <!-- ========== SECCIÓN: PROGRAMA NO INCLUYE + SUGERENCIAS (misma página) ========== -->
+  <div class="seccion-conjunta">
+    <!-- Programa no incluye -->
+    <div class="seccion-fija">
+      {{ $json.PROGRAMA_NO_INCLUYE }}
+    </div>
+
+    <!-- Sugerencias generales (mismo grupo) -->
+    <div class="seccion-fija">
+      {{ $json.SUGERENCIAS_GENERALES }}
+    </div>
+
+    <!-- Sugerencias para caminatas (mismo grupo) -->
+    <div class="seccion-fija">
+      {{ $json.SUGERENCIAS_CAMINATAS }}
+    </div>
+  </div>
+
+  <!-- ========== SECCIÓN: TREN TURÍSTICO + EN HOTELES (misma página) ========== -->
+  <div class="seccion-conjunta">
+    <!-- Tren turístico -->
+    <div class="seccion-fija">
+      {{ $json.INFO_TREN_LOCAL }}
+    </div>
+
+    <!-- En hoteles -->
+    <div class="seccion-fija">
+      {{ $json.INFO_HOTELES }}
+      <div style="text-align: center; margin-top: 20px;">
+        <img src="{{ $json.IMAGEN_CUENTA_BANCARIA }}" alt="Cuenta Bancaria"
+          style="width: 75%; max-width: 450px; height: auto; border-radius: 6px; box-shadow: 0 3px 10px rgba(0,0,0,0.15);">
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== PÁGINA: CIRCUITO 1 ========== -->
+  <div class="pagina-imagen-completa">
+    <h2>CIRCUITO 1 - RUTA CORTA</h2>
+    <p>Primera opción de circuito para su programa turístico</p>
+    <img src="{{ $json.IMAGEN_CIRCUITO_1 }}" alt="Circuito 1">
+  </div>
+
+  <!-- ========== PÁGINA: CIRCUITO 2 ========== -->
+  <div class="pagina-imagen-completa">
+    <h2>CIRCUITO 2 - RUTA ESTÁNDAR</h2>
+    <p>Segunda opción de circuito para su programa turístico</p>
+    <img src="{{ $json.IMAGEN_CIRCUITO_2 }}" alt="Circuito 2">
+  </div>
+
+  <!-- ========== PÁGINA: CIRCUITO 3 ========== -->
+  <div class="pagina-imagen-completa">
+    <h2>CIRCUITO 3 - RUTA EXTENDIDA</h2>
+    <p>Tercera opción de circuito para su programa turístico</p>
+    <img src="{{ $json.IMAGEN_CIRCUITO_3 }}" alt="Circuito 3">
+  </div>
+
+  <!-- ========== PÁGINA: HOTELES ========== -->
+  <div class="pagina-imagen-completa">
+    <h2>HOTELES EN CUSCO</h2>
+    <img src="{{ $json.IMAGEN_HOTELES }}" alt="Hoteles">
+  </div>
+
+  <!-- ========== PÁGINA: TOURS ADICIONALES (IMAGEN ÚNICA) ========== -->
+  <div class="pagina-imagen-completa">
+    <h2>TOURS ADICIONALES</h2>
+    <p>Descubre más opciones de tours disponibles</p>
+    <img src="{{ $json.IMAGEN_TOURS_ADICIONALES }}" alt="Tours Adicionales">
+  </div>
+
+</body>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+
+</html>
