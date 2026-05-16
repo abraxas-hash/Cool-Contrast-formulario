@@ -30,6 +30,7 @@ El sistema v3.0 ha sido rediseñado para garantizar paridad visual total entre p
 
 ```
 ores-travel-forms/
+├── index.html                       # Landing Page / Portfolio Showcase (Nuevo)
 ├── login.html                       # Página de inicio de sesión
 ├── dashboard.html                   # Panel principal con calendario
 ├── programas-fijos.html             # Formulario de programas fijos
@@ -41,6 +42,10 @@ ores-travel-forms/
 ├── vercel.json                      # Configuración de Vercel
 └── docs/                            # Documentación técnica
 ```
+
+### 🌟 Portfolio Showcase (Visual Docs)
+He incluido un archivo `index.html` diseñado específicamente para portafolio. Sirve como una **Landing Page visual** que explica la arquitectura del proyecto, el sistema de diseño y la integración con n8n de una manera mucho más atractiva y profesional que un simple Markdown.
+
 
 ---
 

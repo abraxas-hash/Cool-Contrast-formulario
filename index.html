@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORES Travel Perú - Portfolio Showcase</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/lucide-static@0.321.0/lib/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        :root {
+            --primary: #003366;
+            --accent: #e0b467;
+            --accent-dark: #bb7b00;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text: #2d3436;
+            --text-light: #636e72;
+            --shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, #001f3f 100%);
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: var(--bg);
+            transform: skewY(-2deg);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .badge {
+            background: var(--accent);
+            color: var(--primary);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-weight: 300;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: #f0c57a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(224, 180, 103, 0.3);
+        }
+
+        .btn-outline {
+            border: 2px solid rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: white;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .architecture {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            margin-top: 40px;
+        }
+
+        .mermaid {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .design-system {
+            background: var(--primary);
+            color: white;
+            border-radius: 16px;
+            padding: 60px;
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .design-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .design-preview {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            color: var(--text);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .preview-header {
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .preview-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .preview-table td {
+            padding: 8px;
+            border: 1px solid #eee;
+        }
+
+        footer {
+            background: #f1f2f6;
+            padding: 50px 20px;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tech-item {
+            background: rgba(255,255,255,0.1);
+            padding: 5px 15px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .design-system { padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <span class="badge">Enterprise Solution v3.0</span>
+            <h1>ORES Travel Perú</h1>
+            <p class="subtitle">Arquitectura avanzada de automatización para la generación de cotizaciones turísticas premium mediante n8n, Puppeteer y HTML5.</p>
+            
+            <div class="btn-group">
+                <a href="login.html" class="btn btn-primary">Ver Demo en Vivo</a>
+                <a href="https://github.com/abraxas-hash/ores-travel-forms-" class="btn btn-outline">Código en GitHub</a>
+            </div>
+
+            <div class="tech-stack">
+                <span class="tech-item">n8n Workflow</span>
+                <span class="tech-item">Puppeteer Engine</span>
+                <span class="tech-item">HTML5 / CSS3</span>
+                <span class="tech-item">Vercel Deployment</span>
+                <span class="tech-item">Google Drive API</span>
+                <span class="tech-item">Supabase Storage</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="section container">
+        <div class="section-title">
+            <h2>Innovación en Automatización</h2>
+            <p>Unificando flujos de trabajo complejos en una experiencia visual premium.</p>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <i class="lucide-layout"></i>
+                <h3>Unified Design System</h3>
+                <p>Implementación de un sistema de diseño basado en <strong>Times New Roman</strong> con micro-interacciones y paridad visual total entre programas fijos y personalizados.</p>
+            </div>
+            <div class="card">
+                <i class="lucide-cpu"></i>
+                <h3>Smart Processing</h3>
+                <p>Motor de lógica inteligente capaz de mapear 26 actividades dinámicas y 10 programas fijos mediante algoritmos de scoring y normalización de texto.</p>
+            </div>
+            <div class="card">
+                <i class="lucide-file-text"></i>
+                <h3>PDF Engine v3.0</h3>
+                <p>Transición de legacy docs a un motor <strong>HTML-to-PDF</strong> basado en Puppeteer, garantizando una carga 5x más rápida y fidelidad visual absoluta.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background: #fff;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Arquitectura del Sistema</h2>
+                <p>Flujo de datos automatizado desde la captura del lead hasta la entrega del PDF.</p>
+            </div>
+            
+            <div class="architecture">
+                <div class="mermaid">
+                    graph LR
+                        A[Lead Capture] --> B{Clasificador n8n}
+                        B --> C[Procesador JS]
+                        C --> D[HTML Template]
+                        D --> E[Puppeteer PDF]
+                        E --> F[Google Drive]
+                        F --> G[Client Delivery]
+                        
+                        style A fill:#e0b467,stroke:#003366,color:#003366
+                        style G fill:#003366,stroke:#e0b467,color:#fff
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section container">
+        <div class="design-system">
+            <div class="design-content">
+                <h2>Identidad Visual Premium</h2>
+                <p style="margin: 20px 0; opacity: 0.8;">Cada cotización es una extensión de la marca ORES Travel. Hemos estandarizado cada pixel:</p>
+                <ul style="list-style: none; opacity: 0.9;">
+                    <li style="margin-bottom: 10px;">✓ Tipografía Times New Roman para confiabilidad.</li>
+                    <li style="margin-bottom: 10px;">✓ Bordes de 1px con sombras sutiles (Glow Effect).</li>
+                    <li style="margin-bottom: 10px;">✓ Marca de agua corporativa al 15% de opacidad.</li>
+                    <li style="margin-bottom: 10px;">✓ Cabeceras dinámicas con logo alineado.</li>
+                </ul>
+            </div>
+            <div class="design-preview">
+                <div class="preview-header">
+                    <span style="font-family: 'Playfair Display'; font-size: 1.2rem; color: var(--primary);">DETALLES DEL TREN</span>
+                    <span style="color: var(--accent-dark); font-weight: 700;">PDF PREVIEW</span>
+                </div>
+                <table class="preview-table">
+                    <tr><td style="background: #f9f9f9; font-weight: 600;">PASAJEROS</td><td>02 Adultos</td></tr>
+                    <tr><td style="background: #f9f9f9; font-weight: 600;">TIPO TREN</td><td>Vistadome Premium</td></tr>
+                    <tr><td style="background: #f9f9f9; font-weight: 600;">TOTAL</td><td><strong style="color: var(--primary);">USD 250.00</strong></td></tr>
+                </table>
+                <div style="margin-top: 15px; height: 4px; background: var(--accent); border-radius: 2px;"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 ORES Travel Perú. Desarrollado para Portfolio Profesional.</p>
+            <p style="margin-top: 10px; font-size: 0.8rem;">Optimizado para navegadores modernos y renderizado Puppeteer.</p>
+        </div>
+    </footer>
+
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+</body>
+</html>
