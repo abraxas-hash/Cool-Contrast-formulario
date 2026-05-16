@@ -1,0 +1,2206 @@
+// 1. Base de Datos Maestra de Programas Fijos
+const DB_PROGRAMAS_FIJOS = {
+  "aventura_cusqueña_10d9n_s1180_premium_completo_tren_local": {
+    "_filename": "aventura_cusqueña_10d9n_s1180_premium_completo_tren_local.docx",
+    "titulo_programa": "AVENTURA CUSQUEÑA 10D9N S1180 PREMIUM COMPLETO TREN LOCAL",
+    "dias_noches": "10 Días / 9 Noches",
+    "itinerario": [
+      {
+        "dia": 1,
+        "titulo": "BIENVENIDA A CUSCO-CITY TOUR",
+        "actividades": [
+          "Itinerario",
+          "VUELO LLEGADA A CUSCO (HORA POR ACORDAR)",
+          "AM-Traslado del aeropuerto a la estación de Wánchaq para tratar de comprar",
+          "el tren local. (SEGÚN DISPONIBILIDAD)",
+          "AM-Traslado al hotel",
+          "12 PM- CHECK-IN (INGRESO A LA HABITACION DEL HOTEL)",
+          "09:00– City tour en Cusco",
+          "Lugares a visitar:",
+          "Qoricancha",
+          "Sacsayhuaman",
+          "Qenqo",
+          "Pukapukara",
+          "Tambomachay.",
+          "Cristo Blanco",
+          "Bosque de Eucalipto",
+          "02:30 – Arribo a la ciudad de Cusco (Cerca de la plaza principal).",
+          "Pernocte en Cusco.",
+          "TOUR MISTICO"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/CITY.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 2,
+        "titulo": "TOUR MISTICO",
+        "actividades": [
+          "Itinerario",
+          "07:00 – Desayuno en el hotel.",
+          "10:00 AM -Recojo para el tour mistico",
+          "AM- Visita Morada De Los Dioses",
+          "AM- Visita Valle De Los Duendes",
+          "PM- Almuerzo ( No Incluye)",
+          "PM- Visita Humedal De Husao",
+          "PM- Visita Bosque De Etns",
+          "5:30 PM – Retorno al cusco (cerca ala plaza de armas)",
+          "Pernocte en cusco",
+          "VALLE SUR"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/MISTICO.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 3,
+        "titulo": "VALLE SUR",
+        "actividades": [
+          "Itinerario",
+          "AM-Desayuno en el hotel",
+          "9:00 AM-Recojo en el hotel",
+          "AM- Visita el centro Arqueológico de Tipon",
+          "AM-Visita el centro Arqueológico de Pikillacta",
+          "PM-Almuerzo (No incluye",
+          "PM-Vista el Templo De Andahuaylillas",
+          "5:30 PM – Retorno al cusco (cerca a la palza de armas)",
+          "Pernocte en cusco",
+          "Montaña de colores 5200 m.s.n.m."
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/SUR.png",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 4,
+        "titulo": "Montaña de colores 5200 m.s.n.m.",
+        "actividades": [
+          "tinerario",
+          "04:30- 4:40 AM – Recojo de su hotel para el tour.",
+          "AM – desayuno en el pueblo de Cusipata.",
+          "08:30 AM – caminata hacia la montaña de colores (2 horas aprox.)",
+          "PM – Visita guiada de la montaña.",
+          "PM-  Visita a la montaña – Valle rojo",
+          "PM – Retorno de la montaña caminata (2 horas aprox.)",
+          "PM – Almuerzo en el poblado Cusipata.",
+          "14:30 PM – Retorno en Bus a Cusco.",
+          "16:30 PM – Arribo a la ciudad de Cusco (Cerca de la plaza principal).",
+          "Pernocte en cusco",
+          "LAGUNA HUMANTAY"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/MONTANA.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 5,
+        "titulo": "LAGUNA HUMANTAY",
+        "actividades": [
+          "itinerario",
+          "04:30 AM-05:00 AM:",
+          "Nuestro recorrido iniciara con el recojo del hotel",
+          "8:30 AM- desayuno en Mollepata",
+          "Para luego dirigirnos a bordo de nuestro transporte al distrito de Mollepata (1.40 horas aprox.).",
+          "Posteriormente continuaremos nuestro viaje durante 1 hora adicional hasta Soraypampa con una altitud de 3900msnm (punto de inicio de nuestra caminata)",
+          "Una vez satisfechos de la majestuosidad de este lugar retornaremos a nuestra movilidad que nos espera en Soraypampa, para luego dirigirnos a la localidad de Molle pata donde nos espera un delicioso Almuerzo.",
+          "PM-Almuerzo en el Pueblo de Mollepata",
+          "Retornaremos a la ciudad de Cusco dando por finalizado nuestro recorrido a las 16.30 Pm aprox.",
+          "18:00 PM – Arribo a la ciudad del cusco (cerca de la plaza de armas)",
+          "WAQRAOUKARA"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/LAGUNA.png",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 6,
+        "titulo": "WAQRAOUKARA",
+        "actividades": [
+          "itinerario",
+          "04:30 AM- Recojo desde su hotel",
+          "05:00 AM -Traslado en bus turístico hacia el pueblo de Cusipata.",
+          "07:00 AM- Arribo a Cusipata, desayuno y receso.",
+          "AM- Continuamos hacia el poblado de Santa Lucia.",
+          "AM Último trayecto de Santa Lúcia e inicio de la caminata hacia Waqrapukara.",
+          "Apreciamos el sorprendente Cañón del Apurímac y sus increíbles paisajes altoandinos,",
+          "llenos de numerosos acantilados.",
+          "11:00 AM- Visita guiada en el complejo arqueológico de Waqrapukara, incluyendo miradores y tiempo para exploración.",
+          "AM Descenso hacia el punto de inicio, Santa Lucía.",
+          "AM- Camino de Santa Lucía a Cusipata en bus turístico.",
+          "Tiempo libre para almorzar (incluido).",
+          "15:30 AM- Hora de salida del bus desde Cusipata.",
+          "18:30 AM- Arribo a la ciudad del Cusco (CERCA A LA PLAZA DE ARMAS)",
+          "7 LAGUNA DE AUSANGATE"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/WAQRAPUKARA.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 7,
+        "titulo": "7 LAGUNA DE AUSANGATE",
+        "actividades": [
+          "itinerario",
+          "4:30 a 5:00 AM- Recojo para el tour en el hotel",
+          "9:00 AM-Desayuno buffet en Pacchanta (incluido)",
+          "AM- Llegada al circuito de la caminata, *que incluye el recorrido por las siguientes lagunas:",
+          "- Laguna Pucacocha",
+          "-Laguna Patacocha",
+          "-Laguna Alqacocha",
+          "-Laguna Q´omercocha",
+          "-Laguna Orco otorongo",
+          "-Laguna china Otorongo",
+          "-Laguna Azul cocha",
+          "AM- Para subir a las Lagunas es un recorrido de 2 horas.",
+          "PM- para nuestro Retorno al inicio de la caminata son 2 horas*  (CAMINATA TOTAL DE 4 HORAS)*",
+          "2:00 PM- Almuerzo buffet Pacchanta (incluido)",
+          "6:30 PM - Retorno al cusco (cerca a la plaza de armas)",
+          "VALLE VIP Maras Moray + Valle Sagrado"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/7LAGUNA.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 8,
+        "titulo": "VALLE VIP Maras Moray + Valle Sagrado",
+        "actividades": [
+          "itinerario",
+          "6:00 AM -Desayuno en el hotel",
+          "6:20-6:40 AM-Recojo del hotel para el tour.",
+          "Visita a nuestro complejo de arte textil en Chinchero.",
+          "Visita al centro arqueológico de Chincheros",
+          "Visita al anfiteatro de Moray.",
+          "Visita a las Salineras.",
+          "Almuerzo Buffet en el Restaurante “RUSTICA” URUBAMBA}",
+          "PM – Visita a Ollantaytambo",
+          "Una vez acabemos Ollantaytambo tenemos que bajar a la estación de Ollantaytambo está de 8 a 10 Minutos caminando en tren tiene 2 salidas 7:00 PM y 9:00 PM (TIENE PERSONAL DE APOYO -INCLUYE EL COSTO DEL TREN LOCAL)",
+          "19:00 O 21:00 PM Tren Ollantaytambo – Aguas Calientes",
+          "19:00 PM O 21:00 PM -Salida del tren hacia Aguas calientes",
+          "PM -Arribo Aguas Calientes",
+          "Pernocte en aguas calientes.",
+          "Machu Picchu- Full Day"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/VALLE_MAPI.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 9,
+        "titulo": "Machu Picchu- Full Day",
+        "actividades": [
+          "itinerario",
+          "AM-Desayuno en el hotel",
+          "Bus de Subida en bus al Santuario.",
+          "Guiado Machu Picchu",
+          "Momento libre para más fotos en Machu Picchu.",
+          "PM -Retorno en Bus hasta Aguas Calientes.",
+          "PM -Almuerzo (No Incluido).",
+          "PM- Aguas termales (SIN GUIA DO)",
+          "PM- Mariposario (SIN GUIADO)",
+          "PM- Sala de embarque a tren",
+          "PM- Retorno en tren a Ollantaytambo.",
+          "PM-Recojo en la estación de Ollantaytambo y traslado a Cusco.",
+          "22:30 PM O 1:00 AM – Arribo a la ciudad del cusco (cerca de la plaza de armas)",
+          "Pernocte en Cusco",
+          "Despedida de Cusco- SIN GUIA"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/FULL_MAPI.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 10,
+        "titulo": "Despedida de Cusco- SIN GUIA",
+        "actividades": [
+          "itinerario",
+          "07:00 – Desayuno en el hotel.",
+          "10 AM- CHECK OUT (DESOCUPAR LA HABITACION DEL HOTEL)",
+          "Momento libre Recomendamos:",
+          "Acueducto de cusco",
+          "Mirador de San Blas",
+          "Calle 7 Borreguitos",
+          "Miador de San Cristóbal",
+          "Visita en los museos",
+          "Asesoramiento para compras y recordatorios",
+          "FIN DE NUESTROS SERVICIOS"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/SALIDA_001.png",
+        "alias_detectado": "LLEGADA"
+      }
+    ],
+    "incluye": [
+      "Recojo del aeropuerto IN",
+      "traslado del hotel al aeropuerto",
+      "Todos los servicios y traslados.",
+      "Bus turístico para cada tour.",
+      "Guía profesional de turismo para cada tour",
+      "TREN LOCAL IDA Y VUELTA (MODIFICAR)",
+      "Entrada a Machu Picchu.",
+      "Bus de Subida y bajada a al santuario de Machu Picchu.",
+      "Traslados estación Ollantaytambo - Cusco",
+      "08 noches de alojamiento en cusco",
+      "01 noche en aguas calientes",
+      "01 almuerzo buffet Valle Vip",
+      "01 almuerzo buffet Montaña de 7 colores",
+      "01 almuerzo buffet Laguna Humantay",
+      "01 almuerzo Waqraoukara",
+      "01 almuerzo 7 Laguna de Ausangate",
+      "09 desayunos",
+      "Asesoramiento las 24 horas"
+    ],
+    "no_incluye": [
+      "Alimentación y bebidas no mencionadas en el programa",
+      "Entrada a las Aguas Termales en Aguas Calientes Opcional (10.00 soles).",
+      "No incluye IGV",
+      "Ingreso a Coricancha 20.00 soles / Niños 10.00 soles",
+      "Ingreso a Salineras 15.00 soles",
+      "Ingreso a la Montaña 20.00 soles",
+      "Ingreso a la Laguna Humantay 15.00 soles",
+      "Ingreso al Valle sur 15.00 soles",
+      "Ingreso al Tour místico 32.00 soles",
+      "Ingreso 7 Laguna de Ausangate 20.00 soles / aguas termales 10.00 soles",
+      "Ingreso a Waqrapukara 15.00 soles",
+      "Boleto Turístico General: 70 soles / 40 soles niños",
+      "Permite el ingreso a centros arqueológicos + museos + teatro Validez: 10 días completos"
+    ],
+    "sugerencias_llevar": [
+      "DNI o pasaporte original.",
+      "Zapatos adecuados para el tour.",
+      "Lentes de sol.",
+      "Repelente de mosquitos y Bloqueador solar.",
+      "Polos, Shorts y Sombrero o gorra.",
+      "Traje de baño, toalla y sandalias (de acuerdo a sus horarios).",
+      "Casaca Abrigadora para la noche, casaca ligera para el tour.",
+      "Cargadores y baterías.",
+      "Poncho de lluvia (de octubre a marzo). - Medicinas personales."
+    ],
+    "sugerencias_caminatas": [
+      "Ropa abrigadora (casaca, bufanda, guantes, gorros)",
+      "Sombrero, gorra y gafas de sol",
+      "Snacks (chocolates, dulces, hoja de coca)",
+      "Agua o hidratante",
+      "Cámara fotográfica y baterías de repuesto",
+      "Kit médico personal",
+      "Protector solar",
+      "Zapatos de Trekking o botas impermeables (para su mayor comodidad)"
+    ],
+    "respecto_tren_local": [
+      "La compra de los boletos es de manera personal con el DNI vigente en físico y nosotros como agencia de viajes no podemos reservar ni comprar estos boletos, por esta razón el día de su arribo a Cusco nuestro personal los acompañará para asistirlos en la compra a su llegada a Cusco (estos boletos están incluidos dentro de la tarifa es decir lo pagamos nosotros). El tren local parte de la estación de tren de Ollantaytambo.",
+      "Esta alternativa solo es para personas que vienen 8 días al Cusco.",
+      "En caso que no encontremos espacios en el tren tenemos 2 opciones para usted",
+      "1. TREN LOCAL HACIENDO COLA:",
+      "Existe una segunda opción de comprar el tren local y es haciendo cola el segundo día (dentro del tour al Valle Sagrado). El segundo día nos quedamos en Ollantaytambo aproximadamente a las 2:30 P.M y hacemos cola hasta las 7 P.M o 9 PM (donde nos venderán el ticket y ese mismo rato tenemos que abordar el tren que nos llevará hacia Aguas Calientes, podemos ir como parados o sentados).",
+      "2. TREN TURÍSTICO:",
+      "En caso esté en sus posibilidades hacer esta compra el costo es de US$.129 dólares por persona ida y vuelta de la estación de Ollantaytambo.",
+      "Durante este periodo hay una oferta de Peru Rail a:",
+      "US$.125.00 DÓLARES IDA Y VUELTA. CON PERNOCTE EN AGUAS CALIENTES US$ 110.00 SALIDA 5:05 AM – RETORNO 9:45 PM / FULL DAY",
+      "Todas las opciones son combinables entre sí, de acuerdo al gusto y disponibilidad."
+    ],
+    "info_hoteles": [
+      "12 AM – CHECK-IN (ingreso del hotel)",
+      "10 AM – CHECK-OUT (salida del hotel)",
+      "En el programa están incluidas las habitaciones doble, matrimonial, triple y también adicional Si el PAX desea tener una habitación simple tiene un incremento por noche de hotel de 30.00 soles",
+      "CIRCUITO 2",
+      "Para personas que reservan con anticipación de 2 a 5 meses .Cubre guia el programa"
+    ]
+  },
+  "aventura_cusqueña_3d2n_s420_basico_machu_picchu": {
+    "_filename": "aventura_cusqueña_3d2n_s420_basico_machu_picchu.docx",
+    "titulo_programa": "AVENTURA CUSQUEÑA 3D2N S420 BASICO MACHU PICCHU",
+    "dias_noches": "3 Días / 2 Noches",
+    "itinerario": [
+      {
+        "dia": 1,
+        "titulo": "BIENVENIDA A CUSCO-CITY TOUR",
+        "actividades": [
+          "VUELO LLEGADA A CUSCO (HORA POR ACORDAR)",
+          "AM-Traslado del aeropuerto al hotel",
+          "12 PM- CHECK-IN (INGRESO A LA HABITACION DEL HOTEL)",
+          "09:00– City tour en Cusco",
+          "Lugares a visitar:",
+          "Qoricancha",
+          "Sacsayhuaman",
+          "Qenqo",
+          "Pukapukara",
+          "Tambomachay.",
+          "Cristo Blanco",
+          "Bosque de Eucalipto",
+          "02:30 – Arribo a la ciudad de Cusco (Cerca de la plaza principal).",
+          "Pernocte en Cusco.",
+          "Machu Picchu- Full Day"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/CITY.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 2,
+        "titulo": "Machu Picchu- Full Day",
+        "actividades": [
+          "1:00 AM – Recojo del tour",
+          "3:00 AM – Llegada estación de Ollantaytambo",
+          "5:05 AM – Partida del tren hacia aguas calientes",
+          "6:30 AM – Arribo aguas calientes",
+          "Bus de Subida en bus al Santuario.",
+          "Guiado Machu Picchu",
+          "Momento libre para más fotos en Machu Picchu.",
+          "PM -Retorno en Bus hasta Aguas Calientes.",
+          "PM -Almuerzo (No Incluido).",
+          "PM- Aguas termales (SIN GUIADO)",
+          "PM- Mariposario (SIN GUIADO)",
+          "PM- Sala de embarque a tren",
+          "PM- Retorno en tren a Ollantaytambo.",
+          "PM-Recojo en la estación de Ollantaytambo y traslado a Cusco.",
+          "22:30 PM O 1:00 AM – Arribo a la ciudad del cusco (cerca de la plaza de armas)",
+          "Pernocte en Cusco.",
+          "Despedida de Cusco- SIN GUIA"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/FULL_MAPI.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 3,
+        "titulo": "Despedida de Cusco- SIN GUIA",
+        "actividades": [
+          "07:00 – Desayuno en el hotel.",
+          "10 AM- CHECK OUT (DESOCUPAR LA HABITACION DEL HOTEL)",
+          "Momento libre Recomendamos:",
+          "Acueducto de cusco",
+          "Mirador de San Blas",
+          "Calle 7 Borreguitos",
+          "Miador de San Cristóbal",
+          "Visita en los museos",
+          "Asesoramiento para compras y recordatorios",
+          "FIN DE NUESTROS SERVICIOS"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/SALIDA_001.png",
+        "alias_detectado": "LLEGADA"
+      }
+    ],
+    "incluye": [
+      "Recojo del aeropuerto IN",
+      "traslado del hotel al aeropuerto",
+      "Todos los servicios y traslados.",
+      "Bus turístico para cada tour.",
+      "Guía profesional de turismo para cada tour",
+      "TREN LOCAL IDA Y VUELTA (MODIFICAR)",
+      "Ingreso a Machu Picchu.",
+      "Bus de Subida y bajada al santuario de Machu Picchu.",
+      "Traslados estación Ollantaytambo - Cusco",
+      "02 noches de alojamiento en cusco",
+      "02 desayunos ( 1 desayuno no incluye en el mapi full day)",
+      "Asesoramiento las 24 horas"
+    ],
+    "no_incluye": [
+      "Alimentación y bebidas no mencionadas en el programa",
+      "La entrada a las Aguas Termales en Aguas Calientes Opcional (10.00 soles)",
+      "No incluye IGV",
+      "BTC 40.0 soles / niños o adultos",
+      "Coricancha 20.00 soles / niños 10.00 soles",
+      "Boleto Turístico General: 70 soles / 40 soles niños",
+      "Permite el ingreso a centros arqueológicos + museos + teatro Validez: 10 días completos"
+    ],
+    "sugerencias_llevar": [
+      "DNI o pasaporte original.",
+      "Zapatos adecuados para el tour.",
+      "Lentes de sol.",
+      "Repelente de mosquitos y Bloqueador solar.",
+      "Polos, Shorts y Sombrero o gorra.",
+      "Traje de baño, toalla y sandalias (de acuerdo a sus horarios).",
+      "Casaca Abrigadora para la noche, casaca ligera para el tour.",
+      "Cargadores y baterías.",
+      "Poncho de lluvia (de octubre a marzo). - Medicinas personales."
+    ],
+    "sugerencias_caminatas": [
+      "Ropa abrigadora (casaca, bufanda, guantes, gorros)",
+      "Sombrero, gorra y gafas de sol",
+      "Snacks (chocolates, dulces, hoja de coca)",
+      "Agua o hidratante",
+      "Cámara fotográfica y baterías de repuesto",
+      "Kit médico personal",
+      "Protector solar",
+      "Zapatos de Trekking o botas impermeables (para su mayor comodidad)"
+    ],
+    "respecto_tren_local": [
+      "La compra de los boletos es de manera personal con el DNI vigente en físico y nosotros como agencia de viajes no podemos reservar ni comprar estos boletos, por esta razón el día de su arribo a Cusco nuestro personal los acompañará para asistirlos en la compra a su llegada a Cusco (estos boletos están incluidos dentro de la tarifa es decir lo pagamos nosotros). El tren local parte de la estación de tren de Ollantaytambo.",
+      "Esta alternativa solo es para personas que vienen 8 días al Cusco.",
+      "En caso que no encontremos espacios en el tren tenemos 2 opciones para usted:",
+      "1. TREN LOCAL HACIENDO COLA:",
+      "Existe una segunda opción de comprar el tren local y es haciendo cola el segundo día (dentro del tour al Valle Sagrado). El segundo día nos quedamos en Ollantaytambo aproximadamente a las 2:30 P.M y hacemos cola hasta las 7 P.M o 9 PM (donde nos venderán el ticket y ese mismo rato tenemos que abordar el tren que nos llevará hacia Aguas Calientes, podemos ir como parados o sentados).",
+      "2. TREN TURÍSTICO:",
+      "En caso esté en sus posibilidades hacer esta compra el costo es de US$.129 dólares por persona ida y vuelta de la estación de Ollantaytambo.",
+      "Durante este periodo hay una oferta de Peru Rail a:",
+      "US$.125.00 DÓLARES IDA Y VUELTA. CON PERNOCTE EN AGUAS CALIENTES US$ 110.00 SALIDA 5:05 AM – RETORNO 9:45 PM / FULL DAY",
+      "Todas las opciones son combinables entre sí, de acuerdo al gusto y disponibilidad."
+    ],
+    "info_hoteles": [
+      "12 AM – CHECK-IN (ingreso del hotel)",
+      "10 AM – CHECK-OUT (salida del hotel)",
+      "En el programa están incluidas las habitaciones doble, matrimonial, triple y también adicional Si el PAX desea tener una habitación simple tiene un incremento por noche de hotel de 30.00 soles",
+      "CIRCUITO 2",
+      "Para personas que reservan con anticipación de 2 a 5 meses .Cubre guia el programa"
+    ]
+  },
+  "aventura_cusqueña_4d3n_s520_valle_vip_machu_picchu": {
+    "_filename": "aventura_cusqueña_4d3n_s520_valle_vip_machu_picchu.docx",
+    "titulo_programa": "AVENTURA CUSQUEÑA 4D3N S520 VALLE VIP MACHU PICCHU",
+    "dias_noches": "4 Días / 3 Noches",
+    "itinerario": [
+      {
+        "dia": 1,
+        "titulo": "BIENVENIDA A CUSCO-CITY TOUR",
+        "actividades": [
+          "VUELO LLEGADA A CUSCO (HORA POR ACORDAR)",
+          "AM-Traslado del aeropuerto al hotel",
+          "12 PM- CHECK-IN (INGRESO A LA HABITACION DEL HOTEL)",
+          "09:00– City tour en Cusco",
+          "Lugares a visitar:",
+          "Qoricancha",
+          "Sacsayhuamán",
+          "Qenqo",
+          "Pukapukara",
+          "Tambomachay.",
+          "Cristo Blanco",
+          "Bosque de Eucalipto",
+          "02:30 – Arribo a la ciudad de Cusco (Cerca de la plaza principal).",
+          "Pernocte en Cusco.",
+          "VALLE VIP (Maras Moray + Valle Sagrado)"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/CITY.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 2,
+        "titulo": "VALLE VIP (Maras Moray + Valle Sagrado)",
+        "actividades": [
+          "6:00 AM -Desayuno en el hotel",
+          "6:20-6:40 AM-Recojo del hotel para el tour.",
+          "Visita a nuestro complejo de arte textil en Chinchero.",
+          "Visita al centro arqueológico de Chincheros",
+          "Visita al anfiteatro de Moray.",
+          "Visita a las Salineras.",
+          "Almuerzo Buffet en el Restaurante “RUSTICA” URUBAMBA}",
+          "PM – Visita a Ollantaytambo",
+          "Una vez acabemos Ollantaytambo tenemos que bajar a la estación de Ollantaytambo está de 8 a 10 Minutos caminando en tren tiene 2 salidas 7:00 PM y 9:00 PM (TIENE PERSONAL DE APOYO -INCLUYE EL COSTO DEL TREN LOCAL)",
+          "19:00 O 21:00 PM Tren Ollantaytambo – Aguas Calientes",
+          "19:00 PM O 21:00 PM -Salida del tren hacia Aguas calientes",
+          "PM -Arribo Aguas Calientes",
+          "Pernocte en aguas calientes.",
+          "Machu Picchu- Full Day"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/VALLE_MAPI.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 3,
+        "titulo": "Machu Picchu- Full Day",
+        "actividades": [
+          "AM-Desayuno en el hotel",
+          "Bus de Subida en bus al Santuario.",
+          "Guiado Machu Picchu",
+          "Momento libre para más fotos en Machu Picchu.",
+          "PM -Retorno en Bus hasta Aguas Calientes.",
+          "PM -Almuerzo (No Incluido).",
+          "PM- Aguas termales (SIN GUIA DO)",
+          "PM- Mariposario (SIN GUIADO)",
+          "PM- Sala de embarque a tren",
+          "PM- Retorno en tren a Ollantaytambo.",
+          "PM-Recojo en la estación de Ollantaytambo y traslado a Cusco.",
+          "22:30 PM O 1:00 AM – Arribo a la ciudad del cusco (cerca de la plaza de armas)",
+          "Pernocte en Cusco",
+          "Despedida de Cusco- SIN GUIA"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/FULL_MAPI.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 4,
+        "titulo": "Despedida de Cusco- SIN GUIA",
+        "actividades": [
+          "07:00 – Desayuno en el hotel.",
+          "10 AM- CHECK OUT (DESOCUPAR LA HABITACION DEL HOTEL)",
+          "Momento libre Recomendamos:",
+          "Acueducto de cusco",
+          "Mirador de San Blas",
+          "Calle 7 Borreguitos",
+          "Miador de San Cristóbal",
+          "Visita en los museos",
+          "Asesoramiento para compras y recordatorios",
+          "FIN DE NUESTROS SERVICIOS"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/SALIDA_001.png",
+        "alias_detectado": "LLEGADA"
+      }
+    ],
+    "incluye": [
+      "Recojo del aeropuerto IN",
+      "Todos los servicios y traslados.",
+      "Bus turístico para cada tour.",
+      "Guía profesional de turismo para cada tour",
+      "TREN LOCAL MODIFICAR",
+      "Entrada a Machu Picchu.",
+      "Bus de Subida y bajada al santuario de Machu Picchu.",
+      "Traslados estación Ollantaytambo - Cusco",
+      "02 noches de alojamiento en cusco",
+      "01 noche en aguas calientes",
+      "01 almuerzo buffet Valle Vip",
+      "03 desayunos",
+      "Asesoramiento las 24 horas"
+    ],
+    "no_incluye": [
+      "Alimentación y bebidas no mencionadas en el programa",
+      "Entrada a las Aguas Termales en Aguas Calientes Opcional (10.00 soles).",
+      "No incluye IGV",
+      "No incluye traslado del hotel al aeropuerto",
+      "Ingreso a Coricancha 20.00 soles / niños 10.00 sole",
+      "Ingreso a Salineras 15.00 soles",
+      "Boleto Turístico General: 70 soles / 40 soles niños",
+      "Permite el ingreso a centros arqueológicos + museos + teatro Validez: 10 días completos"
+    ],
+    "sugerencias_llevar": [
+      "DNI o pasaporte original.",
+      "Zapatos adecuados para el tour.",
+      "Lentes de sol.",
+      "Repelente de mosquitos y Bloqueador solar.",
+      "Polos, Shorts y Sombrero o gorra.",
+      "Traje de baño, toalla y sandalias (de acuerdo a sus horarios).",
+      "Casaca Abrigadora para la noche, casaca ligera para el tour.",
+      "Cargadores y baterías.",
+      "Poncho de lluvia (de octubre a marzo). - Medicinas personales."
+    ],
+    "sugerencias_caminatas": [
+      "Ropa abrigadora (casaca, bufanda, guantes, gorros)",
+      "Sombrero, gorra y gafas de sol",
+      "Snacks (chocolates, dulces, hoja de coca)",
+      "Agua o hidratante",
+      "Cámara fotográfica y baterías de repuesto",
+      "Kit médico personal",
+      "Protector solar",
+      "Zapatos de Trekking o botas impermeables (para su mayor comodidad)"
+    ],
+    "respecto_tren_local": [
+      "La compra de los boletos es de manera personal con el DNI vigente en físico y nosotros como agencia de viajes no podemos reservar ni comprar estos boletos, por esta razón el día de su arribo a Cusco nuestro personal los acompañará para asistirlos en la compra a su llegada a Cusco (estos boletos están incluidos dentro de la tarifa es decir lo pagamos nosotros). El tren local parte de la estación de tren de Ollantaytambo.",
+      "Esta alternativa solo es para personas que vienen 8 días al Cusco.",
+      "En caso que no encontremos espacios en el tren tenemos 2 opciones para usted",
+      "1. TREN LOCAL HACIENDO COLA:",
+      "Existe una segunda opción de comprar el tren local y es haciendo cola el segundo día (dentro del tour al Valle Sagrado). El segundo día nos quedamos en Ollantaytambo aproximadamente a las 2:30 P.M y hacemos cola hasta las 7 P.M o 9 PM (donde nos venderán el ticket y ese mismo rato tenemos que abordar el tren que nos llevará hacia Aguas Calientes, podemos ir como parados o sentados).",
+      "2. TREN TURÍSTICO:",
+      "En caso esté en sus posibilidades hacer esta compra el costo es de US$.129 dólares por persona ida y vuelta de la estación de Ollantaytambo.",
+      "Durante este periodo hay una oferta de Peru Rail a:",
+      "US$.125.00 DÓLARES IDA Y VUELTA. CON PERNOCTE EN AGUAS CALIENTES US$ 110.00 SALIDA 5:05 AM – RETORNO 9:45 PM / FULL DAY",
+      "Todas las opciones son combinables entre sí, de acuerdo al gusto y disponibilidad."
+    ],
+    "info_hoteles": [
+      "12 AM – CHECK-IN (ingreso del hotel)",
+      "10 AM – CHECK-OUT (salida del hotel)",
+      "En el programa están incluidas las habitaciones doble, matrimonial, triple y también adicional Si el PAX desea tener una habitación simple tiene un incremento por noche de hotel de 30.00 soles",
+      "CIRCUITO 2",
+      "Para personas que reservan con anticipación de 2 a 5 meses .Cubre guia el programa"
+    ]
+  },
+  "aventura_cusqueña_5d4n_s590_montaña_colores_completo": {
+    "_filename": "aventura_cusqueña_5d4n_s590_montaña_colores_completo.docx",
+    "titulo_programa": "AVENTURA CUSQUEÑA 5D4N S590 MONTAÑA COLORES COMPLETO",
+    "dias_noches": "5 Días / 4 Noches",
+    "itinerario": [
+      {
+        "dia": 1,
+        "titulo": "BIENVENIDA A CUSCO-CITY TOUR",
+        "actividades": [
+          "VUELO LLEGADA A CUSCO (HORA POR ACORDAR)",
+          "AM-Traslado del aeropuerto al hotel",
+          "12 PM- CHECK-IN (INGRESO A LA HABITACION DEL HOTEL)",
+          "09:00– City tour en Cusco",
+          "Lugares a visitar:",
+          "Qoricancha",
+          "Sacsayhuaman",
+          "Qenqo",
+          "Pukapukara",
+          "Tambomachay.",
+          "Cristo Blanco",
+          "Bosque de Eucalipto",
+          "02:30 – Arribo a la ciudad de Cusco (Cerca de la plaza principal).",
+          "Pernocte en Cusco.",
+          "VALLE VIP (Maras Moray + Valle Sagrado)"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/CITY.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 2,
+        "titulo": "VALLE VIP (Maras Moray + Valle Sagrado)",
+        "actividades": [
+          "6:00 AM -Desayuno en el hotel",
+          "6:20-6:40 AM-Recojo del hotel para el tour.",
+          "Visita a nuestro complejo de arte textil en Chinchero.",
+          "Visita al centro arqueológico de Chincheros",
+          "Visita al anfiteatro de Moray.",
+          "Visita a las Salineras.",
+          "Almuerzo Buffet en el Restaurante “RUSTICA” URUBAMBA}",
+          "PM – Visita a Ollantaytambo",
+          "Una vez acabemos Ollantaytambo tenemos que bajar a la estación de Ollantaytambo está de 8 a 10 Minutos caminando en tren tiene 2 salidas 7:00 PM y 9:00 PM (TIENE PERSONAL DE APOYO -INCLUYE EL COSTO DEL TREN LOCAL)",
+          "19:00 O 21:00 PM Tren Ollantaytambo – Aguas Calientes",
+          "19:00 PM O 21:00 PM -Salida del tren hacia Aguas calientes",
+          "PM -Arribo Aguas Calientes",
+          "Pernocte en aguas calientes.",
+          "Machu Picchu- Full Day"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/VALLE_MAPI.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 3,
+        "titulo": "Machu Picchu- Full Day",
+        "actividades": [
+          "AM-Desayuno en el hotel",
+          "Bus de Subida en bus al Santuario.",
+          "Guiado Machu Picchu",
+          "Momento libre para más fotos en Machu Picchu.",
+          "PM -Retorno en Bus hasta Aguas Calientes.",
+          "PM -Almuerzo (No Incluido).",
+          "PM- Aguas termales (SIN GUIA DO)",
+          "PM- Mariposario (SIN GUIADO)",
+          "PM- Sala de embarque a tren",
+          "PM- Retorno en tren a Ollantaytambo.",
+          "PM-Recojo en la estación de Ollantaytambo y traslado a Cusco.",
+          "22:30 PM O 1:00 AM – Arribo a la ciudad del cusco (cerca de la plaza de armas)",
+          "Pernocte en Cusco",
+          "Montaña de colores 5200 m.s.n.m."
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/FULL_MAPI.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 4,
+        "titulo": "Montaña de colores 5200 m.s.n.m.",
+        "actividades": [
+          "Itinerario",
+          "04:30- 4:40 AM – Recojo de su hotel para el tour.",
+          "AM – desayuno en el pueblo de Cusipata.",
+          "08:30 AM – caminata hacia la montaña de colores (2 horas aprox.)",
+          "PM – Visita guiada de la montaña.",
+          "PM-  Visita a la montaña – Valle rojo",
+          "PM – Retorno de la montaña caminata (2 horas aprox.)",
+          "PM – Almuerzo en el poblado Cusipata.",
+          "14:30 PM – Retorno en Bus a Cusco.",
+          "16:30 PM – Arribo a la ciudad de Cusco (Cerca de la plaza principal).",
+          "Pernocte en cusco",
+          "Despedida de Cusco- SIN GUIA"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/MONTANA.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 5,
+        "titulo": "Despedida de Cusco- SIN GUIA",
+        "actividades": [
+          "07:00 – Desayuno en el hotel.",
+          "10 AM- CHECK OUT (DESOCUPAR LA HABITACION DEL HOTEL)",
+          "Momento libre Recomendamos:",
+          "Acueducto de cusco",
+          "Mirador de San Blas",
+          "Calle 7 Borreguitos",
+          "Miador de San Cristóbal",
+          "Visita en los museos",
+          "Asesoramiento para compras y recordatorios",
+          "FIN DE NUESTROS SERVICIOS"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/SALIDA_001.png",
+        "alias_detectado": "LLEGADA"
+      }
+    ],
+    "incluye": [
+      "Recojo del aeropuerto IN",
+      "Todos los servicios y traslados.",
+      "Bus turístico para cada tour.",
+      "Guía profesional de turismo para cada tour",
+      "TREN LOCAL IDA Y VUELTA (MODIFICAR)",
+      "Entrada a Machu Picchu.",
+      "Bus de Subida y bajada a al santuario de Machu Picchu.",
+      "Traslados estación Ollantaytambo - Cusco",
+      "03 noches de alojamiento en cusco",
+      "01 noche en aguas calientes",
+      "01 almuerzo buffet Valle Vip",
+      "01 almuerzo buffet Montaña de 7 colores",
+      "04 desayunos",
+      "Asesoramiento las 24 horas"
+    ],
+    "no_incluye": [
+      "Alimentación y bebidas no mencionadas en el programa",
+      "Entrada a las Aguas Termales en Aguas Calientes Opcional (10.00 soles).",
+      "No incluye IGV",
+      "No incluye traslado del hotel al aeropuerto",
+      "Ingreso a Coricancha 20.00 soles / Niños 10.00 soles",
+      "Ingreso a Salineras 15.00 soles",
+      "Ingreso a la Montaña 20.00 soles",
+      "Boleto Turístico General: 70 soles / 40 soles niños",
+      "Permite el ingreso a centros arqueológicos + museos + teatro Validez: 10 días completos"
+    ],
+    "sugerencias_llevar": [
+      "DNI o pasaporte original.",
+      "Zapatos adecuados para el tour.",
+      "Lentes de sol.",
+      "Repelente de mosquitos y Bloqueador solar.",
+      "Polos, Shorts y Sombrero o gorra.",
+      "Traje de baño, toalla y sandalias (de acuerdo a sus horarios).",
+      "Casaca Abrigadora para la noche, casaca ligera para el tour.",
+      "Cargadores y baterías.",
+      "Poncho de lluvia (de octubre a marzo). - Medicinas personales."
+    ],
+    "sugerencias_caminatas": [
+      "Ropa abrigadora (casaca, bufanda, guantes, gorros)",
+      "Sombrero, gorra y gafas de sol",
+      "Snacks (chocolates, dulces, hoja de coca)",
+      "Agua o hidratante",
+      "Cámara fotográfica y baterías de repuesto",
+      "Kit médico personal",
+      "Protector solar",
+      "Zapatos de Trekking o botas impermeables (para su mayor comodidad)"
+    ],
+    "respecto_tren_local": [
+      "La compra de los boletos es de manera personal con el DNI vigente en físico y nosotros como agencia de viajes no podemos reservar ni comprar estos boletos, por esta razón el día de su arribo a Cusco nuestro personal los acompañará para asistirlos en la compra a su llegada a Cusco (estos boletos están incluidos dentro de la tarifa es decir lo pagamos nosotros). El tren local parte de la estación de tren de Ollantaytambo.",
+      "Esta alternativa solo es para personas que vienen 8 días al Cusco.",
+      "En caso que no encontremos espacios en el tren tenemos 2 opciones para usted",
+      "1. TREN LOCAL HACIENDO COLA:",
+      "Existe una segunda opción de comprar el tren local y es haciendo cola el segundo día (dentro del tour al Valle Sagrado). El segundo día nos quedamos en Ollantaytambo aproximadamente a las 2:30 P.M y hacemos cola hasta las 7 P.M o 9 PM (donde nos venderán el ticket y ese mismo rato tenemos que abordar el tren que nos llevará hacia Aguas Calientes, podemos ir como parados o sentados).",
+      "2. TREN TURÍSTICO:",
+      "En caso esté en sus posibilidades hacer esta compra el costo es de US$.129 dólares por persona ida y vuelta de la estación de Ollantaytambo.",
+      "Durante este periodo hay una oferta de Peru Rail a:",
+      "US$.125.00 DÓLARES IDA Y VUELTA. CON PERNOCTE EN AGUAS CALIENTES US$ 110.00 SALIDA 5:05 AM – RETORNO 9:45 PM / FULL DAY",
+      "Todas las opciones son combinables entre sí, de acuerdo al gusto y disponibilidad."
+    ],
+    "info_hoteles": [
+      "12 AM – CHECK-IN (ingreso del hotel)",
+      "10 AM – CHECK-OUT (salida del hotel)",
+      "En el programa están incluidas las habitaciones doble, matrimonial, triple y también adicional Si el PAX desea tener una habitación simple tiene un incremento por noche de hotel de 30.00 soles",
+      "CIRCUITO 2",
+      "Para personas que reservan con anticipación de 2 a 5 meses .Cubre guia el programa"
+    ]
+  },
+  "aventura_cusqueña_6d5n_s690_laguna_humantay_completo": {
+    "_filename": "aventura_cusqueña_6d5n_s690_laguna_humantay_completo.docx",
+    "titulo_programa": "AVENTURA CUSQUEÑA 6D5N S690 LAGUNA HUMANTAY COMPLETO",
+    "dias_noches": "6 Días / 5 Noches",
+    "itinerario": [
+      {
+        "dia": 1,
+        "titulo": "BIENVENIDA A CUSCO-CITY TOUR",
+        "actividades": [
+          "Itinerario",
+          "VUELO LLEGADA A CUSCO (HORA POR ACORDAR)",
+          "AM-Traslado del aeropuerto al hotel",
+          "12 PM- CHECK-IN (INGRESO A LA HABITACION DEL HOTEL)",
+          "09:00– City tour en Cusco",
+          "Lugares a visitar:",
+          "Qoricancha",
+          "Sacsayhuaman",
+          "Qenqo",
+          "Pukapukara",
+          "Tambomachay.",
+          "Cristo Blanco",
+          "Bosque de Eucalipto",
+          "02:30 – Arribo a la ciudad de Cusco (Cerca de la plaza principal).",
+          "Pernocte en Cusco.",
+          "VALLE VIP (Maras Moray + Valle Sagrado)"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/CITY.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 2,
+        "titulo": "VALLE VIP (Maras Moray + Valle Sagrado)",
+        "actividades": [
+          "6:00 AM -Desayuno en el hotel",
+          "6:20-6:40 AM-Recojo del hotel para el tour.",
+          "Visita a nuestro complejo de arte textil en Chinchero.",
+          "Visita al centro arqueológico de Chincheros",
+          "Visita al anfiteatro de Moray.",
+          "Visita a las Salineras.",
+          "Almuerzo Buffet en el Restaurante “RUSTICA” URUBAMBA}",
+          "PM – Visita a Ollantaytambo",
+          "Una vez acabemos Ollantaytambo tenemos que bajar a la estación de Ollantaytambo está de 8 a 10 Minutos caminando en tren tiene 2 salidas 7:00 PM y 9:00 PM (TIENE PERSONAL DE APOYO -INCLUYE EL COSTO DEL TREN LOCAL)",
+          "19:00 O 21:00 PM Tren Ollantaytambo – Aguas Calientes",
+          "19:00 PM O 21:00 PM -Salida del tren hacia Aguas calientes",
+          "PM -Arribo Aguas Calientes",
+          "Pernocte en aguas calientes.",
+          "Machu Picchu- Full Day"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/VALLE_MAPI.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 3,
+        "titulo": "Machu Picchu- Full Day",
+        "actividades": [
+          "Itinerario",
+          "AM-Desayuno en el hotel",
+          "Bus de Subida en bus al Santuario.",
+          "Guiado Machu Picchu",
+          "Momento libre para más fotos en Machu Picchu.",
+          "PM -Retorno en Bus hasta Aguas Calientes.",
+          "PM -Almuerzo (No Incluido).",
+          "PM- Aguas termales (SIN GUIA DO)",
+          "PM- Mariposario (SIN GUIADO)",
+          "PM- Sala de embarque a tren",
+          "PM- Retorno en tren a Ollantaytambo.",
+          "PM-Recojo en la estación de Ollantaytambo y traslado a Cusco.",
+          "22:30 PM O 1:00 AM – Arribo a la ciudad del cusco (cerca de la plaza de armas)",
+          "Pernocte en Cusco",
+          "Montaña de colores 5200 m.s.n.m."
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/FULL_MAPI.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 4,
+        "titulo": "Montaña de colores 5200 m.s.n.m.",
+        "actividades": [
+          "04:30- 4:40 AM – Recojo de su hotel para el tour.",
+          "AM – desayuno en el pueblo de Cusipata.",
+          "08:30 AM – caminata hacia la montaña de colores (2 horas aprox.)",
+          "PM – Visita guiada de la montaña.",
+          "PM-  Visita a la montaña – Valle rojo",
+          "PM – Retorno de la montaña caminata (2 horas aprox.)",
+          "PM – Almuerzo en el poblado Cusipata.",
+          "14:30 PM – Retorno en Bus a Cusco.",
+          "16:30 PM – Arribo a la ciudad de Cusco (Cerca de la plaza principal).",
+          "Pernocte en cusco",
+          "LAGUNA HUMANTAY"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/MONTANA.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 5,
+        "titulo": "LAGUNA HUMANTAY",
+        "actividades": [
+          "04:30 AM-05:00 AM:",
+          "Nuestro recorrido iniciara con el recojo del hotel",
+          "8:30 AM- desayuno en Mollepata",
+          "Para luego dirigirnos a bordo de nuestro transporte al distrito de Mollepata (1.40 horas aprox.).",
+          "Posteriormente continuaremos nuestro viaje durante 1 hora adicional hasta Soraypampa con una altitud de 3900msnm (punto de inicio de nuestra caminata)",
+          "Una vez satisfechos de la majestuosidad de este lugar retornaremos a nuestra movilidad que nos espera en Soraypampa, para luego dirigirnos a la localidad de Molle pata donde nos espera un delicioso Almuerzo.",
+          "PM-Almuerzo en el Pueblo de Mollepata",
+          "Retornaremos a la ciudad de Cusco dando por finalizado nuestro recorrido a las 16.30 Pm aprox.",
+          "18:00 PM – Arribo a la ciudad del cusco (cerca de la plaza de armas)",
+          "Despedida de Cusco- SIN GUIA"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/LAGUNA.png",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 6,
+        "titulo": "Despedida de Cusco- SIN GUIA",
+        "actividades": [
+          "Itinerario",
+          "07:00 – Desayuno en el hotel.",
+          "10 AM- CHECK OUT (DESOCUPAR LA HABITACIÓN DEL HOTEL)",
+          "Momento libre Recomendamos:",
+          "Acueducto de cusco",
+          "Mirador de San Blas",
+          "Calle 7 Borreguitos",
+          "Miador de San Cristóbal",
+          "Visita en los museos",
+          "Asesoramiento para compras y recordatorios",
+          "FIN DE NUESTROS SERVICIOS"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/SALIDA_001.png",
+        "alias_detectado": "LLEGADA"
+      }
+    ],
+    "incluye": [
+      "Recojo del aeropuerto IN",
+      "Todos los servicios y traslados.",
+      "Bus turístico para cada tour.",
+      "Guía profesional de turismo para cada tour",
+      "TREN LOCAL IDA Y VUELTA (MODIFICAR)",
+      "Entrada a Machu Picchu.",
+      "Bus de Subida y bajada al santuario de Machu Picchu.",
+      "Traslados estación Ollantaytambo - Cusco",
+      "04 noches de alojamiento en cusco",
+      "01 noche en aguas calientes",
+      "01 almuerzo buffet Valle Vip",
+      "01 almuerzo buffet Montaña de 7 colores",
+      "01 almuerzo buffet Laguna Humantay",
+      "05 desayunos",
+      "Asesoramiento las 24 horas"
+    ],
+    "no_incluye": [
+      "Alimentación y bebidas no mencionadas en el programa",
+      "Entrada a las Aguas Termales en Aguas Calientes Opcional (10.00 soles).",
+      "No incluye IGV",
+      "No incluye traslado del hotel al aeropuerto",
+      "Ingreso a Coricancha 20.00 soles / Niños 10.00 soles",
+      "Ingreso a Salineras 15.00 soles",
+      "Ingreso a la Montaña 20.00 soles",
+      "Ingreso a la Laguna Humantay 15.00 soles",
+      "Boleto Turístico General: 70 soles / 40 soles niños",
+      "Permite el ingreso a centros arqueológicos + museos + teatro Validez: 10 días completos"
+    ],
+    "sugerencias_llevar": [
+      "DNI o pasaporte original.",
+      "Zapatos adecuados para el tour.",
+      "Lentes de sol.",
+      "Repelente de mosquitos y Bloqueador solar.",
+      "Polos, Shorts y Sombrero o gorra.",
+      "Traje de baño, toalla y sandalias (de acuerdo a sus horarios).",
+      "Casaca Abrigadora para la noche, casaca ligera para el tour.",
+      "Cargadores y baterías.",
+      "Poncho de lluvia (de octubre a marzo). - Medicinas personales."
+    ],
+    "sugerencias_caminatas": [
+      "Ropa abrigadora (casaca, bufanda, guantes, gorros)",
+      "Sombrero, gorra y gafas de sol",
+      "Snacks (chocolates, dulces, hoja de coca)",
+      "Agua o hidratante",
+      "Cámara fotográfica y baterías de repuesto",
+      "Kit médico personal",
+      "Protector solar",
+      "Zapatos de Trekking o botas impermeables (para su mayor comodidad)"
+    ],
+    "respecto_tren_local": [
+      "La compra de los boletos es de manera personal con el DNI vigente en físico y nosotros como agencia de viajes no podemos reservar ni comprar estos boletos, por esta razón el día de su arribo a Cusco nuestro personal los acompañará para asistirlos en la compra a su llegada a Cusco (estos boletos están incluidos dentro de la tarifa es decir lo pagamos nosotros). El tren local parte de la estación de tren de Ollantaytambo.",
+      "Esta alternativa solo es para personas que vienen 8 días al Cusco.",
+      "En caso que no encontremos espacios en el tren tenemos 2 opciones para usted",
+      "1. TREN LOCAL HACIENDO COLA:",
+      "Existe una segunda opción de comprar el tren local y es haciendo cola el segundo día (dentro del tour al Valle Sagrado). El segundo día nos quedamos en Ollantaytambo aproximadamente a las 2:30 P.M y hacemos cola hasta las 7 P.M o 9 PM (donde nos venderán el ticket y ese mismo rato tenemos que abordar el tren que nos llevará hacia Aguas Calientes, podemos ir como parados o sentados).",
+      "2. TREN TURÍSTICO:",
+      "En caso esté en sus posibilidades hacer esta compra el costo es de US$.129 dólares por persona ida y vuelta de la estación de Ollantaytambo.",
+      "Durante este periodo hay una oferta de Peru Rail a:",
+      "US$.125.00 DÓLARES IDA Y VUELTA. CON PERNOCTE EN AGUAS CALIENTES US$ 110.00 SALIDA 5:05 AM – RETORNO 9:45 PM / FULL DAY",
+      "Todas las opciones son combinables entre sí, de acuerdo al gusto y disponibilidad."
+    ],
+    "info_hoteles": [
+      "12 AM – CHECK-IN (ingreso del hotel)",
+      "10 AM – CHECK-OUT (salida del hotel)",
+      "En el programa están incluidas las habitaciones doble, matrimonial, triple y también adicional Si el PAX desea tener una habitación simple tiene un incremento por noche de hotel de 30.00 soles",
+      "CIRCUITO 2",
+      "Para personas que reservan con anticipación de 2 a 5 meses .Cubre guia el programa"
+    ]
+  },
+  "aventura_cusqueña_6d5n_s690_mistico_valle_sur": {
+    "_filename": "aventura_cusqueña_6d5n_s690_mistico_valle_sur.docx",
+    "titulo_programa": "AVENTURA CUSQUEÑA 6D5N S690 MISTICO VALLE SUR",
+    "dias_noches": "6 Días / 5 Noches",
+    "itinerario": [
+      {
+        "dia": 1,
+        "titulo": "BIENVENIDA A CUSCO-CITY TOUR",
+        "actividades": [
+          "VUELO LLEGADA A CUSCO (HORA POR ACORDAR)",
+          "AM-Traslado al hotel",
+          "12 PM- CHECK-IN (INGRESO A LA HABITACION DEL HOTEL)",
+          "09:00– City tour en Cusco",
+          "Lugares a visitar:",
+          "Qoricancha",
+          "Sacsayhuaman",
+          "Qenqo",
+          "Pukapukara",
+          "Tambomachay.",
+          "Cristo Blanco",
+          "Bosque de Eucalipto",
+          "02:30 – Arribo a la ciudad de Cusco (Cerca de la plaza principal).",
+          "Pernocte en Cusco.",
+          "VALLE VIP (Maras Moray + Valle Sagrado)"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/CITY.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 2,
+        "titulo": "VALLE VIP (Maras Moray + Valle Sagrado)",
+        "actividades": [
+          "Itinerario",
+          "6:00 AM -Desayuno en el hotel",
+          "6:20-6:40 AM-Recojo del hotel para el tour.",
+          "Visita a nuestro complejo de arte textil en Chinchero.",
+          "Visita al centro arqueológico de Chincheros",
+          "Visita al anfiteatro de Moray.",
+          "Visita a las Salineras.",
+          "Almuerzo Buffet en el Restaurante “RUSTICA” URUBAMBA}",
+          "PM – Visita a Ollantaytambo",
+          "Una vez acabemos Ollantaytambo tenemos que bajar a la estación de Ollantaytambo está de 8 a 10 Minutos caminando en tren tiene 2 salidas 7:00 PM y 9:00 PM (TIENE PERSONAL DE APOYO -INCLUYE EL COSTO DEL TREN LOCAL)",
+          "19:00 O 21:00 PM Tren Ollantaytambo – Aguas Calientes",
+          "19:00 PM O 21:00 PM -Salida del tren hacia Aguas calientes",
+          "PM -Arribo Aguas Calientes",
+          "Pernocte en aguas calientes.",
+          "Machu Picchu- Full Day"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/VALLE_MAPI.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 3,
+        "titulo": "Machu Picchu- Full Day",
+        "actividades": [
+          "Itinerario",
+          "AM-Desayuno en el hotel",
+          "Bus de Subida en bus al Santuario.",
+          "Guiado Machu Picchu",
+          "Momento libre para más fotos en Machu Picchu.",
+          "PM -Retorno en Bus hasta Aguas Calientes.",
+          "PM -Almuerzo (No Incluido).",
+          "PM- Aguas termales (SIN GUIA DO)",
+          "PM- Mariposario (SIN GUIADO)",
+          "PM- Sala de embarque a tren",
+          "PM- Retorno en tren a Ollantaytambo.",
+          "PM-Recojo en la estación de Ollantaytambo y traslado a Cusco.",
+          "22:30 PM O 1:00 AM – Arribo a la ciudad del cusco (cerca de la plaza de armas)",
+          "Pernocte en Cusco",
+          "TOUR MISTICO"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/FULL_MAPI.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 4,
+        "titulo": "TOUR MISTICO",
+        "actividades": [
+          "Itinerari",
+          "07:00 – Desayuno en el hotel.",
+          "10:00 AM -Recojo para el tour mistico",
+          "AM- Visita Morada De Los Dioses",
+          "AM- Visita Valle De Los Duendes",
+          "PM- Almuerzo ( No Incluye)",
+          "PM- Visita Humedal De Husao",
+          "PM- Visita Bosque De Etns",
+          "5:30 PM – Retorno al cusco (cerca ala plaza de armas)",
+          "Pernocte en cusco",
+          "VALLE SUR"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/MISTICO.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 5,
+        "titulo": "VALLE SUR",
+        "actividades": [
+          "Itinerari",
+          "AM-Desayuno en el hotel",
+          "9:00 AM-Recojo en el hotel",
+          "AM- Visita el centro Arqueológico de Tipon",
+          "AM-Visita el centro Arqueológico de Pikillacta",
+          "PM-Almuerzo (No incluye",
+          "PM-Vista el Templo De Andahuaylillas",
+          "5:30 PM – Retorno al cusco (cerca a la palza de armas)",
+          "Pernocte en cusco",
+          "Despedida de Cusco- SIN GUIA"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/SUR.png",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 6,
+        "titulo": "Despedida de Cusco- SIN GUIA",
+        "actividades": [
+          "07:00 – Desayuno en el hotel.",
+          "10 AM- CHECK OUT (DESOCUPAR LA HABITACION DEL HOTEL)",
+          "Momento libre Recomendamos:",
+          "Acueducto de cusco",
+          "Mirador de San Blas",
+          "Calle 7 Borreguitos",
+          "Miador de San Cristóbal",
+          "Visita en los museos",
+          "Asesoramiento para compras y recordatorios",
+          "FIN DE NUESTROS SERVICIOS"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/SALIDA_001.png",
+        "alias_detectado": "LLEGADA"
+      }
+    ],
+    "incluye": [
+      "Recojo del aeropuerto IN",
+      "Todos los servicios y traslados.",
+      "Bus turístico para cada tour.",
+      "Guía profesional de turismo para cada tour",
+      "TREN LOCAL IDA Y VUELTA (MODIFICAR)",
+      "Entrada a Machu Picchu.",
+      "Bus de Subida y bajada a al santuario de Machu Picchu.",
+      "Traslados estación Ollantaytambo - Cusco",
+      "04 noches de alojamiento en cusco",
+      "01 noche en aguas calientes",
+      "01 almuerzo buffet Valle Vip",
+      "05 desayunos"
+    ],
+    "no_incluye": [
+      "Alimentación y bebidas no mencionadas en el programa",
+      "Entrada a las Aguas Termales en Aguas Calientes Opcional (10.00 soles).",
+      "No incluye IGV",
+      "No incluye traslado del hotel al aeropuerto",
+      "Ingreso a Coricancha 20.00 soles / Niños 10.00 soles",
+      "Ingreso a Salineras 15.00 soles",
+      "Ingreso al Valle sur 15.00 soles",
+      "Ingreso al Tour místico 32.00 soles",
+      "Boleto Turístico General: 70 soles / 40 soles niños",
+      "Permite el ingreso a centros arqueológicos + museos + teatro Validez: 10 días completos"
+    ],
+    "sugerencias_llevar": [
+      "DNI o pasaporte original.",
+      "Zapatos adecuados para el tour.",
+      "Lentes de sol.",
+      "Repelente de mosquitos y Bloqueador solar.",
+      "Polos, Shorts y Sombrero o gorra.",
+      "Traje de baño, toalla y sandalias (de acuerdo a sus horarios).",
+      "Casaca Abrigadora para la noche, casaca ligera para el tour.",
+      "Cargadores y baterías.",
+      "Poncho de lluvia (de octubre a marzo). - Medicinas personales."
+    ],
+    "sugerencias_caminatas": [
+      "Ropa abrigadora (casaca, bufanda, guantes, gorros)",
+      "Sombrero, gorra y gafas de sol",
+      "Snacks (chocolates, dulces, hoja de coca)",
+      "Agua o hidratante",
+      "Cámara fotográfica y baterías de repuesto",
+      "Kit médico personal",
+      "Protector solar",
+      "Zapatos de Trekking o botas impermeables (para su mayor comodidad)"
+    ],
+    "respecto_tren_local": [
+      "La compra de los boletos es de manera personal con el DNI vigente en físico y nosotros como agencia de viajes no podemos reservar ni comprar estos boletos, por esta razón el día de su arribo a Cusco nuestro personal los acompañará para asistirlos en la compra a su llegada a Cusco (estos boletos están incluidos dentro de la tarifa es decir lo pagamos nosotros). El tren local parte de la estación de tren de Ollantaytambo.",
+      "Esta alternativa solo es para personas que vienen 8 días al Cusco.",
+      "En caso que no encontremos espacios en el tren tenemos 2 opciones para usted",
+      "1. TREN LOCAL HACIENDO COLA:",
+      "Existe una segunda opción de comprar el tren local y es haciendo cola el segundo día (dentro del tour al Valle Sagrado). El segundo día nos quedamos en Ollantaytambo aproximadamente a las 2:30 P.M y hacemos cola hasta las 7 P.M o 9 PM (donde nos venderán el ticket y ese mismo rato tenemos que abordar el tren que nos llevará hacia Aguas Calientes, podemos ir como parados o sentados).",
+      "2. TREN TURÍSTICO:",
+      "En caso esté en sus posibilidades hacer esta compra el costo es de US$.129 dólares por persona ida y vuelta de la estación de Ollantaytambo.",
+      "Durante este periodo hay una oferta de Peru Rail a:",
+      "US$.125.00 DÓLARES IDA Y VUELTA. CON PERNOCTE EN AGUAS CALIENTES US$ 110.00 SALIDA 5:05 AM – RETORNO 9:45 PM / FULL DAY",
+      "Todas las opciones son combinables entre sí, de acuerdo al gusto y disponibilidad."
+    ],
+    "info_hoteles": [
+      "12 AM – CHECK-IN (ingreso del hotel)",
+      "10 AM – CHECK-OUT (salida del hotel)",
+      "En el programa están incluidas las habitaciones doble, matrimonial, triple y también adicional Si el PAX desea tener una habitación simple tiene un incremento por noche de hotel de 30.00 soles",
+      "CIRCUITO 2",
+      "Para personas que reservan con anticipación de 2 a 5 meses .Cubre guia el programa"
+    ]
+  },
+  "aventura_cusqueña_7d6n_s790_valle_sur_completo": {
+    "_filename": "aventura_cusqueña_7d6n_s790_valle_sur_completo.docx",
+    "titulo_programa": "AVENTURA CUSQUEÑA 7D6N S790 VALLE SUR COMPLETO",
+    "dias_noches": "7 Días / 6 Noches",
+    "itinerario": [
+      {
+        "dia": 1,
+        "titulo": "BIENVENIDA A CUSCO-CITY TOUR",
+        "actividades": [
+          "Itinerari",
+          "VUELO LLEGADA A CUSCO (HORA POR ACORDAR)",
+          "AM-Traslado del aeropuerto a la estación de wanchaq para tratar de comprar",
+          "el tren local.",
+          "AM-Traslado al hotel",
+          "12 PM- CHECK-IN (INGRESO A LA HABITACION DEL HOTEL)",
+          "09:00– City tour en Cusco",
+          "Lugares a visitar:",
+          "Qoricancha",
+          "Sacsayhuaman",
+          "Qenqo",
+          "Pukapukara",
+          "Tambomachay.",
+          "Cristo Blanco",
+          "Bosque de Eucalipto",
+          "02:30 – Arribo a la ciudad de Cusco (Cerca de la plaza principal).",
+          "Pernocte en Cusco.",
+          "VALLE SUR"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/CITY.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 2,
+        "titulo": "VALLE SUR",
+        "actividades": [
+          "Itinerari",
+          "AM-Desayuno en el hotel",
+          "9:00 AM-Recojo en el hotel",
+          "AM- Visita el centro Arqueológico de Tipon",
+          "AM-Visita el centro Arqueológico de Pikillacta",
+          "PM-Almuerzo (No incluye",
+          "PM-Vista el Templo De Andahuaylillas",
+          "5:30 PM – Retorno al cusco (cerca a la palza de armas)",
+          "Pernocte en cusco",
+          "Montaña de colores 5200 m.s.n.m."
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/SUR.png",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 3,
+        "titulo": "Montaña de colores 5200 m.s.n.m.",
+        "actividades": [
+          "Itinerario",
+          "04:30- 4:40 AM – Recojo de su hotel para el tour.",
+          "AM – desayuno en el pueblo de Cusipata.",
+          "08:30 AM – caminata hacia la montaña de colores (2 horas aprox.)",
+          "PM – Visita guiada de la montaña.",
+          "PM-  Visita a la montaña – Valle rojo",
+          "PM – Retorno de la montaña caminata (2 horas aprox.)",
+          "PM – Almuerzo en el poblado Cusipata.",
+          "14:30 PM – Retorno en Bus a Cusco.",
+          "16:30 PM – Arribo a la ciudad de Cusco (Cerca de la plaza principal).",
+          "Pernocte en cusco",
+          "LAGUNA HUMANTAY"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/MONTANA.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 4,
+        "titulo": "LAGUNA HUMANTAY",
+        "actividades": [
+          "Itinerario",
+          "04:30 AM-05:00 AM:",
+          "Nuestro recorrido iniciara con el recojo del hotel",
+          "8:30 AM- desayuno en Mollepata",
+          "Para luego dirigirnos a bordo de nuestro transporte al distrito de Mollepata (1.40 horas aprox.).",
+          "Posteriormente continuaremos nuestro viaje durante 1 hora adicional hasta Soraypampa con una altitud de 3900msnm (punto de inicio de nuestra caminata)",
+          "Una vez satisfechos de la majestuosidad de este lugar retornaremos a nuestra movilidad que nos espera en Soraypampa, para luego dirigirnos a la localidad de Molle pata donde nos espera un delicioso Almuerzo.",
+          "PM-Almuerzo en el Pueblo de Mollepata",
+          "Retornaremos a la ciudad de Cusco dando por finalizado nuestro recorrido a las 16.30 Pm aprox.",
+          "18:00 PM – Arribo a la ciudad del cusco (cerca de la plaza de armas)",
+          "VALLE VIP (Maras Moray + Valle Sagrado)"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/LAGUNA.png",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 5,
+        "titulo": "VALLE VIP (Maras Moray + Valle Sagrado)",
+        "actividades": [
+          "Itinerari",
+          "6:00 AM -Desayuno en el hotel",
+          "6:20-6:40 AM-Recojo del hotel para el tour.",
+          "Visita a nuestro complejo de arte textil en Chinchero.",
+          "Visita al centro arqueológico de Chincheros",
+          "Visita al anfiteatro de Moray.",
+          "Visita a las Salineras.",
+          "Almuerzo Buffet en el Restaurante “RUSTICA” URUBAMBA}",
+          "PM – Visita a Ollantaytambo",
+          "Una vez acabemos Ollantaytambo tenemos que bajar a la estación de Ollantaytambo está de 8 a 10 Minutos caminando en tren tiene 2 salidas 7:00 PM y 9:00 PM (TIENE PERSONAL DE APOYO -INCLUYE EL COSTO DEL TREN LOCAL)",
+          "19:00 O 21:00 PM Tren Ollantaytambo – Aguas Calientes",
+          "19:00 PM O 21:00 PM -Salida del tren hacia Aguas calientes",
+          "PM -Arribo Aguas Calientes",
+          "Pernocte en aguas calientes.",
+          "Machu Picchu- Full Day"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/VALLE_MAPI.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 6,
+        "titulo": "Machu Picchu- Full Day",
+        "actividades": [
+          "Itinerari",
+          "AM-Desayuno en el hotel",
+          "Bus de Subida en bus al Santuario.",
+          "Guiado Machu Picchu",
+          "Momento libre para más fotos en Machu Picchu.",
+          "PM -Retorno en Bus hasta Aguas Calientes.",
+          "PM -Almuerzo (No Incluido).",
+          "PM- Aguas termales (SIN GUIA DO)",
+          "PM- Mariposario (SIN GUIADO)",
+          "PM- Sala de embarque a tren",
+          "PM- Retorno en tren a Ollantaytambo.",
+          "PM-Recojo en la estación de Ollantaytambo y traslado a Cusco.",
+          "22:30 PM O 1:00 AM – Arribo a la ciudad del cusco (cerca de la plaza de armas)",
+          "Pernocte en Cusco",
+          "Despedida de Cusco- SIN GUIA"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/FULL_MAPI.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 7,
+        "titulo": "Despedida de Cusco- SIN GUIA",
+        "actividades": [
+          "Itinerari",
+          "07:00 – Desayuno en el hotel.",
+          "10 AM- CHECK OUT (DESOCUPAR LA HABITACION DEL HOTEL)",
+          "Momento libre Recomendamos:",
+          "Acueducto de cusco",
+          "Mirador de San Blas",
+          "Calle 7 Borreguitos",
+          "Miador de San Cristóbal",
+          "Visita en los museos",
+          "Asesoramiento para compras y recordatorios",
+          "FIN DE NUESTROS SERVICIOS"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/SALIDA_001.png",
+        "alias_detectado": "LLEGADA"
+      }
+    ],
+    "incluye": [
+      "Recojo del aeropuerto IN",
+      "Todos los servicios y traslados.",
+      "Bus turístico para cada tour.",
+      "Guía profesional de turismo para cada tour",
+      "TREN LOCAL IDA Y VUELTA (MODIFICAR)",
+      "Entrada a Machu Picchu.",
+      "Bus de Subida y bajada a al santuario de Machu Picchu.",
+      "Traslados estación Ollantaytambo - Cusco",
+      "05 noches de alojamiento en cusco",
+      "01 noche en aguas calientes",
+      "01 almuerzo buffet Valle Vip",
+      "01 almuerzo buffet Montaña de 7 colores",
+      "01 almuerzo buffet Laguna Humantay",
+      "06 desayunos"
+    ],
+    "no_incluye": [
+      "Alimentación y bebidas no mencionadas en el programa",
+      "Entrada a las Aguas Termales en Aguas Calientes Opcional (10.00 soles).",
+      "No incluye IGV",
+      "No incluye traslado del hotel al aeropuerto",
+      "Ingreso a Coricancha 20.00 soles / Niños 10.00 soles",
+      "Ingreso a Salineras 15.00 soles",
+      "Ingreso a la Montaña 20.00 soles",
+      "Ingreso a la Laguna Humantay 15.00 soles",
+      "Ingreso al Valle sur 15.00 soles",
+      "Boleto Turístico General: 70 soles / 40 soles niños",
+      "Permite el ingreso a centros arqueológicos + museos + teatro Validez: 10 días completos"
+    ],
+    "sugerencias_llevar": [
+      "DNI o pasaporte original.",
+      "Zapatos adecuados para el tour.",
+      "Lentes de sol.",
+      "Repelente de mosquitos y Bloqueador solar.",
+      "Polos, Shorts y Sombrero o gorra.",
+      "Traje de baño, toalla y sandalias (de acuerdo a sus horarios).",
+      "Casaca Abrigadora para la noche, casaca ligera para el tour.",
+      "Cargadores y baterías.",
+      "Poncho de lluvia (de octubre a marzo). - Medicinas personales."
+    ],
+    "sugerencias_caminatas": [
+      "Ropa abrigadora (casaca, bufanda, guantes, gorros)",
+      "Sombrero, gorra y gafas de sol",
+      "Snacks (chocolates, dulces, hoja de coca)",
+      "Agua o hidratante",
+      "Cámara fotográfica y baterías de repuesto",
+      "Kit médico personal",
+      "Protector solar",
+      "Zapatos de Trekking o botas impermeables (para su mayor comodidad)"
+    ],
+    "respecto_tren_local": [
+      "La compra de los boletos es de manera personal con el DNI vigente en físico y nosotros como agencia de viajes no podemos reservar ni comprar estos boletos, por esta razón el día de su arribo a Cusco nuestro personal los acompañará para asistirlos en la compra a su llegada a Cusco (estos boletos están incluidos dentro de la tarifa es decir lo pagamos nosotros). El tren local parte de la estación de tren de Ollantaytambo.",
+      "Esta alternativa solo es para personas que vienen 8 días al Cusco.",
+      "En caso que no encontremos espacios en el tren tenemos 2 opciones para usted",
+      "1. TREN LOCAL HACIENDO COLA:",
+      "Existe una segunda opción de comprar el tren local y es haciendo cola el segundo día (dentro del tour al Valle Sagrado). El segundo día nos quedamos en Ollantaytambo aproximadamente a las 2:30 P.M y hacemos cola hasta las 7 P.M o 9 PM (donde nos venderán el ticket y ese mismo rato tenemos que abordar el tren que nos llevará hacia Aguas Calientes, podemos ir como parados o sentados).",
+      "2. TREN TURÍSTICO:",
+      "En caso esté en sus posibilidades hacer esta compra el costo es de US$.129 dólares por persona ida y vuelta de la estación de Ollantaytambo.",
+      "Durante este periodo hay una oferta de Peru Rail a:",
+      "US$.125.00 DÓLARES IDA Y VUELTA. CON PERNOCTE EN AGUAS CALIENTES US$ 110.00 SALIDA 5:05 AM – RETORNO 9:45 PM / FULL DAY",
+      "Todas las opciones son combinables entre sí, de acuerdo al gusto y disponibilidad."
+    ],
+    "info_hoteles": [
+      "12 AM – CHECK-IN (ingreso del hotel)",
+      "10 AM – CHECK-OUT (salida del hotel)",
+      "En el programa están incluidas las habitaciones doble, matrimonial, triple y también adicional Si el PAX desea tener una habitación simple tiene un incremento por noche de hotel de 30.00 soles",
+      "CIRCUITO 2",
+      "Para personas que reservan con anticipación de 2 a 5 meses .Cubre guia el programa"
+    ]
+  },
+  "aventura_cusqueña_8d7n_s890_mistico_sur_premium": {
+    "_filename": "aventura_cusqueña_8d7n_s890_mistico_sur_premium.docx",
+    "titulo_programa": "AVENTURA CUSQUEÑA 8D7N S890 MISTICO SUR PREMIUM",
+    "dias_noches": "8 Días / 7 Noches",
+    "itinerario": [
+      {
+        "dia": 1,
+        "titulo": "BIENVENIDA A CUSCO-CITY TOUR",
+        "actividades": [
+          "Itinerario",
+          "VUELO LLEGADA A CUSCO (HORA POR ACORDAR)",
+          "AM-Traslado del aeropuerto a la estación de Wánchaq para tratar de comprar",
+          "el tren local. (SEGÚN DISPONIBILIDAD)",
+          "AM-Traslado al hotel",
+          "12 PM- CHECK-IN (INGRESO A LA HABITACIÓN DEL HOTEL)",
+          "09:00– City tour en Cusco",
+          "Lugares a visitar:",
+          "Qoricancha",
+          "Sacsayhuaman",
+          "Qenqo",
+          "Pukapukara",
+          "Tambomachay.",
+          "Cristo Blanco",
+          "Bosque de Eucalipto",
+          "02:30 – Arribo a la ciudad de Cusco (Cerca de la plaza principal).",
+          "Pernocte en Cusco.",
+          "TOUR MISTICO"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/CITY.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 2,
+        "titulo": "TOUR MISTICO",
+        "actividades": [
+          "Itinerario",
+          "07:00 – Desayuno en el hotel.",
+          "10:00 AM -Recojo para el tour mistico",
+          "AM- Visita Morada De Los Dioses",
+          "AM- Visita Valle De Los Duendes",
+          "PM- Almuerzo ( No Incluye)",
+          "PM- Visita Humedal De Husao",
+          "PM- Visita Bosque De Etns",
+          "5:30 PM – Retorno al cusco (cerca ala plaza de armas)",
+          "Pernocte en cusco",
+          "VALLE SUR"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/MISTICO.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 3,
+        "titulo": "VALLE SUR",
+        "actividades": [
+          "Itinerario",
+          "AM-Desayuno en el hotel",
+          "9:00 AM-Recojo en el hotel",
+          "AM- Visita el centro Arqueológico de Tipon",
+          "AM-Visita el centro Arqueológico de Pikillacta",
+          "PM-Almuerzo (No incluye",
+          "PM-Vista el Templo De Andahuaylillas",
+          "5:30 PM – Retorno al cusco (cerca a la palza de armas)",
+          "Pernocte en cusco",
+          "Montaña de colores 5200 m.s.n.m."
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/SUR.png",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 4,
+        "titulo": "Montaña de colores 5200 m.s.n.m.",
+        "actividades": [
+          "Itinerario",
+          "04:30- 4:40 AM – Recojo de su hotel para el tour.",
+          "AM – desayuno en el pueblo de Cusipata.",
+          "08:30 AM – caminata hacia la montaña de colores (2 horas aprox.)",
+          "PM – Visita guiada de la montaña.",
+          "PM-  Visita a la montaña – Valle rojo",
+          "PM – Retorno de la montaña caminata (2 horas aprox.)",
+          "PM – Almuerzo en el poblado Cusipata.",
+          "14:30 PM – Retorno en Bus a Cusco.",
+          "16:30 PM – Arribo a la ciudad de Cusco (Cerca de la plaza principal).",
+          "Pernocte en cusco",
+          "LAGUNA HUMANTAY"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/MONTANA.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 5,
+        "titulo": "LAGUNA HUMANTAY",
+        "actividades": [
+          "04:30 AM-05:00 AM:",
+          "Nuestro recorrido iniciara con el recojo del hotel",
+          "8:30 AM- desayuno en Mollepata",
+          "Para luego dirigirnos a bordo de nuestro transporte al distrito de Mollepata (1.40 horas aprox.).",
+          "Posteriormente continuaremos nuestro viaje durante 1 hora adicional hasta Soraypampa con una altitud de 3900msnm (punto de inicio de nuestra caminata)",
+          "Una vez satisfechos de la majestuosidad de este lugar retornaremos a nuestra movilidad que nos espera en Soraypampa, para luego dirigirnos a la localidad de Molle pata donde nos espera un delicioso Almuerzo.",
+          "PM-Almuerzo en el Pueblo de Mollepata",
+          "Retornaremos a la ciudad de Cusco dando por finalizado nuestro recorrido a las 16.30 Pm aprox.",
+          "18:00 PM – Arribo a la ciudad del cusco (cerca de la plaza de armas)",
+          "VALLE VIP (Maras Moray + Valle Sagrado)"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/LAGUNA.png",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 6,
+        "titulo": "VALLE VIP (Maras Moray + Valle Sagrado)",
+        "actividades": [
+          "6:00 AM -Desayuno en el hotel",
+          "6:20-6:40 AM-Recojo del hotel para el tour.",
+          "Visita a nuestro complejo de arte textil en Chinchero.",
+          "Visita al centro arqueológico de Chincheros",
+          "Visita al anfiteatro de Moray.",
+          "Visita a las Salineras.",
+          "Almuerzo Buffet en el Restaurante “RUSTICA” URUBAMBA}",
+          "PM – Visita a Ollantaytambo",
+          "Una vez acabemos Ollantaytambo tenemos que bajar a la estación de Ollantaytambo está de 8 a 10 Minutos caminando en tren tiene 2 salidas 7:00 PM y 9:00 PM (TIENE PERSONAL DE APOYO -INCLUYE EL COSTO DEL TREN LOCAL)",
+          "19:00 O 21:00 PM Tren Ollantaytambo – Aguas Calientes",
+          "19:00 PM O 21:00 PM -Salida del tren hacia Aguas calientes",
+          "PM -Arribo Aguas Calientes",
+          "Pernocte en aguas calientes.",
+          "Machu Picchu- Full Day"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/VALLE_MAPI.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 7,
+        "titulo": "Machu Picchu- Full Day",
+        "actividades": [
+          "AM-Desayuno en el hotel",
+          "Bus de Subida en bus al Santuario.",
+          "Guiado Machu Picchu",
+          "Momento libre para más fotos en Machu Picchu.",
+          "PM -Retorno en Bus hasta Aguas Calientes.",
+          "PM -Almuerzo (No Incluido).",
+          "PM- Aguas termales (SIN GUIA DO)",
+          "PM- Mariposario (SIN GUIADO)",
+          "PM- Sala de embarque a tren",
+          "PM- Retorno en tren a Ollantaytambo.",
+          "PM-Recojo en la estación de Ollantaytambo y traslado a Cusco.",
+          "22:30 PM O 1:00 AM – Arribo a la ciudad del cusco (cerca de la plaza de armas)",
+          "Pernocte en Cusco",
+          "Despedida de Cusco- SIN GUIA"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/FULL_MAPI.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 8,
+        "titulo": "Despedida de Cusco- SIN GUIA",
+        "actividades": [
+          "07:00 – Desayuno en el hotel.",
+          "10 AM- CHECK OUT (DESOCUPAR LA HABITACION DEL HOTEL)",
+          "Momento libre Recomendamos:",
+          "Acueducto de cusco",
+          "Mirador de San Blas",
+          "Calle 7 Borreguitos",
+          "Miador de San Cristóbal",
+          "Visita en los museos",
+          "Asesoramiento para compras y recordatorios",
+          "FIN DE NUESTROS SERVICIOS"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/SALIDA_001.png",
+        "alias_detectado": "LLEGADA"
+      }
+    ],
+    "incluye": [
+      "Recojo del aeropuerto IN",
+      "Todos los servicios y traslados.",
+      "Bus turístico para cada tour.",
+      "Guía profesional de turismo para cada tour",
+      "TREN LOCAL IDA Y VUELTA (MODIFICAR)",
+      "Entrada a Machu Picchu.",
+      "Bus de Subida y bajada a al santuario de Machu Picchu.",
+      "Traslados estación Ollantaytambo - Cusco",
+      "06 noches de alojamiento en cusco",
+      "01 noche en aguas calientes",
+      "01 almuerzo buffet Valle Vip",
+      "01 almuerzo buffet Montaña de 7 colores",
+      "01 almuerzo buffet Laguna Humantay",
+      "07 desayunos"
+    ],
+    "no_incluye": [
+      "Alimentación y bebidas no mencionadas en el programa",
+      "Entrada a las Aguas Termales en Aguas Calientes Opcional (10.00 soles).",
+      "No incluye IGV",
+      "No incluye traslado del hotel al aeropuerto",
+      "Ingreso a Coricancha 20.00 soles / Niños 10.00 soles",
+      "Ingreso a Salineras 15.00 soles",
+      "Ingreso a la Montaña 20.00 soles",
+      "Ingreso a la Laguna Humantay 15.00 soles",
+      "Ingreso al Valle sur 15.00 soles",
+      "Ingreso al Tour místico 32.00 soles",
+      "Boleto Turístico General: 70 soles / 40 soles niños",
+      "Permite el ingreso a centros arqueológicos + museos + teatro Validez: 10 días completos"
+    ],
+    "sugerencias_llevar": [
+      "DNI o pasaporte original.",
+      "Zapatos adecuados para el tour.",
+      "Lentes de sol.",
+      "Repelente de mosquitos y Bloqueador solar.",
+      "Polos, Shorts y Sombrero o gorra.",
+      "Traje de baño, toalla y sandalias (de acuerdo a sus horarios).",
+      "Casaca Abrigadora para la noche, casaca ligera para el tour.",
+      "Cargadores y baterías.",
+      "Poncho de lluvia (de octubre a marzo). - Medicinas personales."
+    ],
+    "sugerencias_caminatas": [
+      "Ropa abrigadora (casaca, bufanda, guantes, gorros)",
+      "Sombrero, gorra y gafas de sol",
+      "Snacks (chocolates, dulces, hoja de coca)",
+      "Agua o hidratante",
+      "Cámara fotográfica y baterías de repuesto",
+      "Kit médico personal",
+      "Protector solar",
+      "Zapatos de Trekking o botas impermeables (para su mayor comodidad)"
+    ],
+    "respecto_tren_local": [
+      "La compra de los boletos es de manera personal con el DNI vigente en físico y nosotros como agencia de viajes no podemos reservar ni comprar estos boletos, por esta razón el día de su arribo a Cusco nuestro personal los acompañará para asistirlos en la compra a su llegada a Cusco (estos boletos están incluidos dentro de la tarifa es decir lo pagamos nosotros). El tren local parte de la estación de tren de Ollantaytambo.",
+      "Esta alternativa solo es para personas que vienen 8 días al Cusco.",
+      "En caso que no encontremos espacios en el tren tenemos 2 opciones para usted",
+      "1. TREN LOCAL HACIENDO COLA:",
+      "Existe una segunda opción de comprar el tren local y es haciendo cola el segundo día (dentro del tour al Valle Sagrado). El segundo día nos quedamos en Ollantaytambo aproximadamente a las 2:30 P.M y hacemos cola hasta las 7 P.M o 9 PM (donde nos venderán el ticket y ese mismo rato tenemos que abordar el tren que nos llevará hacia Aguas Calientes, podemos ir como parados o sentados).",
+      "2. TREN TURÍSTICO:",
+      "En caso esté en sus posibilidades hacer esta compra el costo es de US$.129 dólares por persona ida y vuelta de la estación de Ollantaytambo.",
+      "Durante este periodo hay una oferta de Peru Rail a:",
+      "US$.125.00 DÓLARES IDA Y VUELTA. CON PERNOCTE EN AGUAS CALIENTES US$ 110.00 SALIDA 5:05 AM – RETORNO 9:45 PM / FULL DAY",
+      "Todas las opciones son combinables entre sí, de acuerdo al gusto y disponibilidad."
+    ],
+    "info_hoteles": [
+      "12 AM – CHECK-IN (ingreso del hotel)",
+      "10 AM – CHECK-OUT (salida del hotel)",
+      "En el programa están incluidas las habitaciones doble, matrimonial, triple y también adicional Si el PAX desea tener una habitación simple tiene un incremento por noche de hotel de 30.00 soles",
+      "CIRCUITO 2",
+      "Para personas que reservan con anticipación de 2 a 5 meses .Cubre guia el programa"
+    ]
+  },
+  "tours_sin_mapi_4d4n_s550_valle_vip_sin_ingreso": {
+    "_filename": "tours_sin_mapi_4d4n_s550_valle_vip_sin_ingreso.docx",
+    "titulo_programa": "TOURS SIN MAPI 4D4N S550 VALLE VIP SIN INGRESO",
+    "dias_noches": "4 Días / 4 Noches",
+    "itinerario": [
+      {
+        "dia": 1,
+        "titulo": "BIENVENIDA A CUSCO-CITY TOUR",
+        "actividades": [
+          "VUELO LLEGADA A CUSCO (HORA POR ACORDAR)",
+          "AM-Traslado del aeropuerto al hotel",
+          "12 PM- CHECK-IN (INGRESO A LA HABITACION DEL HOTEL)",
+          "09:00– City tour en Cusco",
+          "Lugares a visitar:",
+          "Qoricancha",
+          "Sacsayhuamán",
+          "Qenqo",
+          "Pukapukara",
+          "Tambomachay.",
+          "Cristo Blanco",
+          "Bosque de Eucalipto",
+          "02:30 – Arribo a la ciudad de Cusco (Cerca de la plaza principal).",
+          "Pernocte en Cusco.",
+          "VALLE VIP (Maras Moray + Valle Sagrado"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/CITY.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 2,
+        "titulo": "VALLE VIP (Maras Moray + Valle Sagrado",
+        "actividades": [
+          "6:00 AM -Desayuno en el hotel",
+          "6:20-6:40 AM-Recojo del hotel para el tour.",
+          "Visita a nuestro complejo de arte textil en Chinchero.",
+          "Visita al centro arqueológico de Chincheros",
+          "Visita al anfiteatro de Moray.",
+          "Visita a las Salineras.",
+          "Almuerzo Buffet en el Restaurante “RUSTICA” URUBAMBA}",
+          "PM – Visita a Ollantaytambo",
+          "Una vez acabemos Ollantaytambo tenemos que bajar a la estación de Ollantaytambo está de 8 a 10 Minutos caminando en tren tiene 2 salidas 7:00 PM y 9:00 PM (TIENE PERSONAL DE APOYO -INCLUYE EL COSTO DEL TREN LOCAL)",
+          "19:00 O 21:00 PM Tren Ollantaytambo – Aguas Calientes",
+          "19:00 PM O 21:00 PM -Salida del tren hacia Aguas calientes",
+          "PM -Arribo Aguas Calientes",
+          "Pernocte en aguas calientes.",
+          "COMPRA BOLETO A MACHU PICCHU"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/VALLE_MAPI.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 3,
+        "titulo": "COMPRA BOLETO A MACHU PICCHU",
+        "actividades": [
+          "3:00 AM-Aproximarse al ministerio de cultura",
+          "6:00 AM – Empieza la venta de boletos a Machu Picchu",
+          "6:00 – 8:00 AM -Desayuno en el hotel",
+          "Visita a Aguas termales (SIN GUIA)",
+          "Visita al Mariposario (SIN GUIA)",
+          "Pernocte en Aguas calientes",
+          "Machu Picchu- Full Day"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/FULL_MAPI.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 4,
+        "titulo": "Machu Picchu- Full Day",
+        "actividades": [
+          "AM-Desayuno en el hotel",
+          "Bus de Subida en bus al Santuario.",
+          "Guiado Machu Picchu",
+          "Momento libre para más fotos en Machu Picchu.",
+          "PM -Retorno en Bus hasta Aguas Calientes.",
+          "PM -Almuerzo (No Incluido).",
+          "PM- Aguas termales (SIN GUIA DO)",
+          "PM- Mariposario (SIN GUIADO)",
+          "PM- Sala de embarque a tren",
+          "PM- Retorno en tren a Ollantaytambo.",
+          "PM-Recojo en la estación de Ollantaytambo y traslado a Cusco.",
+          "22:30 PM O 1:00 AM – Arribo a la ciudad del cusco (cerca de la plaza de armas)",
+          "Pernocte en Cusco",
+          "Despedida de Cusco- SIN GUIA"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/FULL_MAPI.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 5,
+        "titulo": "Despedida de Cusco- SIN GUIA",
+        "actividades": [
+          "07:00 – Desayuno en el hotel.",
+          "10 AM- CHECK OUT (DESOCUPAR LA HABITACION DEL HOTEL)",
+          "Momento libre Recomendamos:",
+          "Acueducto de cusco",
+          "Mirador de San Blas",
+          "Calle 7 Borreguitos",
+          "Miador de San Cristóbal",
+          "Visita en los museos",
+          "Asesoramiento para compras y recordatorios",
+          "FIN DE NUESTROS SERVICIOS"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/SALIDA_001.png",
+        "alias_detectado": "LLEGADA"
+      }
+    ],
+    "incluye": [
+      "Recojo del aeropuerto IN",
+      "Todos los servicios y traslados.",
+      "Bus turístico para cada tour.",
+      "Guía profesional de turismo para cada tour",
+      "TREN LOCAL MODIFICAR",
+      "Entrada a Machu Picchu. (PAX COMPRARA EN AGUAS CALIENTES)",
+      "Bus de Subida y bajada a al santuario de Machu Picchu.",
+      "Traslados estación Ollantaytambo - Cusco",
+      "02 noches de alojamiento en cusco",
+      "02 noche en aguas calientes",
+      "01 almuerzo buffet Valle Vip",
+      "04 desayunos"
+    ],
+    "no_incluye": [
+      "Alimentación y bebidas no mencionadas en el programa",
+      "Entrada a las Aguas Termales en Aguas Calientes Opcional (10.00 soles).",
+      "No incluye IGV",
+      "No incluye traslado del hotel al aeropuerto",
+      "Ingreso a Coricancha 20.00 soles / niños 10.00 soles",
+      "Ingreso a Salineras 15.00 soles",
+      "Boleto Turístico General: 70 soles / 40 soles niños",
+      "Permite el ingreso a centros arqueológicos + museos + teatro Validez: 10 días completos"
+    ],
+    "sugerencias_llevar": [
+      "DNI o pasaporte original.",
+      "Zapatos adecuados para el tour.",
+      "Lentes de sol.",
+      "Repelente de mosquitos y Bloqueador solar.",
+      "Polos, Shorts y Sombrero o gorra.",
+      "Traje de baño, toalla y sandalias (de acuerdo a sus horarios).",
+      "Casaca Abrigadora para la noche, casaca ligera para el tour.",
+      "Cargadores y baterías.",
+      "Poncho de lluvia (de octubre a marzo). - Medicinas personales."
+    ],
+    "sugerencias_caminatas": [
+      "Ropa abrigadora (casaca, bufanda, guantes, gorros)",
+      "Sombrero, gorra y gafas de sol",
+      "Snacks (chocolates, dulces, hoja de coca)",
+      "Agua o hidratante",
+      "Cámara fotográfica y baterías de repuesto",
+      "Kit médico personal",
+      "Protector solar",
+      "Zapatos de Trekking o botas impermeables (para su mayor comodidad)"
+    ],
+    "respecto_tren_local": [
+      "La compra de los boletos es de manera personal con el DNI vigente en físico y nosotros como agencia de viajes no podemos reservar ni comprar estos boletos, por esta razón el día de su arribo a Cusco nuestro personal los acompañará para asistirlos en la compra a su llegada a Cusco (estos boletos están incluidos dentro de la tarifa es decir lo pagamos nosotros). El tren local parte de la estación de tren de Ollantaytambo.",
+      "Esta alternativa solo es para personas que vienen 8 días al Cusco.",
+      "En caso que no encontremos espacios en el tren tenemos 2 opciones para usted:",
+      "1. TREN LOCAL HACIENDO COLA:",
+      "Existe una segunda opción de comprar el tren local y es haciendo cola el segundo día (dentro del tour al Valle Sagrado). El segundo día nos quedamos en Ollantaytambo aproximadamente a las 2:30 P.M y hacemos cola hasta las 7 P.M o 9 PM (donde nos venderán el ticket y ese mismo rato tenemos que abordar el tren que nos llevará hacia Aguas Calientes, podemos ir como parados o sentados).",
+      "2. TREN TURÍSTICO:",
+      "En caso esté en sus posibilidades hacer esta compra el costo es de US$.129 dólares por persona ida y vuelta de la estación de Ollantaytambo.",
+      "Durante este periodo hay una oferta de Peru Rail a:",
+      "US$.125.00 DÓLARES IDA Y VUELTA. CON PERNOCTE EN AGUAS CALIENTES US$ 110.00 SALIDA 5:05 AM – RETORNO 9:45 PM / FULL DAY",
+      "Todas las opciones son combinables entre sí, de acuerdo al gusto y disponibilidad."
+    ],
+    "info_hoteles": [
+      "12 AM – CHECK-IN (ingreso del hotel)",
+      "10 AM – CHECK-OUT (salida del hotel)",
+      "En el programa están incluidas las habitaciones doble, matrimonial, triple y también adicional Si el PAX desea tener una habitación simple tiene un incremento por noche de hotel de 30.00 soles",
+      "CIRCUITO 2",
+      "Para personas que reservan con anticipación de 2 a 5 meses .Cubre guia el programa"
+    ]
+  },
+  "tours_sin_mapi_5d5n_s550_ida_aguas_calientes": {
+    "_filename": "tours_sin_mapi_5d5n_s550_ida_aguas_calientes.docx",
+    "titulo_programa": "TOURS SIN MAPI 5D5N S550 IDA AGUAS CALIENTES",
+    "dias_noches": "5 Días / 5 Noches",
+    "itinerario": [
+      {
+        "dia": 1,
+        "titulo": "BIENVENIDA A CUSCO-CITY TOUR",
+        "actividades": [
+          "VUELO LLEGADA A CUSCO (HORA POR ACORDAR)",
+          "AM-Traslado del aeropuerto al hotel",
+          "12 PM- CHECK-IN (INGRESO A LA HABITACION DEL HOTEL)",
+          "09:00– City tour en Cusco",
+          "Lugares a visitar:",
+          "Qoricancha",
+          "Sacsayhuaman",
+          "Qenqo",
+          "Pukapukara",
+          "Tambomachay.",
+          "Cristo Blanco",
+          "Bosque de Eucalipto",
+          "02:30 – Arribo a la ciudad de Cusco (Cerca de la plaza principal).",
+          "Pernocte en Cusco.",
+          "IDA A MAPI"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/CITY.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 2,
+        "titulo": "IDA A MAPI",
+        "actividades": [
+          "6:00 AM-Desayuno en el hotel",
+          "6:15 AM-Recojo para el tour",
+          "7:30 AM- Llegada a la estación de Ollantaytambo",
+          "9:50 AM-partida del tren hacia Aguas Calientes",
+          "12:00 PM-Llegada Aguas Calientes",
+          "PM-Traslado al hotel",
+          "PM- Aguas termales (SIN GUIA DO)",
+          "PM- Mariposario (SIN GUIADO)",
+          "Pernocte en aguas calientes",
+          "Machu Picchu- Full Day"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/CITY.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 3,
+        "titulo": "Machu Picchu- Full Day",
+        "actividades": [
+          "AM-Desayuno en el hotel",
+          "Bus de Subida en bus al Santuario.",
+          "Guiado Machu Picchu",
+          "Momento libre para más fotos en Machu Picchu.",
+          "PM -Retorno en Bus hasta Aguas Calientes.",
+          "PM -Almuerzo (No Incluido).",
+          "PM- Aguas termales (SIN GUIA DO)",
+          "PM- Mariposario (SIN GUIADO)",
+          "PM- Sala de embarque a tren",
+          "PM- Retorno en tren a Ollantaytambo.",
+          "PM-Recojo en la estación de Ollantaytambo y traslado a Cusco.",
+          "22:30 PM O 1:00 AM – Arribo a la ciudad del cusco (cerca de la plaza de armas)",
+          "Pernocte en Cusco",
+          "VALLE VIP (Maras Moray + Valle Sagrado)"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/FULL_MAPI.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 4,
+        "titulo": "VALLE VIP (Maras Moray + Valle Sagrado)",
+        "actividades": [
+          "6:00 AM -Desayuno en el hotel",
+          "6:20-6:40 AM-Recojo del hotel para el tour.",
+          "Visita a nuestro complejo de arte textil en Chinchero.",
+          "Visita al centro arqueológico de Chincheros",
+          "Visita al anfiteatro de Moray.",
+          "Visita a las Salineras.",
+          "Almuerzo Buffet en el Restaurante “RUSTICA” URUBAMBA}",
+          "PM – Visita a Ollantaytambo",
+          "PM-Visita Pisac",
+          "7:00 PM -Arribo a la ciudad del cusco (cerca a la plaza de armas)",
+          "Pernocte en Cusco",
+          "Despedida de Cusco- SIN GUIA"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/VALLE_MAPI.jpg",
+        "alias_detectado": "LLEGADA"
+      },
+      {
+        "dia": 5,
+        "titulo": "Despedida de Cusco- SIN GUIA",
+        "actividades": [
+          "07:00 – Desayuno en el hotel.",
+          "10 AM- CHECK OUT (DESOCUPAR LA HABITACION DEL HOTEL)",
+          "Momento libre Recomendamos:",
+          "Acueducto de cusco",
+          "Mirador de San Blas",
+          "Calle 7 Borreguitos",
+          "Miador de San Cristóbal",
+          "Visita en los museos",
+          "Asesoramiento para compras y recordatorios",
+          "FIN DE NUESTROS SERVICIOS"
+        ],
+        "imagen": "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/SALIDA_001.png",
+        "alias_detectado": "LLEGADA"
+      }
+    ],
+    "incluye": [
+      "Recojo del aeropuerto IN",
+      "Todos los servicios y traslados.",
+      "Bus turístico para cada tour.",
+      "Guía profesional de turismo para cada tour",
+      "TREN LOCAL IDA Y VUELTA (MODIFICAR)",
+      "Entrada a Machu Picchu.",
+      "Bus de Subida y bajada a al santuario de Machu Picchu.",
+      "Traslados estación Ollantaytambo - Cusco",
+      "02 noches de alojamiento en cusco",
+      "02 noche en aguas calientes",
+      "01 almuerzo buffet Valle Vip",
+      "04 desayunos"
+    ],
+    "no_incluye": [
+      "Alimentación y bebidas no mencionadas en el programa",
+      "Entrada a las Aguas Termales en Aguas Calientes Opcional (10.00 soles).",
+      "No incluye IGV",
+      "No incluye traslado del hotel al aeropuerto.",
+      "Ingreso a Coricancha 20.00 soles / Niños 10.00 soles",
+      "Ingreso a Salineras 15.00 soles",
+      "Boleto Turístico General: 70 soles / 40 soles niños",
+      "Permite el ingreso a centros arqueológicos + museos + teatro Validez: 10 días completos"
+    ],
+    "sugerencias_llevar": [
+      "DNI o pasaporte original.",
+      "Zapatos adecuados para el tour.",
+      "Lentes de sol.",
+      "Repelente de mosquitos y Bloqueador solar.",
+      "Polos, Shorts y Sombrero o gorra.",
+      "Traje de baño, toalla y sandalias (de acuerdo a sus horarios).",
+      "Casaca Abrigadora para la noche, casaca ligera para el tour.",
+      "Cargadores y baterías.",
+      "Poncho de lluvia (de octubre a marzo). - Medicinas personales."
+    ],
+    "sugerencias_caminatas": [
+      "Ropa abrigadora (casaca, bufanda, guantes, gorros)",
+      "Sombrero, gorra y gafas de sol",
+      "Snacks (chocolates, dulces, hoja de coca)",
+      "Agua o hidratante",
+      "Cámara fotográfica y baterías de repuesto",
+      "Kit médico personal",
+      "Protector solar",
+      "Zapatos de Trekking o botas impermeables (para su mayor comodidad)"
+    ],
+    "respecto_tren_local": [
+      "La compra de los boletos es de manera personal con el DNI vigente en físico y nosotros como agencia de viajes no podemos reservar ni comprar estos boletos, por esta razón el día de su arribo a Cusco nuestro personal los acompañará para asistirlos en la compra a su llegada a Cusco (estos boletos están incluidos dentro de la tarifa es decir lo pagamos nosotros). El tren local parte de la estación de tren de Ollantaytambo.",
+      "Esta alternativa solo es para personas que vienen 8 días al Cusco.",
+      "En caso que no encontremos espacios en el tren tenemos 2 opciones para usted:",
+      "1. TREN LOCAL HACIENDO COLA:",
+      "Existe una segunda opción de comprar el tren local y es haciendo cola el segundo día (dentro del tour al Valle Sagrado). El segundo día nos quedamos en Ollantaytambo aproximadamente a las 2:30 P.M y hacemos cola hasta las 7 P.M o 9 PM (donde nos venderán el ticket y ese mismo rato tenemos que abordar el tren que nos llevará hacia Aguas Calientes, podemos ir como parados o sentados).",
+      "2. TREN TURÍSTICO:",
+      "En caso esté en sus posibilidades hacer esta compra el costo es de US$.129 dólares por persona ida y vuelta de la estación de Ollantaytambo.",
+      "Durante este periodo hay una oferta de Peru Rail a:",
+      "US$.125.00 DÓLARES IDA Y VUELTA. CON PERNOCTE EN AGUAS CALIENTES US$ 110.00 SALIDA 5:05 AM – RETORNO 9:45 PM / FULL DAY",
+      "Todas las opciones son combinables entre sí, de acuerdo al gusto y disponibilidad."
+    ],
+    "info_hoteles": [
+      "12 AM – CHECK-IN (ingreso del hotel)",
+      "10 AM – CHECK-OUT (salida del hotel)",
+      "En el programa están incluidas las habitaciones doble, matrimonial, triple y también adicional Si el PAX desea tener una habitación simple tiene un incremento por noche de hotel de 30.00 soles",
+      "CIRCUITO 2",
+      "Para personas que reservan con anticipación de 2 a 5 meses .Cubre guia el programa"
+    ]
+  }
+};
+
+// 2. Obtener datos del webhook / typeform
+const item = (Array.isArray(items) && items[0]) ? items[0] : items;
+const body = item.json.body || item.json || item;
+
+// 3. Capturar el identificador del programa
+const programaInput = body.codigo_programa || body.programa_seleccionado || 'aventura_cusqueña_3d2n_s420_basico_machu_picchu';
+
+// Función de normalización mejorada
+function normalizarTexto(texto) {
+    return texto.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+}
+
+function extraerPalabrasClave(texto) {
+    return normalizarTexto(texto).split(' ').filter(palabra => palabra.length > 1);
+}
+
+let codigo_programa = null;
+
+if (DB_PROGRAMAS_FIJOS[programaInput]) {
+    codigo_programa = programaInput;
+} else {
+    // Casos especiales directos (v7.19)
+    const programaLimpio = normalizarTexto(programaInput);
+    const casosEspeciales = {
+        "3d2n basico": "aventura_cusqueña_3d2n_s420_basico_machu_picchu",
+        "4d3n valle vip": "aventura_cusqueña_4d3n_s520_valle_vip_machu_picchu",
+        "5d4n montaña": "aventura_cusqueña_5d4n_s590_montaña_colores_completo",
+        "6d5n mistico": "aventura_cusqueña_6d5n_s690_mistico_valle_sur",
+        "6d5n laguna": "aventura_cusqueña_6d5n_s690_laguna_humantay_completo",
+        "7d6n valle sur": "aventura_cusqueña_7d6n_s790_valle_sur_completo",
+        "8d7n mistico": "aventura_cusqueña_8d7n_s890_mistico_sur_premium",
+        "10d9n premium": "aventura_cusqueña_10d9n_s1180_premium_completo_tren_local",
+        "4d4n sin ingreso": "tours_sin_mapi_4d4n_s550_valle_vip_sin_ingreso",
+        "5d5n ida aguas": "tours_sin_mapi_5d5n_s550_ida_aguas_calientes",
+        "valle sur": "aventura_cusqueña_6d5n_s690_mistico_valle_sur",
+        "mistico": "aventura_cusqueña_8d7n_s890_mistico_sur_premium"
+    };
+
+    let casoEncontrado = false;
+    for (const [caso, clave] of Object.entries(casosEspeciales)) {
+        if (programaLimpio.includes(caso)) {
+            codigo_programa = clave;
+            casoEncontrado = true;
+            break;
+        }
+    }
+
+    if (!casoEncontrado) {
+        // Scoring Inteligente v7.19
+        const palabrasClavePrograma = extraerPalabrasClave(programaInput);
+        const candidatosConScore = [];
+        
+        for (const clavePrograma of Object.keys(DB_PROGRAMAS_FIJOS)) {
+            const programaInfo = DB_PROGRAMAS_FIJOS[clavePrograma];
+            const palabrasClaveMapeo = extraerPalabrasClave(clavePrograma);
+            const nombreProgramaNormalizado = normalizarTexto(programaInfo.titulo_programa);
+            
+            let score = 0;
+            for (const palabraUsuario of palabrasClavePrograma) {
+                if (palabrasClaveMapeo.includes(palabraUsuario)) score += 30;
+                else if (palabrasClaveMapeo.some(p => p.includes(palabraUsuario) || palabraUsuario.includes(p))) score += 15;
+                if (nombreProgramaNormalizado.includes(palabraUsuario)) score += 5;
+            }
+            
+            const incluyeMistico = palabrasClavePrograma.includes('mistico');
+            const nombreTieneMistico = nombreProgramaNormalizado.includes('mistico');
+            if (incluyeMistico && nombreTieneMistico) score += 50;
+            if (palabrasClavePrograma.includes('6d5n') && incluyeMistico) score += 25;
+            
+            if (clavePrograma.includes('_') && palabrasClavePrograma.length === 1) score -= 10;
+            
+            if (score > 0) {
+                candidatosConScore.push({ clave: clavePrograma, score: score });
+            }
+        }
+        
+        if (candidatosConScore.length > 0) {
+            candidatosConScore.sort((a, b) => b.score - a.score);
+            codigo_programa = candidatosConScore[0].clave;
+        } else {
+            codigo_programa = 'aventura_cusqueña_3d2n_s420_basico_machu_picchu';
+        }
+    }
+}
+
+// 4. Seleccionar la plantilla del programa
+const programa = DB_PROGRAMAS_FIJOS[codigo_programa];
+
+// 5. Cálculos Financieros y de Variables
+const precioTotalPrograma = parseFloat(body.precio_total) || 840;
+const adelantoPagado = parseFloat(body.adelanto_pagado) || 400;
+const saldoPendiente = precioTotalPrograma - adelantoPagado;
+const numeroPersonas = parseInt(body.numero_personas) || 2;
+const precioPorPersona = precioTotalPrograma / numeroPersonas;
+
+// 5.1. Lógica de Fechas (Auto-cálculo)
+let fechaInput = body.fecha_viaje || body.fecha_inicio || body.fecha_tour;
+let fechaInicioStr = fechaInput || "Por confirmar";
+let fechaFinStr = body.fecha_fin || "Por confirmar";
+let dateObjInicio = null;
+
+if (fechaInput) {
+    // Si la fecha de inicio viene en formato YYYY-MM-DD
+    dateObjInicio = new Date(fechaInput + "T12:00:00Z");
+    if (!isNaN(dateObjInicio.getTime())) {
+        const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        fechaInicioStr = dateObjInicio.toLocaleDateString('es-PE', opciones);
+        
+        // Extraer los días de duracionPrograma (ej. "3 Días / 2 Noches")
+        const diasMatch = programa.dias_noches.match(/(\d+)\s*[Dd]/);
+        let diasNum = 1;
+        if (diasMatch) {
+            diasNum = parseInt(diasMatch[1], 10);
+        }
+        
+        // Calcular fecha fin = fecha_inicio + (dias - 1)
+        const dateFin = new Date(dateObjInicio.getTime());
+        dateFin.setDate(dateFin.getDate() + (diasNum - 1));
+        fechaFinStr = dateFin.toLocaleDateString('es-PE', opciones);
+    }
+}
+
+// Base URL de Supabase para las imágenes de sistema
+const BASE_URL = 'https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/';
+
+// 6. Preparar Datos de Salida (Estructura para el Generador HTML)
+const datosSalida = {
+    NOMBRE_CLIENTE: body.nombre_cliente || 'Cotización Ores Travel',
+    TELEFONO_CLIENTE: body.telefono || 'No especificado',
+    EMAIL_CLIENTE: body.email || 'reservasorestravelperu@gmail.com',
+    NUMERO_PERSONAS: numeroPersonas,
+    TIPO_HABITACION: body.tipo_habitacion || 'Doble/Matrimonial',
+    observaciones: body.observaciones || 'Sin observaciones adicionales',
+    NOMBRE_ASESOR: body.nombre_asesor || 'Equipo Ores Travel',
+    EMAIL_ASESOR: body.email_asesor || 'reservasorestravelperu@gmail.com',
+    
+    NOMBRE_PROGRAMA: programa.titulo_programa,
+    DURACION_PROGRAMA: programa.dias_noches,
+    FECHA_INICIO: fechaInicioStr,
+    FECHA_FIN: fechaFinStr,
+    PRECIO_TOTAL: precioTotalPrograma.toFixed(2),
+    PRECIO_POR_PERSONA: precioPorPersona.toFixed(2),
+    ADELANTO_RESERVA: adelantoPagado.toFixed(2),
+    SALDO_PENDIENTE: saldoPendiente.toFixed(2),
+
+    PRECIO_TREN: body.precio_tren || 'Aplica tren local',
+    HORA_IDA_TREN: body.hora_ida_tren || 'Por confirmar',
+    HORA_RETORNO_TREN: body.hora_retorno_tren || 'Por confirmar',
+    PRECIO_TOTAL_TREN: body.precio_total_tren || 'incluye programa',
+    TIPO_TREN: body.tipo_tren || 'Tren Local',
+
+    json_estructura: {
+      actividades: { tarjetas: programa.itinerario.map(dia => {
+        // Calcular la fecha exacta de cada día del itinerario
+        let fechaDiaStr = "Día " + dia.dia + " del tour";
+        if (typeof dateObjInicio !== 'undefined' && dateObjInicio && !isNaN(dateObjInicio.getTime())) {
+            const dateDia = new Date(dateObjInicio.getTime());
+            dateDia.setDate(dateDia.getDate() + (dia.dia - 1));
+            fechaDiaStr = dateDia.toLocaleDateString('es-PE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        }
+
+        return {
+          titulo_dia: dia.titulo,
+          fecha_dia: fechaDiaStr,
+          descripcion: "<ul>" + dia.actividades.map(act => "<li>" + act + "</li>").join("") + "</ul>",
+          imagen: dia.imagen,
+          incluye: "", 
+          no_incluye: "" 
+        };
+      })}
+    },
+
+    // APLICAMOS EL NUEVO DISEÑO MINIMALISTA DIRECTAMENTE EN EL HTML GENERADO
+    PROGRAMA_INCLUYE: programa.incluye && programa.incluye.length > 0 
+      ? `<h3>NUESTRO PROGRAMA INCLUYE POR PERSONA:</h3><ul>` + programa.incluye.map(i => `<li>${i}</li>`).join("") + `</ul>` 
+      : "",
+      
+    PROGRAMA_NO_INCLUYE: programa.no_incluye && programa.no_incluye.length > 0 
+      ? `<h3>NO INCLUYE:</h3><ul>` + programa.no_incluye.map(i => `<li>${i}</li>`).join("") + `</ul>` 
+      : "",
+      
+    SUGERENCIAS_GENERALES: programa.sugerencias_llevar && programa.sugerencias_llevar.length > 0 
+      ? `<h3>SUGERENCIAS QUE DEBE LLEVAR:</h3><ul>` + programa.sugerencias_llevar.map(i => `<li>${i}</li>`).join("") + `</ul>` 
+      : "",
+      
+    SUGERENCIAS_CAMINATAS: programa.sugerencias_caminatas && programa.sugerencias_caminatas.length > 0 
+      ? `<h3>SUGERENCIAS PARA TOUR DE CAMINATAS:</h3><ul>` + programa.sugerencias_caminatas.map(i => `<li>${i}</li>`).join("") + `</ul>` 
+      : "",
+      
+    INFO_TREN_LOCAL: (() => {
+      const tipoTren = (body.tipo_transporte || "local").toLowerCase();
+      if (tipoTren === "turistico" || tipoTren === "vistadome") {
+        const personas = body.numero_personas || 0;
+        const precio = parseFloat(body.precio_por_persona_tren || "100");
+        const horaIda = body.horario_ida_tren || body.hora_ida_tren || "Por confirmar";
+        const horaRetorno = body.horario_retorno_tren || body.hora_retorno_tren || "Por confirmar";
+        const total = body.precio_total_tren || (personas * precio);
+        
+        return `<h3>DETALLES DEL TREN TURÍSTICO:</h3>
+          <table style="width: 100%; border-collapse: collapse; font-size: 10pt; background: transparent; border: 1px solid rgba(234, 234, 234, 0.8); border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); margin-bottom: 12px; overflow: hidden;">
+            <tr><td style="font-weight: bold; padding: 4px 10px; border-bottom: 1px solid #f0f0f0; color: #003366; border-right: 1px solid #e5e5e5; width: 35%;">NÚMERO DE PERSONAS</td><td style="padding: 4px 10px; border-bottom: 1px solid #f0f0f0; font-weight: bold;">${personas}</td></tr>
+            <tr><td style="font-weight: bold; padding: 4px 10px; border-bottom: 1px solid #f0f0f0; color: #003366; border-right: 1px solid #e5e5e5;">PRECIO DEL TREN</td><td style="padding: 4px 10px; border-bottom: 1px solid #f0f0f0; font-weight: bold;">USD ${precio} (tren turistico)</td></tr>
+            <tr><td style="font-weight: bold; padding: 4px 10px; border-bottom: 1px solid #f0f0f0; color: #003366; border-right: 1px solid #e5e5e5;">HORA IDA</td><td style="padding: 4px 10px; border-bottom: 1px solid #f0f0f0; font-weight: bold;">${horaIda}</td></tr>
+            <tr><td style="font-weight: bold; padding: 4px 10px; border-bottom: 1px solid #f0f0f0; color: #003366; border-right: 1px solid #e5e5e5;">HORA RETORNO</td><td style="padding: 4px 10px; border-bottom: 1px solid #f0f0f0; font-weight: bold;">${horaRetorno}</td></tr>
+            <tr><td style="font-weight: bold; padding: 4px 10px; border-bottom: none; color: #003366; border-right: 1px solid #e5e5e5;">TOTAL TREN</td><td style="padding: 4px 10px; border-bottom: none; font-weight: bold;">USD ${total}</td></tr>
+          </table>`;
+      } else {
+        return programa.respecto_tren_local && programa.respecto_tren_local.length > 0 
+          ? `<h3>RESPECTO AL TREN LOCAL:</h3><div style="font-weight: bold; font-size: 9.5pt; text-align: justify; line-height: 1.4;">` + 
+            programa.respecto_tren_local.map(item => item.match(/^[0-9]\./) ? `<p style="margin-bottom: 10px;"><strong>${item}</strong></p>` : `<p style="margin-bottom: 10px;">${item}</p>`).join("") + 
+            `</div>` 
+          : "";
+      }
+    })(),
+      
+    INFO_HOTELES: programa.info_hoteles && programa.info_hoteles.length > 0 
+      ? `<h3>EN HOTELES</h3><ul>` + programa.info_hoteles.map(i => `<li>${i}</li>`).join("") + `</ul>` 
+      : "",
+
+    IMAGEN_LOGO: BASE_URL + 'LOGO_ORES_TRAVELA.png',
+    IMAGEN_CUENTA_BANCARIA: BASE_URL + 'CUENTA-BANCARIA.png',
+    IMAGEN_CIRCUITO_1: BASE_URL + 'CIRCUITO1.jpg',
+    IMAGEN_CIRCUITO_2: BASE_URL + 'CIRCUITO2.jpg',
+    IMAGEN_CIRCUITO_3: BASE_URL + 'CIRCUITO3.jpg',
+    IMAGEN_HOTELES: BASE_URL + 'HOTELES.png',
+    IMAGEN_TOURS_ADICIONALES: BASE_URL + 'TUR-ADICIONAL1Y2.png'
+};
+
+return [{ json: datosSalida }];

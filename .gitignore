@@ -1,0 +1,40 @@
+# Node.js
+node_modules/
+package-lock.json
+npm-debug.log*
+
+# Python
+__pycache__/
+*.py[cod]
+
+# IDEs
+.vscode/
+.idea/
+
+# Temporary / Scratch files
+temp_*.txt
+*.tmp
+prueba_*.html
+test_*.js
+extract.js
+gen_json*.js
+gen_json*.py
+parse_all_docs.js
+read_doc.js
+update_boleto.js
+add_images_to_db.js
+nodos_*.json
+*.docx
+
+# PDF output
+html_generados/
+
+# Backups
+*_BACKUP_*.js
+*-CON-ENCABEZADO.html
+*-FINAL.html
+*-MEJORADA.html
+
+# OS files
+.DS_Store
+Thumbs.db

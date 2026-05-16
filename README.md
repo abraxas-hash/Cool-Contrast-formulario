@@ -1,34 +1,45 @@
 # ORES Travel Peru - Sistema de Cotizaciones Turísticas
 
-Sistema web completo de cotizaciones para tours en Cusco, Perú, con integración a n8n para generación automática de PDFs y almacenamiento en Google Drive.
+Sistema web completo de cotizaciones para tours en Cusco, Perú, con integración a n8n para generación automática de PDFs (Puppeteer/HTML) con identidad visual unificada.
 
-## 📦 Descripción del Proyecto
+## 📦 Descripción del Proyecto (v3.0.0)
 
 Sistema integral que incluye:
-- 🔐 **Login** con autenticación de usuarios
-- 📊 **Dashboard** con calendario de tours y estadísticas
-- 📝 **Formulario de Programas Fijos** (10 programas predefinidos)
-- 🎨 **Formulario de Tours Personalizados** (26 actividades disponibles)
-- 🤖 **Integración con n8n** para procesamiento automático
-- 📄 **Generación automática de PDFs** personalizados
-- ☁️ **Almacenamiento en Google Drive** organizado por año/mes
+- 🔐 **Login** con autenticación de usuarios y sesiones de 8 horas.
+- 📊 **Dashboard** con calendario interactivo y métricas de ventas.
+- 📝 **Formulario de Programas Fijos** (Mapeo inteligente de 10 programas).
+- 🎨 **Formulario de Tours Personalizados** (Configurador dinámico de 26 actividades).
+- 🤖 **Motor de Unificación Visual (Nuevo)**: Ambos sistemas comparten la misma estética premium.
+- 📄 **Generación de PDFs de Alta Fidelidad**: Usando Puppeteer y plantillas HTML estandarizadas.
+- ☁️ **Almacenamiento en Google Drive**: Automatización completa de carpetas por año/mes.
 
 ---
 
-## 📋 Estructura del Proyecto
+## 📋 Identidad Visual Unificada
+
+El sistema v3.0 ha sido rediseñado para garantizar paridad visual total entre programas fijos y personalizados:
+- **Tipografía**: Times New Roman (Estilo Corporativo).
+- **Paleta de Colores**: Azul Profundo (#003366) y Ocre Dorado (#e0b467).
+- **Diseño de Tablas**: Bordes sutiles, esquinas redondeadas (5px) y sombras suaves.
+- **Marca de Agua**: Logo corporativo con opacidad del 15% en todas las páginas.
+- **Estructura Portada**: Cabecera con logo a la izquierda y títulos de sección centrados.
+
+---
+
+## 🏗️ Estructura del Proyecto
 
 ```
 ores-travel-forms/
-├── login.html                  # Página de inicio de sesión
-├── dashboard.html              # Panel principal con calendario
-├── programas-fijos.html        # Formulario de programas fijos
-├── tour-personalizado.html     # Formulario de tours personalizados
-├── vercel.json                 # Configuración de Vercel
-├── README.md                   # Este archivo
-└── docs/                       # Documentación adicional
-    ├── WORKFLOW_N8N.md        # Documentación del workflow n8n
-    ├── INTEGRACION.md         # Guía de integración
-    └── API.md                 # Documentación de la API
+├── login.html                       # Página de inicio de sesión
+├── dashboard.html                   # Panel principal con calendario
+├── programas-fijos.html             # Formulario de programas fijos
+├── tour-personalizado.html          # Formulario de tours personalizados
+├── plantilla-cotizacion-unificada.html    # Template HTML base (Fijos)
+├── plantilla-cotizacion-personalizada.html # Template HTML base (Personalizados)
+├── crear_codigo_n8n.js              # Generador de lógica para n8n
+├── db_programas_fijos.json          # Base de datos de tours fijos
+├── vercel.json                      # Configuración de Vercel
+└── docs/                            # Documentación técnica
 ```
 
 ---
@@ -125,11 +136,10 @@ https://hvh-n8n.2ulbdq.easypanel.host/webhook/generar-pdf
 1. **Recepción de datos** del formulario (webhook)
 2. **Clasificación** del tipo de tour (personalizado o fijo)
 3. **Procesamiento** según el tipo:
-   - **Tours Personalizados**: Generación de HTML → PDF → Google Drive
-   - **Programas Fijos**: Copia de template Google Docs → Actualización de placeholders
-4. **Almacenamiento** en Google Drive (organizado por año/mes)
-5. **Respuesta** con enlaces de descarga
-
+   - **Tours Personalizados**: Generación de JSON con 26 actividades → HTML (Puppeteer)
+   - **Programas Fijos**: Mapeo inteligente → Inyección en `plantilla-cotizacion-unificada.html` (Puppeteer)
+4. **Almacenamiento** en Google Drive (organizado por año/mes en carpetas automatizadas)
+5. **Respuesta** con enlaces de descarga directa y previsualización.
 ### Respuesta Esperada del Webhook
 
 ```json
@@ -320,9 +330,8 @@ Para soporte técnico o consultas:
 
 ## 🔄 Versión
 
-**Versión actual**: 2.0.0  
-**Última actualización**: Noviembre 2025  
-**Workflow n8n**: v7.19 (Programas Fijos) / v7.3 (Tours Personalizados)
-
+**Versión actual**: 3.0.0 (Unified Design System)
+**Última actualización**: Mayo 2026  
+**Workflow n8n**: v8.0 (Personalizados) / v7.4 (Fijos) - Unified PDF Engine
 
 [def]: https://vercel.com

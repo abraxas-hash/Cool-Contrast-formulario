@@ -1,0 +1,605 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: A4;
+      margin: 10mm;
+    }
+
+    :root {
+      --primary: #003366;
+      --accent: #e0b467;
+      --secondary: #bb7b00;
+      --text-dark: #222;
+      --text-light: #555;
+      --bg-light: #f9f9f9;
+      --border-color: #eaeaea;
+    }
+
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      color: var(--text-dark);
+      background-color: #fff;
+      margin: 0;
+      padding: 8px;
+      padding-bottom: 45px;
+      font-size: 10.5pt;
+      line-height: 1.45;
+    }
+
+    .marca-agua {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.06;
+      z-index: -1;
+      width: 65%;
+      pointer-events: none;
+    }
+
+    .footer-fixed {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 8.5pt;
+      color: var(--primary);
+      border-top: 3px solid var(--accent);
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.95);
+      z-index: 999;
+      font-weight: 500;
+    }
+
+    /* ========== PORTADA ========== */
+    .portada {
+      page-break-after: always;
+      position: relative;
+      /* Limitada a la altura Ãºtil de A4 con mÃ¡rgenes de 10mm y footer fijo ~35px */
+      max-height: 252mm;
+      overflow: hidden;
+    }
+
+    .portada-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .portada-logo {
+      width: 185px;
+      flex-shrink: 0;
+    }
+
+    .portada-logo img {
+      width: 100%;
+      height: auto;
+    }
+
+    .header-text {
+      text-align: right;
+      flex: 1;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 13pt;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .subtitle {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 9pt;
+      color: var(--secondary);
+      font-weight: 700;
+      margin-top: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    /* Grid de 2 columnas para el cuerpo de la portada */
+    .portada-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .section-title {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 10pt;
+      color: var(--primary);
+      font-weight: 700;
+      margin: 9px 0 4px 0;
+      text-transform: uppercase;
+      background: none;
+      padding: 3px 0;
+      border-bottom: 1px solid rgba(224, 180, 103, 0.5);
+      display: block;
+      letter-spacing: 0.3px;
+      text-align: center;
+    }
+
+    table.info-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 5px;
+      font-size: 9.5pt;
+    }
+
+    table.info-table td {
+      padding: 5px 10px;
+      vertical-align: top;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    table.info-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    table.info-table .label {
+      color: var(--primary);
+      font-weight: 600;
+      width: 42%;
+      text-transform: uppercase;
+      font-size: 8.5pt;
+      letter-spacing: 0.2px;
+    }
+
+    .value-bold {
+      font-weight: 700;
+      color: #000;
+    }
+
+    .finance-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .finance-card {
+      background: var(--bg-light);
+      padding: 10px;
+      border-radius: 6px;
+      border-left: 4px solid var(--accent);
+    }
+
+    /* ========== ACTIVIDADES COMPACTAS ========== */
+    .actividades-container {
+      margin-top: 10px;
+    }
+
+    .actividad-compacta {
+      margin-bottom: 20px;
+      padding: 15px;
+      background: transparent;
+      border-left: 4px solid var(--accent);
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      page-break-inside: avoid;
+    }
+
+    .actividad-compacta:nth-child(2n) {
+      page-break-after: always;
+    }
+
+    .actividad-texto {
+      flex: 1;
+    }
+
+    .actividad-imagen {
+      width: 240px;
+      min-width: 240px;
+    }
+
+    .actividad-imagen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 6px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .actividad-compacta h3 {
+      color: var(--accent);
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 13pt;
+      margin: 0 0 3px 0;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .fecha-badge {
+      display: block;
+      color: var(--text-dark);
+      font-size: 10pt;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .actividad-compacta h4 {
+      color: var(--secondary);
+      font-size: 10.5pt;
+      margin: 10px 0 5px 0;
+      font-weight: 700;
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .actividad-compacta ul {
+      padding-left: 20px;
+      margin: 5px 0;
+      list-style-type: disc;
+    }
+
+    .actividad-compacta li {
+      font-size: 9.5pt;
+      margin-bottom: 3px;
+      padding-left: 0;
+      font-weight: bold;
+    }
+
+    /* ========== SECCIONES FIJAS ========== */
+    .seccion-fija {
+      margin-bottom: 20px;
+      page-break-inside: avoid;
+    }
+
+    .seccion-fija h3 {
+      color: var(--primary);
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 13pt;
+      font-weight: 700;
+      margin-top: 0;
+      margin-bottom: 12px;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 5px;
+      text-transform: uppercase;
+    }
+
+    .incluye-grid {
+      display: block;
+    }
+
+    .seccion-fija ul {
+      padding-left: 20px;
+      margin: 10px 0;
+      list-style-type: disc;
+    }
+
+    .seccion-fija li {
+      font-size: 9.5pt;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .highlight-incluye {
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    /* ========== PÃGINAS DE IMÃGENES ========== */
+    .pagina-imagen-completa {
+      page-break-after: always;
+      page-break-inside: avoid;
+      text-align: center;
+      padding: 15px 20px;
+      height: 240mm;
+      max-height: 240mm;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .pagina-imagen-completa h2 {
+      color: var(--primary);
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 16pt;
+      font-weight: 700;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .pagina-imagen-completa p {
+      color: var(--text-light);
+      font-size: 11pt;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .pagina-imagen-completa img {
+      width: auto;
+      max-width: 100%;
+      max-height: 190mm;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      border: 4px solid #fff;
+    }
+
+    .footer-note {
+      margin-top: 30px;
+      text-align: center;
+      font-style: italic;
+      color: var(--text-light);
+      font-size: 9pt;
+    }
+  </style>
+</head>
+
+<body>
+
+  <img class="marca-agua" src="https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/LOGO_ORES_TRAVELA.png" alt="Marca de agua Ores Travel PerÃº">
+
+  <!-- Pie de pÃ¡gina fijo -->
+  <div class="footer-fixed">
+    AGENCIA OPERADORA DE TURISMO SOSTENIBLE | Office: Calle Coquimbo A3 â€” Cusco, PerÃº<br>
+    Phones: +51 918 818 503 | reservasorestravelperu@gmail.com | www.orestravel.com
+  </div>
+
+  <!-- ========== PORTADA ========== -->
+  <div class="portada">
+
+    <!-- ENCABEZADO: Logo + TÃ­tulo -->
+    <div class="portada-header">
+      <div class="portada-logo">
+        <img src="https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/LOGO_ORES_TRAVELA.png" alt="Logo Ores Travel">
+      </div>
+      <div class="header-text">
+        <h1>ORES TRAVEL PERÃš</h1>
+        <div class="subtitle">Agencia Operadora de Turismo Sostenible</div>
+        <div style="font-weight: 600; color: #777; margin-top: 2px; font-size: 8pt;">COTIZACIÃ“N TURÃSTICA PERSONALIZADA</div>
+      </div>
+    </div>
+
+    <!-- Secciones en columna Ãºnica (layout original) -->
+
+    <div class="section-title">Detalles del Programa</div>
+    <table class="info-table">
+      <tr><td class="label">Actividades Seleccionadas</td><td class="value-bold">: AVENTURA CUSQUEÃ‘A 3D2N S420 BASICO MACHU PICCHU</td></tr>
+      <tr><td class="label">DuraciÃ³n del Viaje</td><td class="value-bold">: 3 DÃ­as / 2 Noches</td></tr>
+      <tr><td class="label">Asesor de Viajes</td><td class="value-bold">: Sistema Ores Travel</td></tr>
+      <tr><td class="label">Email / TelÃ©fono</td><td class="value-bold">: reservas@orestravel.com | +51 999 888 777</td></tr>
+    </table>
+
+    <div class="section-title">InformaciÃ³n del Cliente</div>
+    <table class="info-table">
+      <tr><td class="label">Titular de Reserva</td><td class="value-bold">: PRUEBA AUTOMATICA AI</td></tr>
+      <tr><td class="label">Tipo de HabitaciÃ³n</td><td class="value-bold">: Matrimonial</td></tr>
+      <tr><td class="label">NÃºmero de Personas</td><td class="value-bold">: 2 Personas</td></tr>
+    </table>
+
+    <div class="section-title">InformaciÃ³n Financiera</div>
+    <table class="info-table">
+      <tr><td class="label">Tarifa por Persona</td><td class="value-bold" style="color: var(--secondary);">: S/. 420.00 (Precio Promocional)</td></tr>
+      <tr><td class="label">Total a Pagar</td><td class="value-bold">: S/. 840.00</td></tr>
+      <tr><td class="label">Adelanto de Reserva</td><td class="value-bold">: S/. 400.00</td></tr>
+      <tr><td class="label">Saldo Pendiente</td><td class="value-bold" style="color: var(--secondary);">: S/. 440.00</td></tr>
+    </table>
+
+    <div class="section-title">InformaciÃ³n del Tren</div>
+    <table class="info-table">
+      <tr><td class="label">Hora Ida / Retorno</td><td class="value-bold">: 09:50 AM / 18:20 PM</td></tr>
+      <tr><td class="label">Tipo / Total</td><td class="value-bold">: Tren Local â€” Incluido en programa</td></tr>
+      <tr><td class="label">NÂ° Pasajeros</td><td class="value-bold">: 2 Personas</td></tr>
+    </table>
+
+    <div class="section-title">Observaciones y Fechas</div>
+    <table class="info-table">
+      <tr><td class="label">Observaciones</td><td class="value-bold">: Vuelo llega a las 8:00 AM</td></tr>
+      <tr><td class="label">Fecha de Inicio</td><td class="value-bold">: Lunes, 15 de Mayo de 2026</td></tr>
+      <tr><td class="label">Fecha de Fin</td><td class="value-bold">: MiÃ©rcoles, 17 de Mayo de 2026</td></tr>
+    </table>
+
+
+  </div>
+
+  <!-- ========== ACTIVIDADES COMPACTAS ========== -->
+  <div class="actividades-container">
+    
+    <div class="actividad-compacta">
+      <div class="actividad-texto">
+        <h3>BIENVENIDA A CUSCO-CITY TOUR</h3>
+        <div class="fecha-badge">ðŸ—“ï¸ {{FECHA_COMPLETA_DIA_1}}</div>
+        <h4>Itinerario:</h4>
+        <ul>
+          <li>VUELO LLEGADA A CUSCO (HORA POR ACORDAR)</li>
+          <li>AM-Traslado del aeropuerto al hotel</li>
+          <li>12 PM- CHECK-IN (INGRESO A LA HABITACION DEL HOTEL)</li>
+          <li>09:00â€“ City tour en Cusco</li>
+          <li>Lugares a visitar: Qoricancha, Sacsayhuaman, Qenqo, Pukapukara, Tambomachay, Cristo Blanco, Bosque de Eucalipto</li>
+          <li>02:30 â€“ Arribo a la ciudad de Cusco (Cerca de la plaza principal).</li>
+          <li>Pernocte en Cusco.</li>
+        </ul>
+      </div>
+      <div class="actividad-imagen">
+        <img src="https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/LLEGADA_CITY.jpg" alt="City Tour Cusco">
+      </div>
+    </div>
+
+    <div class="actividad-compacta">
+      <div class="actividad-texto">
+        <h3>Machu Picchu- Full Day</h3>
+        <div class="fecha-badge">ðŸ—“ï¸ {{FECHA_COMPLETA_DIA_2}}</div>
+        <h4>Itinerario:</h4>
+        <ul>
+          <li>1:00 AM â€“ Recojo del tour</li>
+          <li>3:00 AM â€“ Llegada estaciÃ³n de Ollantaytambo</li>
+          <li>5:05 AM â€“ Partida del tren hacia aguas calientes</li>
+          <li>6:30 AM â€“ Arribo aguas calientes</li>
+          <li>Bus de Subida en bus al Santuario.</li>
+          <li>Guiado Machu Picchu</li>
+          <li>Momento libre para mÃ¡s fotos en Machu Picchu.</li>
+          <li>PM -Retorno en Bus hasta Aguas Calientes.</li>
+          <li>PM -Almuerzo (No Incluido).</li>
+          <li>PM- Aguas termales (SIN GUIADO)</li>
+          <li>PM- Retorno en tren a Ollantaytambo.</li>
+          <li>22:30 PM O 1:00 AM â€“ Arribo a la ciudad del cusco (cerca de la plaza de armas)</li>
+          <li>Pernocte en Cusco.</li>
+        </ul>
+      </div>
+      <div class="actividad-imagen">
+        <img src="https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/FULL_MAPI.jpg" alt="Machu Picchu">
+      </div>
+    </div>
+
+    <div class="actividad-compacta">
+      <div class="actividad-texto">
+        <h3>Despedida de Cusco- SIN GUIA</h3>
+        <div class="fecha-badge">ðŸ—“ï¸ {{FECHA_COMPLETA_DIA_3}}</div>
+        <h4>Itinerario:</h4>
+        <ul>
+          <li>07:00 â€“ Desayuno en el hotel.</li>
+          <li>10 AM- CHECK OUT (DESOCUPAR LA HABITACION DEL HOTEL)</li>
+          <li>Momento libre. Recomendamos:</li>
+          <li>Acueducto de cusco</li>
+          <li>Mirador de San Blas</li>
+          <li>Calle 7 Borreguitos</li>
+          <li>Mirador de San CristÃ³bal</li>
+          <li>Visita en los museos</li>
+          <li>Asesoramiento para compras y recordatorios</li>
+          <li>FIN DE NUESTROS SERVICIOS</li>
+        </ul>
+      </div>
+      <div class="actividad-imagen">
+        <img src="https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/CITY.jpg" alt="Cusco despedida">
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SECCIONES FINALES ========== -->
+  <div class="seccion-fija">
+    <h3>NUESTRO PROGRAMA INCLUYE POR PERSONA:</h3>
+    <ul>
+      <li>Recojo del aeropuerto IN</li>
+      <li>traslado del hotel al aeropuerto</li>
+      <li>Todos los servicios y traslados.</li>
+      <li>Bus turÃ­stico para cada tour.</li>
+      <li>GuÃ­a profesional de turismo para cada tour</li>
+      <li>TREN LOCAL IDA Y VUELTA (MODIFICAR)</li>
+      <li>Ingreso a Machu Picchu.</li>
+      <li>Bus de Subida y bajada al santuario de Machu Picchu.</li>
+      <li>Traslados estaciÃ³n Ollantaytambo - Cusco</li>
+      <li>02 noches de alojamiento en cusco</li>
+      <li>02 desayunos ( 1 desayuno no incluye en el mapi full day)</li>
+      <li>Asesoramiento las 24 horas</li>
+    </ul>
+  </div>
+
+  <div class="seccion-fija">
+    <h3>NO INCLUYE:</h3>
+    <ul>
+      <li>AlimentaciÃ³n y bebidas no mencionadas en el programa</li>
+      <li>La entrada a las Aguas Termales en Aguas Calientes Opcional (10.00 soles)</li>
+      <li>No incluye IGV</li>
+      <li>BTC 40.0 soles / niÃ±os o adultos</li>
+      <li>Coricancha 20.00 soles / niÃ±os 10.00 soles</li>
+      <li>Boleto TurÃ­stico General: Permite el ingreso a centros arqueolÃ³gicos + museos + teatro Validez: 10 dÃ­as completos</li>
+    </ul>
+  </div>
+
+  <div class="seccion-fija">
+    <h3>SUGERENCIAS QUE DEBE LLEVAR:</h3>
+    <ul>
+      <li>DNI o pasaporte original.</li>
+      <li>Zapatos adecuados para el tour.</li>
+      <li>Lentes de sol.</li>
+      <li>Repelente de mosquitos y Bloqueador solar.</li>
+      <li>Polos, Shorts y Sombrero o gorra.</li>
+      <li>Traje de baÃ±o, toalla y sandalias (de acuerdo a sus horarios).</li>
+      <li>Casaca Abrigadora para la noche, casaca ligera para el tour.</li>
+      <li>Cargadores y baterÃ­as.</li>
+      <li>Poncho de lluvia (de octubre a marzo). - Medicinas personales.</li>
+    </ul>
+  </div>
+
+  <div class="seccion-fija">
+    <h3>SUGERENCIAS PARA TOUR DE CAMINATAS:</h3>
+    <ul>
+      <li>Ropa abrigadora (casaca, bufanda, guantes, gorros)</li>
+      <li>Sombrero, gorra y gafas de sol</li>
+      <li>Snacks (chocolates, dulces, hoja de coca)</li>
+      <li>Agua o hidratante</li>
+      <li>CÃ¡mara fotogrÃ¡fica y baterÃ­as de repuesto</li>
+      <li>Kit mÃ©dico personal</li>
+      <li>Protector solar</li>
+      <li>Zapatos de Trekking o botas impermeables (para su mayor comodidad)</li>
+    </ul>
+  </div>
+
+  <div class="seccion-fija" style="page-break-before: always;">
+    <h3>RESPECTO AL TREN LOCAL:</h3>
+    <p style="font-size: 9.5pt; text-align: justify; line-height: 1.4; margin-bottom: 10px; font-weight: bold;">
+      La compra de los boletos es de manera personal con el DNI vigente en fÃ­sico y nosotros como agencia de viajes no podemos reservar ni comprar estos boletos, por esta razÃ³n el dÃ­a de su arribo a Cusco nuestro personal los acompaÃ±arÃ¡ para asistirlos en la compra a su llegada a Cusco (estos boletos estÃ¡n incluidos dentro de la tarifa es decir lo pagamos nosotros). El tren local parte de la estaciÃ³n de tren de Ollantaytambo.
+    </p>
+    <p style="font-size: 9.5pt; text-align: justify; line-height: 1.4; margin-bottom: 10px; font-weight: bold;">
+      Esta alternativa solo es para personas que vienen 8 dÃ­as al Cusco.
+    </p>
+    <p style="font-size: 9.5pt; text-align: justify; line-height: 1.4; margin-bottom: 5px; font-weight: bold;">
+      En caso que no encontremos espacios en el tren tenemos 2 opciones para usted:
+    </p>
+    <ul style="list-style-type: none; padding-left: 0; margin-top: 5px;">
+      <li style="margin-bottom: 10px; font-weight: bold;"><strong>1. TREN LOCAL HACIENDO COLA:</strong><br>Existe una segunda opciÃ³n de comprar el tren local y es haciendo cola el segundo dÃ­a (dentro del tour al Valle Sagrado). El segundo dÃ­a nos quedamos en Ollantaytambo aproximadamente a las 2:30 P.M y hacemos cola hasta las 7 P.M o 9 PM (donde nos venderÃ¡n el ticket y ese mismo rato tenemos que abordar el tren que nos llevarÃ¡ hacia Aguas Calientes, podemos ir como parados o sentados).</li>
+      <li style="margin-bottom: 10px; font-weight: bold;"><strong>2. TREN TURÃSTICO:</strong><br>En caso estÃ© en sus posibilidades hacer esta compra el costo es de US$.129 dÃ³lares por persona ida y vuelta de la estaciÃ³n de Ollantaytambo.<br>Durante este periodo hay una oferta de Peru Rail a:<br>US$.125.00 DÃ“LARES IDA Y VUELTA. CON PERNOCTE EN AGUAS CALIENTES US$ 110.00 SALIDA 5:05 AM â€“ RETORNO 9:45 PM / FULL DAY</li>
+    </ul>
+    <p style="font-size: 9.5pt; text-align: justify; line-height: 1.4; font-weight: bold;">
+      Todas las opciones son combinables entre sÃ­, de acuerdo al gusto y disponibilidad.
+    </p>
+  </div>
+
+  <div class="seccion-fija">
+    <h3>EN HOTELES</h3>
+    <ul>
+      <li>12 AM â€“ CHECK-IN (ingreso del hotel)</li>
+      <li>10 AM â€“ CHECK-OUT (salida del hotel)</li>
+      <li>En el programa estÃ¡n incluidas las habitaciones doble, matrimonial, triple y tambiÃ©n adicional Si el PAX desea tener una habitaciÃ³n simple tiene un incremento por noche de hotel de 30.00 soles</li>
+    </ul>
+    
+    <div style="text-align: center; margin-top: 25px;">
+      <h3 style="border: none; margin-bottom: 5px;">Cuentas Bancarias Autorizadas</h3>
+      <img src="https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/CUENTA-BANCARIA.png" alt="InformaciÃ³n de Pago"
+        style="width: 80%; max-width: 500px; height: auto; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border: 1px solid var(--border-color);">
+    </div>
+  </div>
+
+  <!-- ========== PÃGINAS FINALES ========== -->
+  <div class="pagina-imagen-completa">
+    <h2>Circuitos en Machu Picchu</h2>
+    <p>Conozca las rutas disponibles para su visita al Santuario</p>
+    <img src="https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/CIRCUITO2.jpg" alt="Circuitos Machu Picchu">
+  </div>
+
+  <div class="pagina-imagen-completa">
+    <h2>Nuestros Hoteles Aliados</h2>
+    <p>Calidad y confort garantizados en su estadÃ­a en Cusco</p>
+    <img src="https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/HOTELES.png" alt="Hoteles Aliados">
+  </div>
+
+  <div class="pagina-imagen-completa">
+    <h2>Tours Adicionales</h2>
+    <p>AmplÃ­e su experiencia con nuestras excursiones complementarias</p>
+    <img src="https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/TUR-ADICIONAL1Y2.png" alt="Tours Adicionales">
+  </div>
+
+</body>
+</html>
+
