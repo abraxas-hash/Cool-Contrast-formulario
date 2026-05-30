@@ -1,13 +1,6 @@
 {
   "version": 2,
-  "build": {
-    "env": {
-      "VERCEL_FORCE_DEPLOY": "1"
-    }
-  },
   "rewrites": [
-    { "source": "/", "destination": "/tech-discovery-form.html" },
-    { "source": "/diagnostico", "destination": "/tech-discovery-form.html" },
     { "source": "/api/webhook", "destination": "https://hvh-n8n.2ulbdq.easypanel.host/webhook/60652e5c-2f84-4c68-a994-2a499bff5c6f" },
     { "source": "/api/generar-pdf", "destination": "https://hvh-n8n.2ulbdq.easypanel.host/webhook/generar-pdf" }
   ],
