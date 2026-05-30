@@ -1,4 +1,4 @@
-# API Reference - ORES Travel Forms
+# API Reference - Andean Journey Forms
 
 ## 📋 Índice
 
@@ -15,7 +15,7 @@
 
 ## 🎯 Descripción General
 
-La API de ORES Travel Forms permite generar cotizaciones turísticas personalizadas en formato PDF a través de un webhook de n8n.
+La API de Andean Journey Forms permite generar cotizaciones turísticas personalizadas en formato PDF a través de un webhook de n8n.
 
 ### Base URL
 
@@ -487,11 +487,11 @@ Todas las fechas deben estar en formato **ISO 8601** (`YYYY-MM-DD`) o formato lo
 
 Para soporte técnico de la API:
 
-- **Email**: reservasorestravelperu@gmail.com
+- **Email**: info@andeanjourney.com
 - **Teléfono**: +51 918 818 503
 
 ---
 
 **Versión**: 1.0  
 **Última actualización**: Noviembre 2025  
-**Mantenido por**: ORES Travel Peru
+**Mantenido por**: Andean Journey Peru

@@ -1,6 +1,6 @@
-# 📚 Índice de Documentación - ORES Travel Forms
+# 📚 Índice de Documentación - Andean Journey Forms
 
-Bienvenido a la documentación completa del sistema de cotizaciones turísticas ORES Travel Peru.
+Bienvenido a la documentación completa del sistema de cotizaciones turísticas Andean Journey Peru.
 
 ## 📖 Documentos Disponibles
 
@@ -84,7 +84,7 @@ Bienvenido a la documentación completa del sistema de cotizaciones turísticas 
 ## 📊 Estructura del Proyecto
 
 ```
-ores-travel-forms/
+andean-journey-docs/
 ├── README.md                   # 📘 Guía principal
 ├── login.html                  # 🔐 Página de login
 ├── dashboard.html              # 📊 Dashboard principal
@@ -236,13 +236,13 @@ ores-travel-forms/
 
 ### Contacto
 
-- **Email**: reservasorestravelperu@gmail.com
+- **Email**: info@andeanjourney.com
 - **Teléfono**: +51 918 818 503
 - **Dirección**: Calle Coquimbo A3 — Cusco, Perú
 
 ### Recursos Adicionales
 
-- [Repositorio GitHub](https://github.com/abraxas-hash/ores-travel-forms-)
+- [Repositorio GitHub](https://github.com/abraxas-hash/andean-journey-docs-)
 - [n8n Documentation](https://docs.n8n.io/)
 - [Vercel Documentation](https://vercel.com/docs)
 
@@ -250,10 +250,10 @@ ores-travel-forms/
 
 ## 📄 Licencia
 
-© 2025 ORES Travel Peru. Todos los derechos reservados.
+© 2025 Andean Journey Peru. Todos los derechos reservados.
 
 ---
 
 **Última actualización**: Noviembre 2025  
-**Mantenido por**: ORES Travel Peru  
+**Mantenido por**: Andean Journey Peru  
 **Versión de documentación**: 2.0.0

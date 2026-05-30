@@ -1,14 +1,14 @@
 # 📋 Resumen de Actualización de Documentación
 
 **Fecha**: 25 de Noviembre de 2025  
-**Proyecto**: ORES Travel Forms  
+**Proyecto**: Andean Journey Forms  
 **Versión**: 2.0.0
 
 ---
 
 ## ✅ Documentación Actualizada
 
-Se ha completado la actualización completa de la documentación del proyecto **ORES Travel Forms**, incluyendo toda la información del workflow de n8n.
+Se ha completado la actualización completa de la documentación del proyecto **Andean Journey Forms**, incluyendo toda la información del workflow de n8n.
 
 ### Archivos Creados/Actualizados
 
@@ -217,8 +217,8 @@ Se ha completado la actualización completa de la documentación del proyecto **
 
 ## 📞 Contacto
 
-**ORES Travel Peru**  
-- Email: reservasorestravelperu@gmail.com
+**Andean Journey Peru**  
+- Email: info@andeanjourney.com
 - Teléfono: +51 918 818 503
 - Dirección: Calle Coquimbo A3 — Cusco, Perú
 
@@ -226,10 +226,10 @@ Se ha completado la actualización completa de la documentación del proyecto **
 
 ## 📄 Licencia
 
-© 2025 ORES Travel Peru. Todos los derechos reservados.
+© 2025 Andean Journey Peru. Todos los derechos reservados.
 
 ---
 
 **Documentación completada**: 25 de Noviembre de 2025  
-**Mantenido por**: ORES Travel Peru  
+**Mantenido por**: Andean Journey Peru  
 **Versión**: 2.0.0

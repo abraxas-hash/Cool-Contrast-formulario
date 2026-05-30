@@ -96,10 +96,24 @@ if (DB_PROGRAMAS_FIJOS[programaInput]) {
 const programa = DB_PROGRAMAS_FIJOS[codigo_programa];
 
 // 5. Cálculos Financieros y de Variables
-const precioTotalPrograma = parseFloat(body.precio_total) || 840;
+const numeroPersonas = parseInt(body.numero_personas) || 2;
+
+let precioTotalPrograma;
+if (body.precio_total && !isNaN(parseFloat(body.precio_total))) {
+    precioTotalPrograma = parseFloat(body.precio_total);
+} else {
+    // Extraer automáticamente el precio del código del programa (ej: ..._s590_...)
+    const matchPrecio = codigo_programa.match(/_s(\\d+)_/);
+    if (matchPrecio) {
+        const precioExtraidoPorPersona = parseFloat(matchPrecio[1]);
+        precioTotalPrograma = precioExtraidoPorPersona * numeroPersonas;
+    } else {
+        precioTotalPrograma = 840; // Fallback por defecto si no se encuentra
+    }
+}
+
 const adelantoPagado = parseFloat(body.adelanto_pagado) || 400;
 const saldoPendiente = precioTotalPrograma - adelantoPagado;
-const numeroPersonas = parseInt(body.numero_personas) || 2;
 const precioPorPersona = precioTotalPrograma / numeroPersonas;
 
 // 5.1. Lógica de Fechas (Auto-cálculo)
@@ -134,14 +148,14 @@ const BASE_URL = 'https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/pub
 
 // 6. Preparar Datos de Salida (Estructura para el Generador HTML)
 const datosSalida = {
-    NOMBRE_CLIENTE: body.nombre_cliente || 'Cotización Ores Travel',
+    NOMBRE_CLIENTE: body.nombre_cliente || 'Cotización Andean Journey',
     TELEFONO_CLIENTE: body.telefono || 'No especificado',
-    EMAIL_CLIENTE: body.email || 'reservasorestravelperu@gmail.com',
+    EMAIL_CLIENTE: body.email || 'info@andeanjourney.com',
     NUMERO_PERSONAS: numeroPersonas,
     TIPO_HABITACION: body.tipo_habitacion || 'Doble/Matrimonial',
     observaciones: body.observaciones || 'Sin observaciones adicionales',
-    NOMBRE_ASESOR: body.nombre_asesor || 'Equipo Ores Travel',
-    EMAIL_ASESOR: body.email_asesor || 'reservasorestravelperu@gmail.com',
+    NOMBRE_ASESOR: body.nombre_asesor || 'Equipo Andean Journey',
+    EMAIL_ASESOR: body.email_asesor || 'info@andeanjourney.com',
     
     NOMBRE_PROGRAMA: programa.titulo_programa,
     DURACION_PROGRAMA: programa.dias_noches,

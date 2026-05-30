@@ -674,4 +674,4 @@ console.log("🚆 Tipo tren:", infoTren.tipoTren);
 ---
 
 **Última actualización**: Noviembre 2025  
-**Mantenido por**: ORES Travel Peru
+**Mantenido por**: Andean Journey Peru

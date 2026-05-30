@@ -1,4 +1,4 @@
-# Manual de Identidad Visual - ORES Travel (v3.0)
+# Manual de Identidad Visual - Andean Journey (v3.0)
 
 Este documento detalla los estándares visuales aplicados a todas las cotizaciones PDF generadas por el sistema, garantizando una imagen de marca coherente y profesional.
 

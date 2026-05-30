@@ -104,7 +104,7 @@ for (const key in db) {
     prog.info_hoteles.forEach(item => { newHtml += `      <li>${item}</li>\n`; });
     newHtml += `    </ul>\n    <div style="text-align: center; margin-top: 25px;">
       <h3 style="border: none; margin-bottom: 5px;">Cuentas Bancarias Autorizadas</h3>
-      <img src="https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/CUENTA-BANCARIA.png" alt="Información de Pago"
+      <img src="https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/andean-journey-assets/CUENTA-BANCARIA.png" alt="Información de Pago"
         style="width: 80%; max-width: 500px; height: auto; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border: 1px solid var(--border-color);">
     </div>\n  </div>\n\n`;
   }

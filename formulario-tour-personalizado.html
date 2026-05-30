@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tour Personalizado - ORES Travel Perú</title>
+    <title>Tour Personalizado - Andean Journey Perú</title>
     
     <style>
         :root { 
@@ -1702,7 +1702,7 @@
                 console.log('Enviando payload:', payload);
                 
                 // Enviar a n8n webhook
-                const webhookUrl = 'https://hvh-n8n.2ulbdq.easypanel.host/webhook/generar-pdf';
+                const webhookUrl = '/api/generar-pdf';
                 
                 const response = await fetch(webhookUrl, {
                     method: 'POST',
@@ -1739,7 +1739,7 @@
                         
                         // Obtener cotizaciones existentes
                         let cotizaciones = [];
-                        const cotizacionesGuardadas = localStorage.getItem('ores_cotizaciones');
+                        const cotizacionesGuardadas = localStorage.getItem('andean_cotizaciones');
                         if (cotizacionesGuardadas) {
                             try {
                                 cotizaciones = JSON.parse(cotizacionesGuardadas);
@@ -1758,7 +1758,7 @@
                         }
                         
                         // Guardar en localStorage
-                        localStorage.setItem('ores_cotizaciones', JSON.stringify(cotizaciones));
+                        localStorage.setItem('andean_cotizaciones', JSON.stringify(cotizaciones));
                         console.log('✅ Cotización guardada en localStorage');
                         
                         // Sincronizar con Google Sheets en segundo plano
@@ -1972,7 +1972,7 @@
          * Enviar datos al webhook de n8n
          */
         async function enviarAlWebhookPersonalizado(payload) {
-            const webhookUrl = 'https://hvh-n8n.2ulbdq.easypanel.host/webhook/generar-pdf';
+            const webhookUrl = '/api/generar-pdf';
             
             console.log('📡 Enviando datos al webhook...');
             

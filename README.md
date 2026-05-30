@@ -1,4 +1,4 @@
-# ORES Travel Peru - Sistema de Cotizaciones Turísticas
+# Andean Journey Peru - Sistema de Cotizaciones Turísticas
 
 Sistema web completo de cotizaciones para tours en Cusco, Perú, con integración a n8n para generación automática de PDFs (Puppeteer/HTML) con identidad visual unificada.
 
@@ -29,7 +29,7 @@ El sistema v3.0 ha sido rediseñado para garantizar paridad visual total entre p
 ## 🏗️ Estructura del Proyecto
 
 ```
-ores-travel-forms/
+andean-journey-docs/
 ├── index.html                       # Landing Page / Portfolio Showcase (Nuevo)
 ├── login.html                       # Página de inicio de sesión
 ├── dashboard.html                   # Panel principal con calendario
@@ -60,13 +60,13 @@ He incluido un archivo `index.html` diseñado específicamente para portafolio. 
 2. **Crear repositorio en GitHub**
    - Abre GitHub Desktop
    - File → New Repository
-   - Nombre: `ores-travel-forms`
+   - Nombre: `andean-journey-docs`
    - Local Path: Selecciona la carpeta de tu proyecto
    - Click "Create Repository"
 
 3. **Subir archivos al repositorio**
    - En GitHub Desktop verás los archivos en "Changes"
-   - Summary: `Initial commit - ORES Travel Forms`
+   - Summary: `Initial commit - Andean Journey Forms`
    - Click "Commit to main"
    - Click "Publish repository" (arriba)
    - Desmarca "Keep this code private" si quieres que sea público
@@ -74,7 +74,7 @@ He incluido un archivo `index.html` diseñado específicamente para portafolio. 
 
 4. **Importar a Vercel**
    - En Vercel, click "Add New..." → "Project"
-   - Busca tu repositorio `ores-travel-forms`
+   - Busca tu repositorio `andean-journey-docs`
    - Click "Import"
    - En "Configure Project":
      - Framework Preset: `Other`
@@ -84,7 +84,7 @@ He incluido un archivo `index.html` diseñado específicamente para portafolio. 
    - Click "Deploy"
 
 5. **¡Listo!**
-   - Vercel te dará una URL como: `https://ores-travel-forms.vercel.app`
+   - Vercel te dará una URL como: `https://andean-journey-docs.vercel.app`
    - Tu aplicación estará disponible en esa URL
 
 ### Opción 2: Desde la Terminal (Alternativa)
@@ -94,7 +94,7 @@ He incluido un archivo `index.html` diseñado específicamente para portafolio. 
 npm i -g vercel
 
 # En la carpeta del proyecto
-cd ores-travel-forms
+cd andean-journey-docs
 
 # Desplegar
 vercel
@@ -103,7 +103,7 @@ vercel
 # - Set up and deploy? Y
 # - Which scope? [tu cuenta]
 # - Link to existing project? N
-# - What's your project's name? ores-travel-forms
+# - What's your project's name? andean-journey-docs
 # - In which directory is your code located? ./
 ```
 
@@ -321,7 +321,7 @@ Para actualizar el sitio después del primer despliegue:
 ## 📞 Soporte
 
 Para soporte técnico o consultas:
-- **Email**: reservasorestravelperu@gmail.com
+- **Email**: info@andeanjourney.com
 - **Teléfono**: +51 918 818 503
 - **Dirección**: Calle Coquimbo A3 — Cusco, Perú
 
@@ -329,7 +329,7 @@ Para soporte técnico o consultas:
 
 ## 📄 Licencia
 
-© 2025 ORES Travel Peru. Todos los derechos reservados.
+© 2025 Andean Journey Peru. Todos los derechos reservados.
 
 ---
 

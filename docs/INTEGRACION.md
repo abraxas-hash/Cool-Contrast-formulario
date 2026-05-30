@@ -1,4 +1,4 @@
-# Guía de Integración - ORES Travel Forms
+# Guía de Integración - Andean Journey Forms
 
 ## 📋 Índice
 
@@ -37,7 +37,7 @@ Todos los formularios deben seguir esta estructura básica:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario - ORES Travel</title>
+    <title>Formulario - Andean Journey</title>
     <style>
         /* Estilos del formulario */
     </style>
@@ -543,7 +543,7 @@ El workflow valida automáticamente:
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Programa Fijo - ORES Travel</title>
+    <title>Programa Fijo - Andean Journey</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -781,4 +781,4 @@ Si tienes problemas con la integración:
 ---
 
 **Última actualización**: Noviembre 2025  
-**Mantenido por**: ORES Travel Peru
+**Mantenido por**: Andean Journey Peru

@@ -1,6 +1,6 @@
 /**
  * ================================================================
- * PROCESADOR DE ITINERARIOS PERSONALIZADOS - ORES TRAVEL PERÚ
+ * PROCESADOR DE ITINERARIOS PERSONALIZADOS - Andean Journey PERÚ
  * Versión: "V8.0-PROCESADOR-FINAL-N8N"
  * 
  * DESCRIPCIÓN:
@@ -31,7 +31,7 @@ if (items[0] && items[0].json && items[0].json.method === 'OPTIONS') {
   return [{
     json: {
       status: 'ok',
-      message: 'ORES TRAVEL PERÚ - CORS OK',
+      message: 'Andean Journey PERÚ - CORS OK',
       timestamp: new Date().toISOString()
     }
   }];
@@ -50,7 +50,7 @@ try {
   }
 
   // ================= BASE URL SUPABASE =================
-  const BASE_URL = "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/ores-travel-pdf/";
+  const BASE_URL = "https://nqouocmxfvcpyemxvobm.supabase.co/storage/v1/object/public/andean-journey-assets/";
 
   // ================= CONFIGURACIÓN DE CARPETAS GOOGLE DRIVE =================
   const CARPETAS_TOURS_PERSONALIZADOS = {
@@ -1548,8 +1548,8 @@ al hotel en ollantaytambo</li>
   const totalNoches = nochesCusco + nochesAguasCalientes; // ✅ NUEVO
 
   // ================= INFORMACIÓN DEL ASESOR =================
-  const nombreAsesor = body.nombre_asesor || body.asesor || "Equipo Ores Travel";
-  const emailAsesor = body.email_asesor || body.email || "reservasorestravelperu@gmail.com";
+  const nombreAsesor = body.nombre_asesor || body.asesor || "Equipo Andean Journey";
+  const emailAsesor = body.email_asesor || body.email || "info@andeanjourney.com";
 
   // ================= TIPO DE HABITACIÓN =================
   let tipoHabitacion = body.tipo_habitacion || body.tipo_hab || "Doble";
@@ -1793,13 +1793,13 @@ al hotel en ollantaytambo</li>
   const datosSalida = {
     NOMBRE_CLIENTE: nombreCliente,
     TELEFONO_CLIENTE: body.telefono || 'No especificado',
-    EMAIL_CLIENTE: body.email || 'reservasorestravelperu@gmail.com',
+    EMAIL_CLIENTE: body.email || 'info@andeanjourney.com',
     NUMERO_PERSONAS: numeroPersonas,
     TIPO_HABITACION: tipoHabitacion,
     observaciones: body.observaciones || "Sin observaciones adicionales",
     NOMBRE_ASESOR: nombreAsesor,
     EMAIL_ASESOR: emailAsesor,
-    NOMBRE_PROGRAMA: body.programa || "Programa personalizado Ores Travel",
+    NOMBRE_PROGRAMA: body.programa || "Programa personalizado Andean Journey",
     DURACION_PROGRAMA: `${duracionDias} días`,
     FECHA_INICIO: formatearFechaCompleta(parsearFecha(itinerario[0].fecha)),
     FECHA_FIN: formatearFechaCompleta(parsearFecha(itinerario[itinerario.length - 1].fecha)),
@@ -1837,7 +1837,7 @@ al hotel en ollantaytambo</li>
     NOCHES_AGUAS_CALIENTES: nochesAguasCalientes,
     ALMUERZOS_INCLUIDOS: almuerzosIncluidos,
     DESAYUNOS_INCLUIDOS: desayunosIncluidos,
-    IMAGEN_LOGO: BASE_URL + "LOGO_ORES_TRAVELA.png",
+    IMAGEN_LOGO: BASE_URL + "logo-andean-journey.png",
 
     // ================= SECCIONES FIJAS =================
     PROGRAMA_INCLUYE: PROGRAMA_INCLUYE,

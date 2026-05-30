@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programas Fijos - ORES Travel Perú</title>
+    <title>Programas Fijos - Andean Journey Perú</title>
     
     <style>
         /* ==========================================
-           VARIABLES CSS - ORES Travel Theme
+           VARIABLES CSS - Andean Journey Theme
         ========================================== */
         :root { 
             --primary: #c2410c; 
@@ -1012,7 +1012,7 @@
                     
                     <div style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 12px; padding: 16px; margin-bottom: 20px;">
                         <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0; line-height: 1.4;">
-                            💡 <strong>Estos campos son opcionales.</strong> Si los dejas vacíos, se usarán automáticamente los datos de contacto de ORES TRAVEL PERU.
+                            💡 <strong>Estos campos son opcionales.</strong> Si los dejas vacíos, se usarán automáticamente los datos de contacto de Andean Journey PERU.
                         </p>
                     </div>
                     
@@ -1022,7 +1022,7 @@
                             <input type="text" id="nombre_asesor" name="nombre_asesor" class="form-input" 
                                    placeholder="Ej: Juan Pérez">
                             <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">
-                                Por defecto: ORES TRAVEL PERU
+                                Por defecto: Andean Journey PERU
                             </div>
                         </div>
                         
@@ -1285,7 +1285,7 @@
          * Redirige al login si no hay token de autenticación
          */
         function verificarAutenticacion() {
-            const session = sessionStorage.getItem('ores_session');
+            const session = sessionStorage.getItem('andean_session');
             if (!session) {
                 console.log('Usuario no autenticado, redirigiendo al login...');
                 window.location.href = '/login';
@@ -1654,7 +1654,7 @@
          * @param {Object} payload - Datos a enviar
          */
         async function enviarAlWebhook(payload) {
-            const webhookUrl = 'https://hvh-n8n.2ulbdq.easypanel.host/webhook/generar-pdf';
+            const webhookUrl = '/api/generar-pdf';
             
             console.log('📡 Enviando datos al webhook...');
             
@@ -1917,7 +1917,7 @@
                 
                 // Leer cotizaciones existentes de localStorage
                 let cotizaciones = [];
-                const cotizacionesGuardadas = localStorage.getItem('ores_cotizaciones');
+                const cotizacionesGuardadas = localStorage.getItem('andean_cotizaciones');
                 if (cotizacionesGuardadas) {
                     try {
                         cotizaciones = JSON.parse(cotizacionesGuardadas);
@@ -1936,7 +1936,7 @@
                 }
                 
                 // Guardar en localStorage
-                localStorage.setItem('ores_cotizaciones', JSON.stringify(cotizaciones));
+                localStorage.setItem('andean_cotizaciones', JSON.stringify(cotizaciones));
                 console.log('✅ Cotización guardada en localStorage:', formData);
                 
                 // Enviar a Google Sheets en segundo plano (no bloqueante)
@@ -2263,7 +2263,7 @@
                 console.log('Datos recuperados:', datos);
                 
                 // Formatear mensaje para WhatsApp
-                let mensaje = `🎉 *COTIZACIÓN GENERADA - ORES TRAVEL*\n\n`;
+                let mensaje = `🎉 *COTIZACIÓN GENERADA - Andean Journey*\n\n`;
                 
                 // Datos del cliente
                 mensaje += `👤 *DATOS DEL CLIENTE*\n`;

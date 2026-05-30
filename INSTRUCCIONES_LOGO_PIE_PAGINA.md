@@ -71,15 +71,15 @@ Agregar:
 <body>
 
   <!-- Logo en esquina superior izquierda -->
-  <img class="logo-esquina" src="{{ $json.IMAGEN_LOGO }}" alt="Logo Ores Travel">
+  <img class="logo-esquina" src="{{ $json.IMAGEN_LOGO }}" alt="Logo Andean Journey">
 
   <!-- Pie de página fijo -->
   <div class="footer-fixed">
     <strong>AGENCIA OPERADORA DE TURISMO SOSTENIBLE</strong><br>
-    Office: Calle Coquimbo A3 — Cusco, Perú | Phones: +51 918 818 503 | reservasorestravelperu@gmail.com
+    Office: Calle Coquimbo A3 — Cusco, Perú | Phones: +51 918 818 503 | info@andeanjourney.com
   </div>
 
-  <img class="marca-agua" src="{{ $json.IMAGEN_LOGO }}" alt="Marca de agua Ores Travel Perú">
+  <img class="marca-agua" src="{{ $json.IMAGEN_LOGO }}" alt="Marca de agua Andean Journey Perú">
   
   <!-- Resto del contenido... -->
 ```
@@ -92,7 +92,7 @@ Eliminar:
   AGENCIA OPERADORA DE TURISMO SOSTENIBLE<br>
   Office: Calle Coquimbo A3 — Cusco, Perú<br>
   Phones: +51 918 818 503<br>
-  reservasorestravelperu@gmail.com
+  info@andeanjourney.com
 </footer>
 ```
 

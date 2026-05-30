@@ -38,3 +38,9 @@ html_generados/
 # OS files
 .DS_Store
 Thumbs.db
+
+# AI Agent folders
+.gemini/
+
+# Local recursive duplicates
+Desktop/

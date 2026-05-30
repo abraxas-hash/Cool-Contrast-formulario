@@ -2,16 +2,16 @@
 <html lang="es">
 <head>
     <!-- ======================================== 
-     SECCIÓN PRINCIPAL: Dashboard ORES Travel
+     SECCIÓN PRINCIPAL: Dashboard Andean Journey
      Propósito: Panel principal de cotizaciones turísticas
     ======================================== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Dashboard ORES Travel - Sistema de Cotizaciones</title>
+    <title>Dashboard Andean Journey - Sistema de Cotizaciones</title>
     
     <style>
         /* ==========================================
-           COMPONENTE: Theming ORES Travel
+           COMPONENTE: Theming Andean Journey
         ========================================== */
         :root { 
             --primary: #c2410c; 
@@ -730,6 +730,11 @@
     </style>
 </head>
 <body>
+    <!-- ✅ BANNER MODO DEMO / PORTFOLIO -->
+    <div id="demo-banner" style="display: none; background: #e0b467; color: #003366; text-align: center; padding: 10px; font-weight: bold; position: sticky; top: 0; z-index: 9999; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
+        🌟 MODO DEMOSTRACIÓN: Los datos son ficticios y no afectan al sistema real.
+    </div>
+
     <div class="container">
         <!-- ======================================== 
          SECCIÓN: Header y Sesión de Usuario
@@ -738,7 +743,7 @@
             <div class="user-info">
                 <div class="avatar" id="user-avatar">🎯</div>
                 <div class="user-details">
-                    <h3 id="user-name">AGENCIA OPERADORA DE TURISMO SOSTENIBLE ORES TRAVEL PERU</h3>
+                    <h3 id="user-name">AGENCIA OPERADORA DE TURISMO SOSTENIBLE Andean Journey PERU</h3>
                     <div class="user-role">Sistema de Cotizaciones</div>
                 </div>
             </div>
@@ -924,7 +929,7 @@
                     console.log(`✅ ${datosValidos.length} de ${resultado.data.length} cotizaciones válidas`);
                     
                     // Sincronizar con localStorage
-                    localStorage.setItem('ores_cotizaciones', JSON.stringify(datosValidos));
+                    localStorage.setItem('andean_cotizaciones', JSON.stringify(datosValidos));
                     return datosValidos;
                 }
                 
@@ -944,7 +949,7 @@
             // PRIMERO: Cargar desde localStorage (RÁPIDO)
             let cotizacionesLocal = [];
             try {
-                const cotizacionesGuardadas = localStorage.getItem('ores_cotizaciones');
+                const cotizacionesGuardadas = localStorage.getItem('andean_cotizaciones');
                 if (cotizacionesGuardadas) {
                     cotizacionesLocal = JSON.parse(cotizacionesGuardadas);
                     console.log(`⚡ ${cotizacionesLocal.length} cotizaciones cargadas desde localStorage (rápido)`);
@@ -972,31 +977,41 @@
         
         // Verificar autenticación
         function verificarAutenticacion() {
-            const session = sessionStorage.getItem('ores_session');
+            const session = sessionStorage.getItem('andean_session');
             if (!session) {
-            window.location.href = 'login.html';
-            return;
-        }
-        
-        let sessionData;
-        try {
-            sessionData = JSON.parse(session);                // Verificar expiración de sesión
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            let sessionData;
+            try {
+                sessionData = JSON.parse(session);
+                // Verificar expiración de sesión
                 const now = new Date();
                 const expiresAt = new Date(sessionData.expiresAt);
                 
                 if (!sessionData.isAuthenticated || now >= expiresAt) {
-                    sessionStorage.removeItem('ores_session');
-                    window.location.href = '/login';
+                    sessionStorage.removeItem('andean_session');
+                    window.location.href = 'login.html';
                     return;
                 }
+
+                // ✅ LÓGICA MODO DEMO
+                if (sessionData.isDemo) {
+                    document.getElementById('demo-banner').style.display = 'block';
+                    document.getElementById('user-name').textContent = 'Usuario Invitado (Portfolio)';
+                    document.getElementById('user-avatar').textContent = '👤';
+                }
             } catch (e) {
-                sessionStorage.removeItem('ores_session');
-                window.location.href = '/login';
+                sessionStorage.removeItem('andean_session');
+                window.location.href = 'login.html';
                 return;
+            }
+        }
             }
             
             // Actualizar UI con datos de sesión
-            document.getElementById('user-name').textContent = 'AGENCIA OPERADORA DE TURISMO SOSTENIBLE ORES TRAVEL PERU';
+            document.getElementById('user-name').textContent = 'AGENCIA OPERADORA DE TURISMO SOSTENIBLE Andean Journey PERU';
             
             const loginDate = new Date(sessionData.loginTime);
             const options = { 
@@ -1022,7 +1037,7 @@
         // Logout
         function logout() {
             if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
-                sessionStorage.removeItem('ores_session');
+                sessionStorage.removeItem('andean_session');
                 localStorage.removeItem('ores_pdfs_generados');
                 window.location.href = 'login.html';
             }
@@ -1032,7 +1047,7 @@
         function limpiarDatosCorruptos() {
             if (confirm('⚠️ ¿Limpiar todos los datos locales y volver a sincronizar desde Google Sheets?\n\nEsto puede ayudar si ves errores o datos incorrectos.')) {
                 console.log('🧹 Limpiando datos locales...');
-                localStorage.removeItem('ores_cotizaciones');
+                localStorage.removeItem('andean_cotizaciones');
                 localStorage.removeItem('ores_pdfs_generados');
                 console.log('✅ Datos limpiados. Recargando...');
                 location.reload();
@@ -1409,7 +1424,7 @@
                 // Obtener TODOS los datos completos del tour desde localStorage
                 let tourCompleto = tour;
                 try {
-                    const cotizacionesGuardadas = localStorage.getItem('ores_cotizaciones');
+                    const cotizacionesGuardadas = localStorage.getItem('andean_cotizaciones');
                     if (cotizacionesGuardadas) {
                         const cotizaciones = JSON.parse(cotizacionesGuardadas);
                         const cotizacionCompleta = cotizaciones.find(c => c.id === tour.id);
@@ -1651,7 +1666,7 @@
             
             try {
                 // Formatear mensaje para WhatsApp
-                let mensaje = `🎉 *COTIZACIÓN - ORES TRAVEL*\n\n`;
+                let mensaje = `🎉 *COTIZACIÓN - Andean Journey*\n\n`;
                 
                 // Datos del cliente
                 mensaje += `👤 *DATOS DEL CLIENTE*\n`;
@@ -1744,7 +1759,7 @@
             // Buscar la cotización en localStorage
             let cotizaciones = [];
             try {
-                const cotizacionesGuardadas = localStorage.getItem('ores_cotizaciones');
+                const cotizacionesGuardadas = localStorage.getItem('andean_cotizaciones');
                 if (cotizacionesGuardadas) {
                     cotizaciones = JSON.parse(cotizacionesGuardadas);
                 }
@@ -1783,7 +1798,7 @@
             // Buscar y eliminar la cotización
             let cotizaciones = [];
             try {
-                const cotizacionesGuardadas = localStorage.getItem('ores_cotizaciones');
+                const cotizacionesGuardadas = localStorage.getItem('andean_cotizaciones');
                 if (cotizacionesGuardadas) {
                     cotizaciones = JSON.parse(cotizacionesGuardadas);
                 }
@@ -1798,7 +1813,7 @@
             
             // Guardar de vuelta en localStorage
             try {
-                localStorage.setItem('ores_cotizaciones', JSON.stringify(cotizacionesFiltradas));
+                localStorage.setItem('andean_cotizaciones', JSON.stringify(cotizacionesFiltradas));
                 console.log('✅ Cotización eliminada');
                 
                 // Mostrar notificación
