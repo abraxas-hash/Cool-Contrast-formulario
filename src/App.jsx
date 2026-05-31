@@ -872,6 +872,30 @@ function cn(...classes) {
                                             />
                                             <label htmlFor="companyWebsite">Web o Enlace de Redes Sociales (Opcional)</label>
                                         </div>
+
+                                        <div className="floating-input">
+                                            <input 
+                                                type="tel" 
+                                                id="companyPhone" 
+                                                placeholder="Tu teléfono/WhatsApp" 
+                                                value={answers.companyPhone}
+                                                onChange={(e) => setAnswers(prev => ({ ...prev, companyPhone: e.target.value }))}
+                                                autoComplete="off"
+                                            />
+                                            <label htmlFor="companyPhone">Teléfono / WhatsApp *</label>
+                                        </div>
+
+                                        <div className="floating-input">
+                                            <input 
+                                                type="email" 
+                                                id="companyEmail" 
+                                                placeholder="Tu correo electrónico" 
+                                                value={answers.companyEmail}
+                                                onChange={(e) => setAnswers(prev => ({ ...prev, companyEmail: e.target.value }))}
+                                                autoComplete="off"
+                                            />
+                                            <label htmlFor="companyEmail">Correo Electrónico *</label>
+                                        </div>
                                     </div>
 
                                     <div className="nav-controls">
@@ -880,7 +904,7 @@ function cn(...classes) {
                                         </button>
                                         <button 
                                             type="button" 
-                                            className={`btn-action ${(!answers.companyName.trim() || !answers.companyContact.trim()) ? 'disabled' : ''}`}
+                                            className={`btn-action ${(!answers.companyName.trim() || !answers.companyContact.trim() || !answers.companyPhone.trim() || !answers.companyEmail.trim()) ? 'disabled' : ''}`}
                                             onClick={() => { audioClick(); navigateTo(7); }}
                                         >
                                             Siguiente <ArrowRight size={16} />
