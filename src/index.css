@@ -584,11 +584,24 @@
             flex-direction: column;
             gap: 16px;
             flex: 1;
-            justify-content: center;
+            justify-content: flex-start;
             max-width: 600px;
             margin: 0 auto;
             width: 100%;
             z-index: 1;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        .inputs-wrapper::-webkit-scrollbar {
+            width: 4px;
+        }
+        .inputs-wrapper::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .inputs-wrapper::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
         }
 
         .floating-input {
@@ -934,8 +947,8 @@
                 padding: 85px 15px 40px 15px;
             }
             .glass-card {
-                height: 90%;
-                max-height: 590px;
+                height: auto;
+                max-height: 85vh;
                 padding: 24px 20px;
                 border-radius: 24px;
             }
