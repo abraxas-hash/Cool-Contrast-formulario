@@ -210,7 +210,8 @@
             border-radius: 32px;
             width: 100%;
             max-width: 960px;
-            height: 580px;
+            min-height: 580px;
+            height: auto;
             padding: 40px 50px;
             box-shadow: var(--shadow-card), var(--shadow-glow), 0 0 40px rgba(255, 94, 30, 0.01);
             position: relative;
