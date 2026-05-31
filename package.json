@@ -1,0 +1,64 @@
+{
+  "name": "ores-travel-forms-",
+  "version": "1.0.0",
+  "description": "Sistema web completo de cotizaciones para tours en Cusco, Perú, con integración a n8n para generación automática de PDFs (Puppeteer/HTML) con identidad visual unificada.",
+  "main": "index.js",
+  "dependencies": {
+    "argparse": "^1.0.10",
+    "base64-js": "^1.5.1",
+    "bluebird": "^3.4.7",
+    "canvas-confetti": "^1.9.4",
+    "clsx": "^2.1.1",
+    "core-util-is": "^1.0.3",
+    "dingbat-to-unicode": "^1.0.1",
+    "duck": "^0.1.12",
+    "framer-motion": "^12.40.0",
+    "immediate": "^3.0.6",
+    "inherits": "^2.0.4",
+    "isarray": "^1.0.0",
+    "jszip": "^3.10.1",
+    "lie": "^3.3.0",
+    "lop": "^0.4.2",
+    "lucide-react": "^1.17.0",
+    "mammoth": "^1.12.0",
+    "option": "^0.2.4",
+    "pako": "^1.0.11",
+    "path-is-absolute": "^1.0.1",
+    "process-nextick-args": "^2.0.1",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "readable-stream": "^2.3.8",
+    "safe-buffer": "^5.1.2",
+    "setimmediate": "^1.0.5",
+    "sprintf-js": "^1.0.3",
+    "string_decoder": "^1.1.1",
+    "tailwind-merge": "^3.6.0",
+    "underscore": "^1.13.8",
+    "util-deprecate": "^1.0.2",
+    "xmlbuilder": "^10.1.1"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abraxas-hash/Cool-Contrast-formulario.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/abraxas-hash/Cool-Contrast-formulario/issues"
+  },
+  "homepage": "https://github.com/abraxas-hash/Cool-Contrast-formulario#readme",
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.5.15",
+    "tailwindcss": "^4.3.0",
+    "vite": "^5.4.11"
+  }
+}
