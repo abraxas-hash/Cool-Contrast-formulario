@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import * as LucideIcons from "lucide-react";
 import confetti from "canvas-confetti";
 import "./index.css";
-const { Bot, ArrowRight, ArrowLeft, Send, Sparkles, CheckCircle2, ChevronRight, Settings, Zap, Users, BarChart3, Clock, Rocket, RefreshCw, Cpu, Brain, Network, Database } = LucideIcons;
+const { Bot, ArrowRight, ArrowLeft, Send, Sparkles, CheckCircle2, ChevronRight, Settings, Zap, Users, BarChart3, Clock, Rocket, RefreshCw, Cpu, Brain, Network, Database, Check, Play, Activity, Building2 } = LucideIcons;
 
 function cn(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -386,7 +386,7 @@ function cn(...classes) {
                                 onClick={() => onSelect(opt.value)}
                             >
                                 <ElectricBorder />
-                                <div className="select-dot"><i data-lucide="check"></i></div>
+                                <div className="select-dot"><Check /></div>
                                 <div className="diagram-box">
                                     <SvgDiagram type={opt.diagramType} />
                                 </div>
@@ -400,7 +400,7 @@ function cn(...classes) {
 
                     <div className="nav-controls">
                         <button type="button" className="btn-back" onClick={onBack}>
-                            <i data-lucide="arrow-left"></i> Volver
+                            <ArrowLeft /> Volver
                         </button>
                     </div>
                 </div>
@@ -431,7 +431,7 @@ function cn(...classes) {
                             </h1>
                             <p className="welcome-p">Responde este breve diagnóstico visual para analizar el potencial de automatización de tu negocio, identificar cuellos de botella y filtrar tus requerimientos técnicos en menos de 2 minutos.</p>
                             <button type="button" className="btn-action" onClick={onStart}>
-                                Iniciar Diagnóstico <i data-lucide="play" size="18"></i>
+                                Iniciar Diagnóstico <Play size={18} />
                             </button>
                         </div>
                         <div className="welcome-right">
@@ -876,14 +876,14 @@ function cn(...classes) {
 
                                     <div className="nav-controls">
                                         <button type="button" className="btn-back" onClick={() => { audioClick(); navigateTo(5); }}>
-                                            <i data-lucide="arrow-left"></i> Volver
+                                            <ArrowLeft /> Volver
                                         </button>
                                         <button 
                                             type="button" 
                                             className={`btn-action ${(!answers.companyName.trim() || !answers.companyContact.trim()) ? 'disabled' : ''}`}
                                             onClick={() => { audioClick(); navigateTo(7); }}
                                         >
-                                            Siguiente <i data-lucide="arrow-right" size="16"></i>
+                                            Siguiente <ArrowRight size={16} />
                                         </button>
                                     </div>
                                 </div>
@@ -931,14 +931,14 @@ function cn(...classes) {
 
                                     <div className="nav-controls">
                                         <button type="button" className="btn-back" onClick={() => { audioClick(); navigateTo(7); }}>
-                                            <i data-lucide="arrow-left"></i> Volver
+                                            <ArrowLeft /> Volver
                                         </button>
                                         <button 
                                             type="button" 
                                             className={`btn-action ${(answers.problem.trim().length < 15) ? 'disabled' : ''}`}
                                             onClick={() => { audioClick(); navigateTo(9); }}
                                         >
-                                            Analizar Viabilidad <i data-lucide="activity" size="16"></i>
+                                            Analizar Viabilidad <Activity size={16} />
                                         </button>
                                     </div>
                                 </div>
@@ -957,7 +957,7 @@ function cn(...classes) {
                                     <div className="results-container">
                                         <div className="results-left">
                                             <div className="result-panel">
-                                                <div className="panel-icon"><i data-lucide="building-2" size="20"></i></div>
+                                                <div className="panel-icon"><Building2 size={20} /></div>
                                                 <div className="panel-content">
                                                     <span className="panel-label">Empresa</span>
                                                     <span className="panel-value">{answers.companyName || 'Tu Negocio'}</span>
@@ -965,14 +965,14 @@ function cn(...classes) {
                                                 </div>
                                             </div>
                                             <div className="result-panel">
-                                                <div className="panel-icon"><i data-lucide="rocket" size="20"></i></div>
+                                                <div className="panel-icon"><Rocket size={20} /></div>
                                                 <div className="panel-content">
                                                     <span className="panel-label">Objetivo Principal</span>
                                                     <span className="panel-value">{answers.meta || 'No indicado'}</span>
                                                 </div>
                                             </div>
                                             <div className="result-panel">
-                                                <div className="panel-icon"><i data-lucide="cpu" size="20"></i></div>
+                                                <div className="panel-icon"><Cpu size={20} /></div>
                                                 <div className="panel-content">
                                                     <span className="panel-label">Canal Técnico & Servers</span>
                                                     <span className="panel-value">{answers.api || 'No indicado'}</span>
@@ -1010,14 +1010,14 @@ function cn(...classes) {
                                             <p className="score-explanation">{diag.text}</p>
                                             
                                             <button type="button" className="btn-submit-form" style={{ background: `linear-gradient(135deg, ${diag.color}, rgba(0,0,0,0.3))` }} onClick={submitFinalForm}>
-                                                Solicitar Entrevista Técnica <i data-lucide="send" size="16"></i>
+                                                Solicitar Entrevista Técnica <Send size={16} />
                                             </button>
                                         </div>
                                     </div>
 
                                     <div className="nav-controls">
                                         <button type="button" className="btn-back" onClick={() => { audioClick(); navigateTo(8); }}>
-                                            <i data-lucide="arrow-left"></i> Volver a editar
+                                            <ArrowLeft /> Volver a editar
                                         </button>
                                     </div>
                                 </div>
@@ -1039,7 +1039,7 @@ function cn(...classes) {
                                 </div>
                                 <div className="game-alert-body">
                                     <div className="game-alert-icon-box">
-                                        <i data-lucide="check-circle-2" className="game-success-icon"></i>
+                                        <CheckCircle2 className="game-success-icon" />
                                     </div>
                                     <h3 className="game-alert-headline">DIAGNÓSTICO ENVIADO</h3>
                                     <div className="game-alert-msg">
